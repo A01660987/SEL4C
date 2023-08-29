@@ -1,3 +1,50 @@
 __pycache__
 db.sqlite3
 .ipynb_checkpoints
+
+# Ignore compiled Python files
+__pycache__/
+*.pyc
+*.pyo
+
+# Ignore the virtual environment
+venv/
+env/
+*.env
+
+# Ignore local development settings
+*.sqlite3
+*.db
+
+# Ignore media and static files
+media/
+static/
+
+# Ignore generated documentation
+docs/_build/
+
+# Ignore IDE-specific files
+.vscode/
+.idea/
+
+# Ignore temporary files
+*.log
+*.swp
+*.swo
+*~
+
+# Ignore secret keys and sensitive information
+*.secret_key
+*.settings
+
+# Ignore development-specific files
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+
+# Ignore environment configuration files
+.env
+
+# Ignore user-specific files
+*.DS_Store
+Thumbs.db
