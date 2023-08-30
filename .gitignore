@@ -1,11 +1,10 @@
-__pycache__
-db.sqlite3
-.ipynb_checkpoints
-
 # Ignore compiled Python files
 __pycache__/
 *.pyc
 *.pyo
+
+# Jupyter Notebook 
+.ipynb_checkpoints 
 
 # Ignore the virtual environment
 venv/
@@ -16,9 +15,8 @@ env/
 *.sqlite3
 *.db
 
-# Ignore media and static files
+# Ignore media files
 media/
-static/
 
 # Ignore generated documentation
 docs/_build/
