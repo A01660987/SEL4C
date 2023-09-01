@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}SEL4Cademy{% endblock %}
+
+{%block main %}
+<nav class="navbar navbar-expand-lg px-3 mb-3 bg-accent shadow-sm" data-bs-theme="dark">
+    <div class="container-fluid">
+        <a class="navbar-brand logo" href="/"><img src="{% static 'svg/sel4cademy_logo_white.svg' %}" height="40" draggable="false"></a>
+        <div class="navbar-nav">
+            <a class="nav-link fw-semibold fs-5 px-4 active user-select-none" aria-current="page">Inicio</a>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle fs-5 px-4" href="" role="button" data-bs-toggle="dropdown" aria-expanded="false">Acerca de</a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">Metodología SEL4C</a></li>
+                    <li><a class="dropdown-item" href="#">SEL4Cademy</a></li>
+                    <li><a class="dropdown-item" href="#">El equipo</a></li>
+                </ul>
+            </li>
+            <a class="nav-link fs-5 px-4" href="">Iniciar sesión</a>
+        </div>
+    </div>
+</nav>
+<div class="row align-items-center">
+    <div class="col">
+        <img src="{% static 'svg/tec_logo_horizontal.svg' %}" class="mx-auto d-block" height=70 alt="Tecnológico de Monterrey">
+    </div>
+    <div class="col">
+        <img src="{% static 'svg/sel4cademy_logo.svg' %}" class="mx-auto d-block" height=150 alt="SEL4Cademy">
+    </div>
+    <div class="col">
+        <img src="{% static 'svg/ife_logo_black.svg' %}" class="mx-auto d-block" height=70 alt="Institute for the Future of Education">
+    </div>
+</div>
+{% endblock %}
