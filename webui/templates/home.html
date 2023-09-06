@@ -1,35 +1,63 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}SEL4Cademy{% endblock %}
+{% block title %}SEL4C{% endblock %}
 
 {%block main %}
-<nav class="navbar navbar-expand-lg px-3 mb-3 bg-accent shadow-sm" data-bs-theme="dark">
+
+<nav class="navbar navbar-expand-lg bg-transparent navbar-dark px-3" style="background-image: url({% static 'svg/wave.svg' %}); background-repeat: no-repeat; background-size: cover">
     <div class="container-fluid">
-        <a class="navbar-brand logo" href="/"><img src="{% static 'svg/sel4cademy_logo_white.svg' %}" height="40" draggable="false"></a>
-        <div class="navbar-nav">
-            <a class="nav-link fw-semibold fs-5 px-4 active user-select-none" aria-current="page">Inicio</a>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle fs-5 px-4" href="" role="button" data-bs-toggle="dropdown" aria-expanded="false">Acerca de</a>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Metodología SEL4C</a></li>
-                    <li><a class="dropdown-item" href="#">SEL4Cademy</a></li>
-                    <li><a class="dropdown-item" href="#">El equipo</a></li>
-                </ul>
-            </li>
-            <a class="nav-link fs-5 px-4" href="">Iniciar sesión</a>
+      <a class="navbar-brand pb-3" href="#"><img src="{% static 'svg/logo_white.svg' %}" alt="SEL4C" height="70"></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 d-flex fs-5">
+          <li class="nav-item">
+            <a class="nav-link px-3 active fw-semibold" aria-current="page" href="#">Inicio</a>
+          </li>
+          <li class="nav-item px-3 dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Acerca de
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Action</a></li>
+              <li><a class="dropdown-item" href="#">Another action</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="#">Something else here</a></li>
+            </ul>
+          </li>
+          <li class="nav-item px-3">
+            <a class="nav-link">Iniciar sesión</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+<div id="content" class="row" style="margin-right: 0;">
+    <div class="col mt-4 mb-5 ms-5">
+        <div>
+            <p class="display-4 text-justify fw-bold mb-4 mt-5">
+                Empendimiento social.
+                <br>
+                Te mostraremos cómo.
+            <p>
+            <p class="fs-4 mb-4 text-justify">
+                La metodología SEL4C (Social Entrepreneurship Learning for Complexity) pretende enseñar a jóvenes emprendedores como tú a ser agentes de cambio y traer sus ideas innovadoras a la realidad.
+            </p>
+        </div>
+        <a target="_blank" href="" type="button" width="20" class="fw-semibold btn fs-6 px-4 py-2 mb-5 bg-accent text-light rounded-pill shadow">APRENDE MÁS</a>
+        <div class="mt-5">
+            <img src="{% static 'svg/tec_logo_horizontal.svg' %}" class="me-5" height=70 alt="Tecnológico de Monterrey">
+            <img src="{% static 'svg/ife_logo_black.svg' %}" height=70 alt="Institute for the Future of Education">
         </div>
     </div>
-</nav>
-<div class="row align-items-center">
     <div class="col">
-        <img src="{% static 'svg/tec_logo_horizontal.svg' %}" class="mx-auto d-block" height=70 alt="Tecnológico de Monterrey">
+        <img src="{% static 'png/landing.png' %}" class="img-fluid">
     </div>
-    <div class="col">
-        <img src="{% static 'svg/sel4cademy_logo.svg' %}" class="mx-auto d-block" height=150 alt="SEL4Cademy">
-    </div>
-    <div class="col">
-        <img src="{% static 'svg/ife_logo_black.svg' %}" class="mx-auto d-block" height=70 alt="Institute for the Future of Education">
-    </div>
+</div>
+<div class="boxer">
+
 </div>
 {% endblock %}
