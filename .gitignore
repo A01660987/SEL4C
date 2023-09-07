@@ -8,6 +8,7 @@ __pycache__/
 
 # Ignore the virtual environment
 venv/
+.venv/
 env/
 *.env
 
@@ -20,7 +21,7 @@ media/
 
 # Ignore generated documentation
 docs/_build/
-.hypthesis
+.hypothesis/
 
 # Ignore IDE-specific files
 .vscode/
