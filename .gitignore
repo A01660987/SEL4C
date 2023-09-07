@@ -20,6 +20,7 @@ media/
 
 # Ignore generated documentation
 docs/_build/
+.hypthesis
 
 # Ignore IDE-specific files
 .vscode/
