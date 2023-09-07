@@ -1,1 +1,1 @@
-# SEL4Cademy
+# SEL4C
