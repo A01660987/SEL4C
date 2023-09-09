@@ -3,9 +3,6 @@ __pycache__/
 *.pyc
 *.pyo
 
-# Ignore static files in app folder
-web/static
-
 # Jupyter Notebook 
 .ipynb_checkpoints 
 
