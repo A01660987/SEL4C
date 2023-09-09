@@ -11,6 +11,7 @@ web/static
 
 # Ignore the virtual environment
 venv/
+.venv/
 env/
 *.env
 
@@ -23,6 +24,7 @@ media/
 
 # Ignore generated documentation
 docs/_build/
+.hypothesis/
 
 # Ignore IDE-specific files
 .vscode/
