@@ -33,9 +33,28 @@
   </div>
 </nav>
 
-<div id="content" class="mt-5">
-    <p class="display-4 fw-bold py-5 ms-5">
-        Work in progress!
-    <p>
+<div id="content" class="row mt-5" style="margin-right: 0;">
+  <div class="col ms-5 me-3 my-4">
+      <div>
+          <p class="display-4 fw-bold mb-4 mt-5">
+              Iniciar sesión
+          <p>
+      </div>
+      <form method="post">
+        {% csrf_token %}
+        <input type="email" id="emailInput" class="form-control form-control-lg mb-3 rounded-pill" placeholder="Correo electrónico">
+        <input type="password" id="passwordInput" class="form-control form-control-lg mb-3 rounded-pill" placeholder="Contraseña">
+        <button type="submit" class="fw-semibold btn btn-primary fs-6 px-4 py-2 rounded-pill shadow-sm mb-3">INICIAR SESIÓN</button>
+      </form>
+      <div class="mt-5">
+          <a href="https://tec.mx/es/ife" target="_blank"><img src="{% static 'svg/ife_logo_black.svg' %}" class="mb-3" height=100 alt="Institute for the Future of Education, Tecnológico de Monterrey"></a>
+      </div>
+  </div>
+  <div class="col pe-0 d-none d-xl-block">
+      <img src="{% static 'png/landing2.png' %}" class="float-end img-fluid">
+  </div>
+  <div class="col pe-0 d-xl-none">
+    <img src="{% static 'png/landing.png' %}" class="float-end" style="max-width: 100vw;">
+</div>
 </div>
 {% endblock %}
