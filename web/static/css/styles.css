@@ -50,3 +50,7 @@
     --bs-btn-disabled-border-color: #4a5055;
     --bs-gradient: none;
 }
+
+.was-validated .form-control:invalid {
+    margin-bottom: 0 !important;
+}

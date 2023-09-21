@@ -40,10 +40,16 @@
               Iniciar sesión
           <p>
       </div>
-      <form method="post">
+      <form method="post" class="needs-validation" novalidate>
         {% csrf_token %}
-        <input type="email" id="emailInput" class="form-control form-control-lg mb-3 rounded-pill" placeholder="Correo electrónico">
-        <input type="password" id="passwordInput" class="form-control form-control-lg mb-3 rounded-pill" placeholder="Contraseña">
+        <input type="email" class="form-control form-control-lg mb-3 rounded-pill" style="max-width: 420px;" placeholder="Correo electrónico" required>
+        <div class="invalid-feedback ms-2 mb-2">
+          Ingresa una dirección de correo electrónico válida.
+        </div>
+        <input type="password" class="form-control form-control-lg mb-3 rounded-pill" style="max-width: 420px;" placeholder="Contraseña" required>
+        <div class="invalid-feedback ms-2 mb-2">
+          Ingresa tu contraseña.
+        </div>
         <button type="submit" class="fw-semibold btn btn-primary fs-6 px-4 py-2 rounded-pill shadow-sm mb-3">INICIAR SESIÓN</button>
       </form>
       <div class="mt-5">
@@ -57,4 +63,22 @@
     <img src="{% static 'png/landing.png' %}" class="float-end" style="max-width: 100vw;">
 </div>
 </div>
+
+<script>
+(() => {
+  'use strict'
+  const forms = document.querySelectorAll('.needs-validation')
+  Array.from(forms).forEach(form => {
+    form.addEventListener('submit', event => {
+      if (!form.checkValidity()) {
+        event.preventDefault()
+        event.stopPropagation()
+      }
+
+      form.classList.add('was-validated')
+    }, false)
+  })
+})()
+</script>
+
 {% endblock %}
