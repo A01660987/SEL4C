@@ -133,11 +133,10 @@ class AcademicDegreeOffer(models.Model):
         verbose_name = "Academic Degree Offer"
         verbose_name_plural = "Academic Degree Offers"
         ordering = ["identificator"]
-        unique_together = (("institution", "academicDegree"), )
 
 class AcademicDiscipline(models.Model):
     identificator = models.SmallAutoField(primary_key=True, null=False, editable=False, verbose_name="ID", unique=True)
-    denomination = models.CharField(primary_key=False, null=False, editable=True, verbose_name="Academic Discipline", unique=True, max_length=25)
+    denomination = models.CharField(primary_key=False, null=False, editable=True, verbose_name="Academic Discipline", unique=False, max_length=25)
     description = models.CharField(primary_key=False, null=True, editable=True, verbose_name="Description", unique=False, max_length=50)
     status = models.BooleanField(primary_key=False, null=False, editable=True, verbose_name="Status", unique=False, default=True)
     academicDegreeOffer = models.ForeignKey(AcademicDegreeOffer, on_delete=models.CASCADE, primary_key=False, null=False, blank=False, editable=True, verbose_name="Academic Degree Offer", unique=False)
