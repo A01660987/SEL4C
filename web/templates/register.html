@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}SEL4C: Social Entrepreneurship Learning for Complexity{% endblock %}
+{% block title %}Registro - SEL4C{% endblock %}
 
 {%block main %}
 
@@ -14,7 +14,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0 d-flex fs-5">
         <li class="nav-item px-3">
-          <a class="nav-link active fw-semibold" aria-current="page">Inicio</a>
+          <a class="nav-link" href="/">Inicio</a>
         </li>
         <li class="nav-item px-3 dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -37,16 +37,25 @@
     <div class="col ms-5 me-3 my-4">
         <div>
             <p class="display-4 fw-bold mb-4 mt-5">
-                Empendimiento social.
-                <br>
-                Te mostraremos cómo.
+                Registro
             <p>
-            <p class="fs-4 mb-4" align="justify">
-                La metodología SEL4C (Social Entrepreneurship Learning for Complexity) pretende enseñar a jóvenes emprendedores como tú a ser agentes de cambio y traer sus ideas innovadoras a la realidad.
-            </p>
         </div>
-        <a href="/login" type="button" width="20" class="fw-semibold btn btn-primary fs-6 px-4 py-2 rounded-pill shadow-sm me-2">INICIAR SESIÓN</a>
-        <a href="/about" type="button" width="20" class="fw-semibold btn btn-outline-secondary fs-6 px-4 py-2 rounded-pill shadow-sm">APRENDE MÁS</a>
+        <form method="post" class="needs-validation" novalidate>
+          {% csrf_token %}
+          <input type="email" class="form-control form-control-lg mb-3 rounded-pill" style="max-width: 420px;" placeholder="Correo electrónico" required>
+          <div class="invalid-feedback ms-2 mb-2">
+            Ingresa una dirección de correo electrónico válida.
+          </div>
+          <input type="password" class="form-control form-control-lg mb-3 rounded-pill" style="max-width: 420px;" placeholder="Crea una contraseña" required>
+          <div class="invalid-feedback ms-2 mb-2">
+            Ingresa una contraseña.
+          </div>
+          <input type="password" class="form-control form-control-lg mb-3 rounded-pill" style="max-width: 420px;" placeholder="Confirmar contraseña" required>
+          <div class="invalid-feedback ms-2 mb-2">
+            Las contraseñas no coinciden.
+          </div>
+          <button type="submit" class="fw-semibold btn btn-primary fs-6 px-4 py-2 rounded-pill shadow-sm mb-3">CREAR CUENTA</button>
+        </form>
         <div class="mt-5">
             <a href="https://tec.mx/es/ife" target="_blank"><img src="{% static 'svg/ife_logo_black.svg' %}" class="mb-3" height=100 alt="Institute for the Future of Education, Tecnológico de Monterrey"></a>
         </div>
@@ -57,5 +66,23 @@
     <div class="col pe-0 d-xl-none">
       <img src="{% static 'png/landing.png' %}" class="float-end" style="max-width: 100vw;">
   </div>
-</div>
+  </div>
+  
+  <script>
+  (() => {
+    'use strict'
+    const forms = document.querySelectorAll('.needs-validation')
+    Array.from(forms).forEach(form => {
+      form.addEventListener('submit', event => {
+        if (!form.checkValidity()) {
+          event.preventDefault()
+          event.stopPropagation()
+        }
+  
+        form.classList.add('was-validated')
+      }, false)
+    })
+  })()
+  </script>
+
 {% endblock %}
