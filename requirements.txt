@@ -1,3 +1,7 @@
 django
 django-extensions
 python-decouple
+djangorestframework
+djangorestframework-simplejwt
+drf_spectacular
+drf-extensions

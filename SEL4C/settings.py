@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 from decouple import config
+from django.utils.timezone import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -38,7 +39,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'web',
-    'SEL4C',
+    'SEL4C', 
+    'rest_framework.authtoken', 
+    'rest_framework', 
+    'drf_spectacular', 
 ]
 
 MIDDLEWARE = [
@@ -124,3 +128,38 @@ STATIC_ROOT = './static/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication', 
+    ), 
+    'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAuthenticated', ), 
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema', 
+}
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'SEL4C API', 
+    'DESCRIPTION': 'SEL4C', 
+    'VERSION': '1.0.0', 
+    'CONTACT': {
+        'name': 'emvivas', 
+        'email': 'vivasrguez@outlook.com', 
+        'url': 'https://linkedin.com/in/vivasrguez', 
+    }, 
+    'SWAGGER_UI_SETTINGS': {
+        'persistAuthorization': True, 
+    }, 
+}
+
+SIMPLE_JWT = {
+    'ALGORITHM': 'HS256', 
+    'AUTH_HEADER_TYPES': ('Bearer', ), 
+    'USER_ID_FIELD': 'id', 
+    'USER_ID_CLAIM': 'user_id', 
+    'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken', ), 
+    'TOKEN_TYPE_CLAIM': 'token_type', 
+    'JTI_CLAIM': 'jti', 
+    'TOKEN_USER_CLASS': 'rest_framework_simplejwt.models.TokenUser', 
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=1), 
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=7), 
+}
