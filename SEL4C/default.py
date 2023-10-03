@@ -22,8 +22,6 @@ genders = Gender.objects.bulk_create(
     ]
 )
 
-genders.save()
-
 countries = Country.objects.bulk_create(
     [
         Country(denomination="Afganistán", code="AFG"),
@@ -285,8 +283,6 @@ countries = Country.objects.bulk_create(
     ]
 )
 
-countries.save()
-
 
 administrator = User.objects.create(
     email="admin@tec.mx",
@@ -299,8 +295,6 @@ administrator = User.objects.create(
 )
 administrator = Administrator.objects.create(identificator=administrator, code="")
 
-administrator.save()
-
 groups = Group.objects.bulk_create(
     [
         Group(denomination="Cátedra UNESCO-Invierno 2023"),
@@ -309,23 +303,17 @@ groups = Group.objects.bulk_create(
     ]
 )
 
-groups.save()
-
 institutions = Institution.objects.bulk_create(
     [
         Institution(denomination="Tecnológico de Monterrey"),
     ]
 )
 
-institutions.save()
-
 academicDegrees = AcademicDegree.objects.bulk_create(
     [
         AcademicDegree(denomination="University"),
     ]
 )
-
-academicDegrees.save()
 
 academicDegreeOffers = AcademicDegreeOffer.objects.bulk_create(
     [
@@ -346,8 +334,6 @@ academicDegreeOffers = AcademicDegreeOffer.objects.bulk_create(
         ),
     ]
 )
-
-academicDegreeOffers.save()
 
 academicDisciplines = AcademicDiscipline.objects.bulk_create(
     [
@@ -422,8 +408,6 @@ academicDisciplines = AcademicDiscipline.objects.bulk_create(
         ),
     ]
 )
-
-academicDisciplines.save()
 
 """
 Estimado participante: el presente cuestionario tiene por objetivo medir tu percepción en cuanto al nivel de logro de las competencias de emprendimiento social y pensamiento complejo.
@@ -594,16 +578,12 @@ diagnosisQuestions = DiagnosisQuestion.objects.bulk_create(
     ]
 )
 
-diagnosisQuestions.save()
-
 tests = Test.objects.bulk_create(
     [
         Test(denomination="Perfil del Emprendedor Social", description=None),
         Test(denomination="Pensamiento Complejo", description=None),
     ]
 )
-
-tests.save()
 
 tests[0].diagnosisQuestions.add(*diagnosisQuestions[0:25])
 tests[1].diagnosisQuestions.add(*diagnosisQuestions[25:50])
@@ -634,4 +614,3 @@ trainingReagents = TrainingReagent.objects.bulk_create(
         ),
     ]
 )
-trainingReagents.save()
