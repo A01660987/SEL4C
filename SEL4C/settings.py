@@ -28,6 +28,8 @@ DEBUG = True
 ALLOWED_HOSTS = ['sel4c.azurewebsites.net',
                  '127.0.0.1']
 
+CSRF_TRUSTED_ORIGINS = ['sel4c.azurewebsites.net',
+                 '127.0.0.1']
 
 # Application definition
 
