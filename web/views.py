@@ -1,16 +1,27 @@
 from django.shortcuts import render
+from django.contrib.admin.views.decorators import staff_member_required
+
 
 def home(request):
-    return render(request, 'home.html')
+    return render(request, "home.html")
+
 
 def login(request):
-    return render(request, 'login.html')
+    return render(request, "login.html")
+
 
 def about(request):
-    return render(request, 'about.html')
+    return render(request, "about.html")
+
 
 def aboutTeam(request):
-    return render(request, 'about-team.html')
+    return render(request, "about-team.html")
+
 
 def register(request):
-    return render(request, 'register.html')
+    return render(request, "register.html")
+
+
+@staff_member_required
+def admin_panel(request):
+    return render(request, "admin_panel.html")

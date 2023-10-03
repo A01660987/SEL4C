@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     'SEL4C', 
     'rest_framework.authtoken', 
     'rest_framework', 
-    'drf_spectacular', 
+    'drf_spectacular',
+    'bcrypt', 
 ]
 
 MIDDLEWARE = [
