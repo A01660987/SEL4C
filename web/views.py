@@ -11,3 +11,6 @@ def about(request):
 
 def aboutTeam(request):
     return render(request, 'about-team.html')
+
+def register(request):
+    return render(request, 'register.html')
