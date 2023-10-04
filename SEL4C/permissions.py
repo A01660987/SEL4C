@@ -7,3 +7,10 @@ def permission_get(self):
         return [permissions.IsAuthenticated()]
     else:
         return [permissions.IsAdminUser()]
+
+
+def permission_user(self):
+    if self.request.method in ["POST", "PUT"]:
+        return [permissions.AllowAny()]
+    else:
+        return [permissions.IsAdminUser()]

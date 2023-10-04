@@ -27,7 +27,7 @@ class CountryViewSet(viewsets.ModelViewSet):
 class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
     queryset = User.objects.all()
-    # TODO
+    get_permissions = permission_user
 
 
 class AdministratorViewSet(viewsets.ModelViewSet):
