@@ -21,7 +21,6 @@ def aboutTeam(request):
 def register(request):
     return render(request, "register.html")
 
-
 @staff_member_required
-def admin_panel(request):
-    return render(request, "admin_panel.html")
+def dashboard(request):
+    return render(request, "dashboard.html")
