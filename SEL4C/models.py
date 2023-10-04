@@ -2,91 +2,67 @@ from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.contrib.auth.hashers import make_password
 
-class Gender(models.Model):
-    identificator = models.SmallAutoField(primary_key=True, null=False, editable=False, verbose_name="ID", unique=True)
-    denomination = models.CharField(primary_key=False, null=False, editable=True, verbose_name="Gender", unique=True, max_length=25)
-    status = models.BooleanField(primary_key=False, null=False, editable=True, verbose_name="Status", unique=False, default=True)
+from django.db import models
+from django.contrib.auth.models import AbstractUser
+from django_countries.fields import CountryField
 
-    def __str__(self):
-        return self.denomination
+class User(AbstractUser):
+    username = None
+    first_name = None
+    last_name = None
+
+    email = models.EmailField(unique=True, verbose_name="Correo electrónico")
+    name = models.CharField(max_length=150, verbose_name="Nombre(s)")
+    firstLastName = models.CharField(max_length=150, verbose_name="Apellido paterno")
+    secondLastName = models.CharField(max_length=150, verbose_name="Apellido materno")
+    dateRegistered = models.DateTimeField(auto_now_add=True, verbose_name="Fecha de registro")
+    dateModified = models.DateTimeField(auto_now=True, verbose_name="Fecha de modificación")
+    status = models.BooleanField(default=True, verbose_name="Estatus")
     
-    class Meta:
-        db_table = "gender"
-        verbose_name = "Gender"
-        verbose_name_plural = "Genders"
-        ordering = ["identificator"]
+    USERNAME_FIELD = 'email'
 
-class Country(models.Model):
-    identificator = models.SmallAutoField(primary_key=True, null=False, editable=False, verbose_name="ID", unique=True)
-    denomination = models.CharField(primary_key=False, null=False, editable=True, verbose_name="Country", unique=True, max_length=50)
-    code = models.CharField(primary_key=False, null=False, editable=True, verbose_name="Code", unique=True, max_length=5)
-    status = models.BooleanField(primary_key=False, null=False, editable=True, verbose_name="Status", unique=False, default=True)
-
-    def __str__(self):
-        return self.denomination
-    
-    class Meta:
-        db_table = "country"
-        verbose_name = "Country"
-        verbose_name_plural = "Countries"
-        ordering = ["identificator"]
-
-class User(models.Model):
-    identificator = models.BigAutoField(primary_key=True, null=False, editable=False, verbose_name="ID", unique=True)
-    email = models.EmailField(primary_key=False, null=False, editable=True, verbose_name="Email", unique=True, max_length=350)
-    name = models.CharField(primary_key=False, null=False, editable=True, verbose_name="Name", unique=False, max_length=25)
-    firstLastname = models.CharField(primary_key=False, null=False, editable=True, verbose_name="First Lastname", unique=False, max_length=25)
-    secondLastname = models.CharField(primary_key=False, null=True, editable=True, verbose_name="Second Lastname", unique=False, max_length=25)
-    age = models.PositiveSmallIntegerField(primary_key=False, null=False, editable=True, verbose_name="Age In Years", unique=False, validators=[MinValueValidator(18), MaxValueValidator(130)])
-    password = models.CharField(primary_key=False, null=False, editable=True, verbose_name="Encrypted Password", unique=False, max_length=150)
-    agreedPolicies = models.BooleanField(primary_key=False, null=False, editable=True, verbose_name="Agreed Policies", unique=False, default=True)
-    registered = models.DateTimeField(primary_key=False, null=False, editable=False, verbose_name="Registered", unique=False, auto_now_add=True)
-    updated = models.DateTimeField(primary_key=False, null=False, editable=True, verbose_name="Updated", unique=False, auto_now_add=True)
-    status = models.BooleanField(primary_key=False, null=False, editable=True, verbose_name="Status", unique=False, default=True)
-    gender = models.ForeignKey(Gender, on_delete=models.CASCADE, primary_key=False, null=False, blank=True, editable=True, verbose_name="Gender", unique=False)
-    country = models.ForeignKey(Country, on_delete=models.CASCADE, primary_key=False, null=False, blank=False, editable=True, verbose_name="Country", unique=False)
+    REQUIRED_FIELDS = [
+        'name',
+        'firstLastName',
+        'secondLastName',
+        'dateRegistered',
+        'dateModified',
+        'status',
+    ]
 
     def __str__(self):
         return self.email
-    
-    class Meta:
-        db_table = "user"
-        verbose_name = "User"
-        verbose_name_plural = "Users"
-        ordering = ["identificator"]
-    
-    def save(self, *args, **kwargs):
-        self.password = make_password(self.password)
-        super(User, self).save(*args, **kwargs)
 
-class Administrator(models.Model):
-    identificator = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, null=False, blank=False, editable=False, verbose_name="ID", unique=True)
-    code = models.CharField(primary_key=False, null=False, editable=True, verbose_name="Code", unique=True, max_length=25)
-    status = models.BooleanField(primary_key=False, null=False, editable=True, verbose_name="Status", unique=False, default=True)
+class Student(models.Model):
+    id = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, unique=True, verbose_name="ID")
+    age = models.PositiveSmallIntegerField(validators=[MinValueValidator(18), MaxValueValidator(130)], verbose_name="Edad")
+    agreedPolicies = models.BooleanField(default=True, verbose_name="¿Acepta las políticas de privacidad?")
+    
+    GENDER_CHOICES = [
+        ('M', 'Masculino'),
+        ('F', 'Femenino'),
+        ('N', 'No binario'),
+        ('O', 'Otro'),
+        ('P', 'Prefiero no decir'),
+    ]
+    
+    gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
+    country = CountryField()
+
+class Admin(models.Model):
+    id = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, unique=True, verbose_name="ID")
+    code = models.CharField(max_length=25, unique=True, verbose_name="Código")
 
     def __str__(self):
         return self.code
-    
-    class Meta:
-        db_table = "administrator"
-        verbose_name = "Administrator"
-        verbose_name_plural = "Administrators"
-        ordering = ["identificator"]
 
 class Group(models.Model):
-    identificator = models.SmallAutoField(primary_key=True, null=False, editable=False, verbose_name="ID", unique=True)
-    denomination = models.CharField(primary_key=False, null=False, editable=True, verbose_name="Group", unique=True, max_length=25)
-    description = models.CharField(primary_key=False, null=True, editable=True, verbose_name="Description", unique=False, max_length=50)
-    status = models.BooleanField(primary_key=False, null=False, editable=True, verbose_name="Status", unique=False, default=True)
+    denomination = models.CharField(max_length=25, unique=True, verbose_name="Grupo")
+    description = models.CharField(max_length=50, verbose_name="Descripción")
+    status = models.BooleanField(default=True, verbose_name="Estatus")
 
     def __str__(self):
         return self.denomination
-    
-    class Meta:
-        db_table = "group"
-        verbose_name = "Group"
-        verbose_name_plural = "Groups"
-        ordering = ["identificator"]
 
 class Institution(models.Model):
     identificator = models.SmallAutoField(primary_key=True, null=False, editable=False, verbose_name="ID", unique=True)
