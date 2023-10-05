@@ -12,16 +12,6 @@ from SEL4C.permissions import *
     update=extend_schema(description="Update an item"),
     destroy=extend_schema(description="Delete an item"),
 )
-class GenderViewSet(viewsets.ModelViewSet):
-    serializer_class = GenderSerializer
-    queryset = Gender.objects.all()
-    get_permissions = permission_get
-
-
-class CountryViewSet(viewsets.ModelViewSet):
-    serializer_class = CountrySerializer
-    queryset = Country.objects.all()
-    get_permissions = permission_get
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -30,9 +20,9 @@ class UserViewSet(viewsets.ModelViewSet):
     get_permissions = permission_user
 
 
-class AdministratorViewSet(viewsets.ModelViewSet):
-    serializer_class = AdministratorSerializer
-    queryset = Administrator.objects.all()
+class AdminViewSet(viewsets.ModelViewSet):
+    serializer_class = AdminSerializer
+    queryset = Admin.objects.all()
     # TODO
 
 
@@ -48,21 +38,14 @@ class InstitutionViewSet(viewsets.ModelViewSet):
     get_permissions = permission_get
 
 
-class AcademicDegreeViewSet(viewsets.ModelViewSet):
-    serializer_class = AcademicDegreeSerializer
-    queryset = AcademicDegree.objects.all()
+class DegreeViewSet(viewsets.ModelViewSet):
+    serializer_class = DegreeSerializer
+    queryset = Degree.objects.all()
     get_permissions = permission_get
 
-
-class AcademicDegreeOfferViewSet(viewsets.ModelViewSet):
-    serializer_class = AcademicDegreeOfferSerializer
-    queryset = AcademicDegreeOffer.objects.all()
-    get_permissions = permission_get
-
-
-class AcademicDisciplineViewSet(viewsets.ModelViewSet):
-    serializer_class = AcademicDisciplineSerializer
-    queryset = AcademicDiscipline.objects.all()
+class DisciplineViewSet(viewsets.ModelViewSet):
+    serializer_class = DisciplineSerializer
+    queryset = Discipline.objects.all()
     get_permissions = permission_get
 
 

@@ -1,4 +1,4 @@
-from SEL4C.models import Gender, Country, User, Administrator, Group, Institution, AcademicDegree, AcademicDegreeOffer, AcademicDiscipline, Student, DiagnosisQuestion, Test, ImplementationProcess, CompetenceDiagnosis, DiagnosisTest, Competence, Resource, TrainingReagent, TrainingActivity
+from SEL4C.models import User, Admin, Group, Institution, Discipline, Degree, Student, DiagnosisQuestion, Test, ImplementationProcess, CompetenceDiagnosis, DiagnosisTest, Competence, Resource, TrainingReagent, TrainingActivity
 from django.core.exceptions import ObjectDoesNotExist
 from django.utils.encoding import smart_str
 from rest_framework import serializers
@@ -12,39 +12,14 @@ class CreatableSlugRelatedField(serializers.SlugRelatedField):
         except (TypeError, ValueError):
             self.fail('invalid')
 
-class GenderSerializer(serializers.ModelSerializer):
-    class Meta:
-        model=Gender
-        fields="__all__"
-
-class CountrySerializer(serializers.ModelSerializer):
-    class Meta:
-        model=Country
-        fields="__all__"
-
 class UserSerializer(serializers.ModelSerializer):
-    gender = CreatableSlugRelatedField(
-        many=False,
-        slug_field='identificator',
-        queryset=Gender.objects.all()
-    )
-    country = CreatableSlugRelatedField(
-        many=False,
-        slug_field='identificator',
-        queryset=Country.objects.all()
-    )
     class Meta:
         model=User
         fields="__all__"
 
-class AdministratorSerializer(serializers.ModelSerializer):
-    identificator = CreatableSlugRelatedField(
-        many=False,
-        slug_field='identificator',
-        queryset=User.objects.all()
-    )
+class AdminSerializer(serializers.ModelSerializer):
     class Meta:
-        model=Administrator
+        model=Admin
         fields="__all__"
 
 class GroupSerializer(serializers.ModelSerializer):
@@ -57,51 +32,26 @@ class InstitutionSerializer(serializers.ModelSerializer):
         model=Institution
         fields="__all__"
 
-class AcademicDegreeSerializer(serializers.ModelSerializer):
+class DegreeSerializer(serializers.ModelSerializer):
     class Meta:
-        model=AcademicDegree
+        model=Degree
         fields="__all__"
 
-class AcademicDegreeOfferSerializer(serializers.ModelSerializer):
-    institution = CreatableSlugRelatedField(
-        many=False,
-        slug_field='identificator',
-        queryset=Institution.objects.all()
-    )
-    academicDegree = CreatableSlugRelatedField(
-        many=False,
-        slug_field='identificator',
-        queryset=AcademicDegree.objects.all()
-    )
+class DisciplineSerializer(serializers.ModelSerializer):
     class Meta:
-        model=AcademicDegreeOffer
-        fields="__all__"
-
-class AcademicDisciplineSerializer(serializers.ModelSerializer):
-    academicDegreeOffer = CreatableSlugRelatedField(
-        many=False,
-        slug_field='identificator',
-        queryset=AcademicDegreeOffer.objects.all()
-    )
-    class Meta:
-        model=AcademicDiscipline
+        model=Discipline
         fields="__all__"
 
 class StudentSerializer(serializers.ModelSerializer):
-    identificator = CreatableSlugRelatedField(
-        many=False,
-        slug_field='identificator',
-        queryset=User.objects.all()
-    )
     group = CreatableSlugRelatedField(
         many=False,
-        slug_field='identificator',
+        slug_field='id',
         queryset=Group.objects.all()
     )
-    academicDisciplines = CreatableSlugRelatedField(
+    Disciplines = CreatableSlugRelatedField(
         many=True,
-        slug_field='identificator',
-        queryset=AcademicDiscipline.objects.all()
+        slug_field='id',
+        queryset=Discipline.objects.all()
     )
     class Meta:
         model=Student
