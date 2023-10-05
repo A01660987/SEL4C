@@ -1,8 +1,8 @@
 from drf_spectacular.utils import extend_schema, extend_schema_view
 from rest_framework import viewsets
-from SEL4C.serializers import *
-from SEL4C.models import *
-from SEL4C.permissions import *
+from .serializers import *
+from .models import *
+from .permissions import *
 
 
 @extend_schema_view(
@@ -12,22 +12,22 @@ from SEL4C.permissions import *
     update=extend_schema(description="Update an item"),
     destroy=extend_schema(description="Delete an item"),
 )
-class GenderViewSet(viewsets.ModelViewSet):
-    serializer_class = GenderSerializer
-    queryset = Gender.objects.all()
-    get_permissions = permission_get
+# class GenderViewSet(viewsets.ModelViewSet):
+#     serializer_class = GenderSerializer
+#     queryset = Gender.objects.all()
+#     permission_classes = [only_get_for_authenticated_users]
 
 
-class CountryViewSet(viewsets.ModelViewSet):
-    serializer_class = CountrySerializer
-    queryset = Country.objects.all()
-    get_permissions = permission_get
+# class CountryViewSet(viewsets.ModelViewSet):
+#     serializer_class = CountrySerializer
+#     queryset = Country.objects.all()
+#     permission_classes = [only_get_for_authenticated_users]
 
 
 class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
     queryset = User.objects.all()
-    get_permissions = permission_user
+    permission_classes = [user_permissions]
 
 
 class AdministratorViewSet(viewsets.ModelViewSet):
@@ -45,25 +45,25 @@ class GroupViewSet(viewsets.ModelViewSet):
 class InstitutionViewSet(viewsets.ModelViewSet):
     serializer_class = InstitutionSerializer
     queryset = Institution.objects.all()
-    get_permissions = permission_get
+    permission_classes = [list_authenticated]
 
 
 class AcademicDegreeViewSet(viewsets.ModelViewSet):
     serializer_class = AcademicDegreeSerializer
     queryset = AcademicDegree.objects.all()
-    get_permissions = permission_get
+    permission_classes = [list_authenticated]
 
 
 class AcademicDegreeOfferViewSet(viewsets.ModelViewSet):
     serializer_class = AcademicDegreeOfferSerializer
     queryset = AcademicDegreeOffer.objects.all()
-    get_permissions = permission_get
+    permission_classes = [list_authenticated]
 
 
 class AcademicDisciplineViewSet(viewsets.ModelViewSet):
     serializer_class = AcademicDisciplineSerializer
     queryset = AcademicDiscipline.objects.all()
-    get_permissions = permission_get
+    permission_classes = [list_authenticated]
 
 
 class StudentViewSet(viewsets.ModelViewSet):
@@ -75,52 +75,52 @@ class StudentViewSet(viewsets.ModelViewSet):
 class DiagnosisQuestionViewSet(viewsets.ModelViewSet):
     serializer_class = DiagnosisQuestionSerializer
     queryset = DiagnosisQuestion.objects.all()
-    get_permissions = permission_get
+    permission_classes = [list_authenticated]
 
 
 class TestViewSet(viewsets.ModelViewSet):
     serializer_class = TestSerializer
     queryset = Test.objects.all()
-    get_permissions = permission_get
+    permission_classes = [list_authenticated]
 
 
 class ImplementationProcessViewSet(viewsets.ModelViewSet):
     serializer_class = ImplementationProcessSerializer
     queryset = ImplementationProcess.objects.all()
-    get_permissions = permission_get
+    permission_classes = [list_authenticated]
 
 
 class CompetenceDiagnosisViewSet(viewsets.ModelViewSet):
     serializer_class = CompetenceDiagnosisSerializer
     queryset = CompetenceDiagnosis.objects.all()
-    get_permissions = permission_get
+    permission_classes = [list_authenticated]
 
 
 class DiagnosisTestViewSet(viewsets.ModelViewSet):
     serializer_class = DiagnosisTestSerializer
     queryset = DiagnosisTest.objects.all()
-    get_permissions = permission_get
+    permission_classes = [list_authenticated]
 
 
 class CompetenceViewSet(viewsets.ModelViewSet):
     serializer_class = CompetenceSerializer
     queryset = Competence.objects.all()
-    get_permissions = permission_get
+    permission_classes = [list_authenticated]
 
 
 class ResourceViewSet(viewsets.ModelViewSet):
     serializer_class = ResourceSerializer
     queryset = Resource.objects.all()
-    get_permissions = permission_get
+    permission_classes = [list_authenticated]
 
 
 class TrainingReagentViewSet(viewsets.ModelViewSet):
     serializer_class = TrainingReagentSerializer
     queryset = TrainingReagent.objects.all()
-    get_permissions = permission_get
+    permission_classes = [list_authenticated]
 
 
 class TrainingActivityViewSet(viewsets.ModelViewSet):
     serializer_class = TrainingActivitySerializer
     queryset = TrainingActivity.objects.all()
-    get_permissions = permission_get
+    permission_classes = [list_authenticated]
