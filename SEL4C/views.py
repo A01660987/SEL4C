@@ -1,7 +1,11 @@
 from drf_spectacular.utils import extend_schema, extend_schema_view
 from rest_framework import viewsets
+from django.http import JsonResponse
 from SEL4C.serializers import GenderSerializer, CountrySerializer, UserSerializer, AdministratorSerializer, GroupSerializer, InstitutionSerializer, AcademicDegreeSerializer, AcademicDegreeOfferSerializer, AcademicDisciplineSerializer, StudentSerializer, DiagnosisQuestionSerializer, TestSerializer, ImplementationProcessSerializer, CompetenceDiagnosisSerializer, DiagnosisTestSerializer, CompetenceSerializer, ResourceSerializer, TrainingReagentSerializer, TrainingActivitySerializer
 from SEL4C.models import Gender, Country, User, Administrator, Group, Institution, AcademicDegree, AcademicDegreeOffer, AcademicDiscipline, Student, DiagnosisQuestion, Test, ImplementationProcess, CompetenceDiagnosis, DiagnosisTest, Competence, Resource, TrainingReagent, TrainingActivity
+from django.views.decorators.csrf import csrf_exempt
+from django.db.models import Q
+import json
 
 @extend_schema_view(
     list=extend_schema(description="Get a list"), 
@@ -86,3 +90,61 @@ class TrainingReagentViewSet(viewsets.ModelViewSet):
 class TrainingActivityViewSet(viewsets.ModelViewSet):
     serializer_class = TrainingActivitySerializer
     queryset = TrainingActivity.objects.all()
+
+@csrf_exempt
+def getActivity(request):
+    if request.method == "GET":
+        queryset=TrainingReagent.objects.select_related("competences", "resources").filter(identificator=int(json.loads(request.body)["identificator"])).values("identificator", "denomination", "goals", "description", "indications", "questions")
+        if queryset:
+            queryset = list(queryset)[0]
+            queryset["goals"] = queryset["goals"].split("\u0000") if queryset["goals"] else None
+            queryset["description"] = queryset["description"].split("\u0000") if queryset["description"] else None
+            queryset["indications"] = queryset["indications"].split("\u0000") if queryset["indications"] else None
+            queryset["questions"] = queryset["questions"].split("\u0000") if queryset["questions"] else None
+            return JsonResponse(queryset, safe=False, status=200)
+        else:
+            return JsonResponse({"mensaje": "no"}, safe=False, status=404)
+    else:
+        return JsonResponse({"mensaje": "no"}, safe=False, status=404)
+
+@csrf_exempt
+def getDiagnosis(request):
+    if request.method == "GET":
+        tests=Test.objects.filter(Q(denomination = "Perfil del Emprendedor Social") | Q(denomination = "Pensamiento Complejo"))
+        if tests:
+            questions = []
+            for index in range(len(tests)):
+                questions.append(list(tests[index].diagnosisQuestions.all().values("identificator", "question")))
+            queryset = tests.values("identificator", "denomination", "description")
+            queryset = list(queryset)
+            for index in range(len(questions)):
+                queryset[index]["diagnosisQuestions"] = questions[index]
+            return JsonResponse(queryset, safe=False, status=200)
+        else:
+            return JsonResponse({"mensaje": "no"}, safe=False, status=404)
+    else:
+        return JsonResponse({"mensaje": "no"}, safe=False, status=404)
+
+#TO-DO
+
+@csrf_exempt
+def getSignUp(request):
+    if request.method == "GET":
+        queryset=[]
+        if queryset:
+            return JsonResponse(queryset, safe=False, status=200)
+        else:
+            return JsonResponse({"mensaje": "no"}, safe=False, status=404)
+    else:
+        return JsonResponse({"mensaje": "no"}, safe=False, status=404)
+
+@csrf_exempt
+def getLogIn(request):
+    if request.method == "GET":
+        queryset=[]
+        if queryset:
+            return JsonResponse(queryset, safe=False, status=200)
+        else:
+            return JsonResponse({"mensaje": "no"}, safe=False, status=404)
+    else:
+        return JsonResponse({"mensaje": "no"}, safe=False, status=404)

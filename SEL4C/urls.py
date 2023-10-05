@@ -7,6 +7,7 @@ from rest_framework import routers
 from rest_framework_extensions.routers import ExtendedSimpleRouter
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
 from SEL4C.views import GenderViewSet, CountryViewSet, UserViewSet, AdministratorViewSet, GroupViewSet, InstitutionViewSet, AcademicDegreeViewSet, AcademicDegreeOfferViewSet, AcademicDisciplineViewSet, StudentViewSet, DiagnosisQuestionViewSet, TestViewSet, ImplementationProcessViewSet, CompetenceDiagnosisViewSet, DiagnosisTestViewSet, CompetenceViewSet, ResourceViewSet, TrainingReagentViewSet, TrainingActivityViewSet
+from SEL4C.views import getActivity, getDiagnosis
 
 router: ExtendedSimpleRouter = ExtendedSimpleRouter()
 
@@ -39,5 +40,7 @@ urlpatterns = [
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'), 
     path('token/verify/', TokenVerifyView.as_view(), name='token_refresh'), 
     path('api/', include(router.urls)), 
+    path('api/activity', getActivity, name="api/activity"), 
+    path('api/diagnosis', getDiagnosis, name="api/diagnosis"), 
     path('', include('web.urls'))
 ]  + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
