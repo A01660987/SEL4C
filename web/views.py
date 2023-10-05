@@ -13,12 +13,12 @@ def login_user(request):
         email = request.POST["email"]
         password = request.POST["password"]
         user = authenticate(request, username=email, password=password)
-        if user.is_superuser:
+        if user is not None and user.is_superuser:
             login(request, user)
             return redirect("dashboard")
         else:
             messages.error(request,'Correo electrónico y/o contraseña inválidos.')
-            return redirect('admin')
+            return redirect('login_user')
         
     return render(request, "login.html")
 
