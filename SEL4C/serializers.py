@@ -1,4 +1,4 @@
-from SEL4C.models import User, Admin, Group, Institution, Discipline, Degree, Student, DiagnosisQuestion, Test, ImplementationProcess, CompetenceDiagnosis, DiagnosisTest, Competence, Resource, TrainingReagent, TrainingActivity
+from SEL4C.models import User, Group, Institution, Discipline, Degree, Student, DiagnosisQuestion, Test, ImplementationProcess, CompetenceDiagnosis, DiagnosisTest, Competence, Resource, TrainingReagent, TrainingActivity
 from django.core.exceptions import ObjectDoesNotExist
 from django.utils.encoding import smart_str
 from rest_framework import serializers
@@ -17,10 +17,6 @@ class UserSerializer(serializers.ModelSerializer):
         model=User
         fields="__all__"
 
-class AdminSerializer(serializers.ModelSerializer):
-    class Meta:
-        model=Admin
-        fields="__all__"
 
 class GroupSerializer(serializers.ModelSerializer):
     class Meta:

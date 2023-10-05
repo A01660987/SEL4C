@@ -6,13 +6,12 @@ from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 from rest_framework import routers
 from rest_framework_extensions.routers import ExtendedSimpleRouter
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
-from SEL4C.views import UserViewSet, AdminViewSet, GroupViewSet, InstitutionViewSet, DegreeViewSet, DisciplineViewSet, StudentViewSet, DiagnosisQuestionViewSet, TestViewSet, ImplementationProcessViewSet, CompetenceDiagnosisViewSet, DiagnosisTestViewSet, CompetenceViewSet, ResourceViewSet, TrainingReagentViewSet, TrainingActivityViewSet
+from SEL4C.views import UserViewSet, GroupViewSet, InstitutionViewSet, DegreeViewSet, DisciplineViewSet, StudentViewSet, DiagnosisQuestionViewSet, TestViewSet, ImplementationProcessViewSet, CompetenceDiagnosisViewSet, DiagnosisTestViewSet, CompetenceViewSet, ResourceViewSet, TrainingReagentViewSet, TrainingActivityViewSet
 
 router: ExtendedSimpleRouter = ExtendedSimpleRouter()
 
 router = routers.DefaultRouter()
 router.register(r'user', UserViewSet)
-router.register(r'administrator', AdminViewSet)
 router.register(r'group', GroupViewSet)
 router.register(r'institution', InstitutionViewSet)
 router.register(r'degree', DegreeViewSet)

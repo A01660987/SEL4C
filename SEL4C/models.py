@@ -34,17 +34,6 @@ class User(AbstractUser):
         verbose_name = "Usuario"
         verbose_name_plural = "Usuarios"
 
-class Admin(models.Model):
-    id = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, unique=True, verbose_name="ID")
-    code = models.CharField(max_length=25, unique=True, verbose_name="Código")
-
-    def __str__(self):
-        return self.code
-    
-    class Meta:
-        verbose_name = "Administrador"
-        verbose_name_plural = "Administradores"
-
 class Group(models.Model):
     name = models.CharField(max_length=25, unique=True, verbose_name="Grupo")
     description = models.CharField(max_length=50, verbose_name="Descripción")

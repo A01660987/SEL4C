@@ -19,13 +19,6 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     get_permissions = permission_user
 
-
-class AdminViewSet(viewsets.ModelViewSet):
-    serializer_class = AdminSerializer
-    queryset = Admin.objects.all()
-    # TODO
-
-
 class GroupViewSet(viewsets.ModelViewSet):
     serializer_class = GroupSerializer
     queryset = Group.objects.all()
