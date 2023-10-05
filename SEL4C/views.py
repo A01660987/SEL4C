@@ -1,8 +1,8 @@
 from drf_spectacular.utils import extend_schema, extend_schema_view
 from rest_framework import viewsets
-from .serializers import *
-from .models import *
-from .permissions import *
+from SEL4C.serializers import *
+from SEL4C.models import *
+from SEL4C.permissions import *
 
 
 @extend_schema_view(
@@ -27,6 +27,12 @@ class GroupViewSet(viewsets.ModelViewSet):
 class InstitutionViewSet(viewsets.ModelViewSet):
     serializer_class = InstitutionSerializer
     queryset = Institution.objects.all()
+    permission_classes = [list_authenticated]
+
+
+class DegreeViewSet(viewsets.ModelViewSet):
+    serializer_class = DegreeSerializer
+    queryset = Degree.objects.all()
     permission_classes = [list_authenticated]
 
 
