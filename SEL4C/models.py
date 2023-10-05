@@ -4,11 +4,11 @@ from django.contrib.auth.models import AbstractUser
 from django_countries.fields import CountryField
 
 class User(AbstractUser):
-    username = None
     first_name = None
     last_name = None
-
-    email = models.EmailField(unique=True, verbose_name="Correo electrónico")
+    email = None
+    # El username es el correo electrónico, sin embargo Django requiere que cada usuario tenga un campo llamado específicamente "username".
+    username = models.EmailField(unique=True, verbose_name="Correo electrónico")
     name = models.CharField(max_length=150, verbose_name="Nombre(s)")
     firstLastName = models.CharField(max_length=150, verbose_name="Apellido paterno")
     secondLastName = models.CharField(max_length=150, verbose_name="Apellido materno")
@@ -16,15 +16,11 @@ class User(AbstractUser):
     dateModified = models.DateTimeField(auto_now=True, verbose_name="Fecha de modificación")
     status = models.BooleanField(default=True, verbose_name="Estatus")
     
-    USERNAME_FIELD = 'email'
 
     REQUIRED_FIELDS = [
         'name',
         'firstLastName',
         'secondLastName',
-        'dateRegistered',
-        'dateModified',
-        'status',
     ]
 
     def __str__(self):
@@ -33,6 +29,7 @@ class User(AbstractUser):
     class Meta:
         verbose_name = "Usuario"
         verbose_name_plural = "Usuarios"
+
 
 class Group(models.Model):
     name = models.CharField(max_length=25, unique=True, verbose_name="Grupo")
@@ -45,6 +42,7 @@ class Group(models.Model):
     class Meta:
         verbose_name = "Grupo"
         verbose_name_plural = "Grupos"
+        ordering = ["name"]
 
 class Institution(models.Model):
     name = models.CharField(max_length=25, unique=True, verbose_name="Institución")
@@ -57,6 +55,7 @@ class Institution(models.Model):
     class Meta:
         verbose_name = "Institución"
         verbose_name_plural = "Instituciones"
+        ordering = ["name"]
 
 class Discipline(models.Model):
     name = models.CharField(max_length=25, unique=True, verbose_name="Disciplina")
@@ -67,6 +66,7 @@ class Discipline(models.Model):
     class Meta:
         verbose_name = "Disciplina"
         verbose_name_plural = "Disciplinas"
+        ordering = ["name"]
 
 class Degree(models.Model):
     DEGREE_TYPES = [
@@ -81,6 +81,7 @@ class Degree(models.Model):
     class Meta:
         verbose_name = "Título académico"
         verbose_name_plural = "Títulos académicos"
+        ordering = ["institution", "discipline", "type"]
 
 class Student(models.Model):
     id = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, unique=True, verbose_name="ID")
@@ -103,6 +104,7 @@ class Student(models.Model):
     class Meta:
         verbose_name = "Estudiante"
         verbose_name_plural = "Estudiantes"
+        ordering = ["id"]
 
 
 

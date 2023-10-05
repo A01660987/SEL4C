@@ -179,3 +179,4 @@ SIMPLE_JWT = {
 }
 
 AUTH_USER_MODEL = 'SEL4C.User'
+LOGIN_REDIRECT_URL = "/dashboard/"

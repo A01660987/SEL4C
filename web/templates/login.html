@@ -42,11 +42,11 @@
       </div>
       <form method="post" class="needs-validation" novalidate>
         {% csrf_token %}
-        <input type="email" class="form-control form-control-lg mb-3 rounded-pill" style="max-width: 420px;" placeholder="Correo electrónico" required>
+        <input name="email" type="email" class="form-control form-control-lg mb-3 rounded-pill" style="max-width: 420px;" placeholder="Correo electrónico" required>
         <div class="invalid-feedback ms-2 mb-2">
           Ingresa una dirección de correo electrónico válida.
         </div>
-        <input type="password" class="form-control form-control-lg mb-3 rounded-pill" style="max-width: 420px;" placeholder="Contraseña" required>
+        <input name="password" type="password" class="form-control form-control-lg mb-3 rounded-pill" style="max-width: 420px;" placeholder="Contraseña" required>
         <div class="invalid-feedback ms-2 mb-2">
           Ingresa tu contraseña.
         </div>
