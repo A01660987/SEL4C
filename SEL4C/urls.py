@@ -6,21 +6,17 @@ from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 from rest_framework import routers
 from rest_framework_extensions.routers import ExtendedSimpleRouter
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
-from SEL4C.views import GenderViewSet, CountryViewSet, UserViewSet, AdministratorViewSet, GroupViewSet, InstitutionViewSet, AcademicDegreeViewSet, AcademicDegreeOfferViewSet, AcademicDisciplineViewSet, StudentViewSet, DiagnosisQuestionViewSet, TestViewSet, ImplementationProcessViewSet, CompetenceDiagnosisViewSet, DiagnosisTestViewSet, CompetenceViewSet, ResourceViewSet, TrainingReagentViewSet, TrainingActivityViewSet
+from SEL4C.views import UserViewSet, GroupViewSet, InstitutionViewSet, DegreeViewSet, DisciplineViewSet, StudentViewSet, DiagnosisQuestionViewSet, TestViewSet, ImplementationProcessViewSet, CompetenceDiagnosisViewSet, DiagnosisTestViewSet, CompetenceViewSet, ResourceViewSet, TrainingReagentViewSet, TrainingActivityViewSet
 from SEL4C.views import activity, diagnosis, credentials
 
 router: ExtendedSimpleRouter = ExtendedSimpleRouter()
 
 router = routers.DefaultRouter()
-router.register(r'gender', GenderViewSet)
-router.register(r'country', CountryViewSet)
 router.register(r'user', UserViewSet)
-router.register(r'administrator', AdministratorViewSet)
 router.register(r'group', GroupViewSet)
 router.register(r'institution', InstitutionViewSet)
-router.register(r'academic-degree', AcademicDegreeViewSet)
-router.register(r'academic-degree-offer', AcademicDegreeOfferViewSet)
-router.register(r'academic-discipline', AcademicDisciplineViewSet)
+router.register(r'degree', DegreeViewSet)
+router.register(r'discipline', DisciplineViewSet)
 router.register(r'student', StudentViewSet)
 router.register(r'diagnosis-question', DiagnosisQuestionViewSet)
 router.register(r'test', TestViewSet)

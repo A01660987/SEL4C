@@ -1,8 +1,8 @@
 from drf_spectacular.utils import extend_schema, extend_schema_view
 from rest_framework import viewsets
 from django.http import JsonResponse
-from SEL4C.serializers import GenderSerializer, CountrySerializer, UserSerializer, AdministratorSerializer, GroupSerializer, InstitutionSerializer, AcademicDegreeSerializer, AcademicDegreeOfferSerializer, AcademicDisciplineSerializer, StudentSerializer, DiagnosisQuestionSerializer, TestSerializer, ImplementationProcessSerializer, CompetenceDiagnosisSerializer, DiagnosisTestSerializer, CompetenceSerializer, ResourceSerializer, TrainingReagentSerializer, TrainingActivitySerializer
-from SEL4C.models import Gender, Country, User, Administrator, Group, Institution, AcademicDegree, AcademicDegreeOffer, AcademicDiscipline, Student, DiagnosisQuestion, Test, ImplementationProcess, CompetenceDiagnosis, DiagnosisTest, Competence, Resource, TrainingReagent, TrainingActivity
+from SEL4C.serializers import *
+from SEL4C.models import *
 from django.views.decorators.csrf import csrf_exempt
 from django.db.models import Q
 import json
@@ -16,21 +16,10 @@ from querystring_parser import parser
     destroy=extend_schema(description="Delete an item"),
 )
 
-class GenderViewSet(viewsets.ModelViewSet):
-    serializer_class = GenderSerializer
-    queryset = Gender.objects.all()
-
-class CountryViewSet(viewsets.ModelViewSet):
-    serializer_class = CountrySerializer
-    queryset = Country.objects.all()
 
 class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
     queryset = User.objects.all()
-
-class AdministratorViewSet(viewsets.ModelViewSet):
-    serializer_class = AdministratorSerializer
-    queryset = Administrator.objects.all()
 
 class GroupViewSet(viewsets.ModelViewSet):
     serializer_class = GroupSerializer
@@ -40,17 +29,13 @@ class InstitutionViewSet(viewsets.ModelViewSet):
     serializer_class = InstitutionSerializer
     queryset = Institution.objects.all()
 
-class AcademicDegreeViewSet(viewsets.ModelViewSet):
-    serializer_class = AcademicDegreeSerializer
-    queryset = AcademicDegree.objects.all()
+class DegreeViewSet(viewsets.ModelViewSet):
+    serializer_class = DegreeSerializer
+    queryset = Degree.objects.all()
 
-class AcademicDegreeOfferViewSet(viewsets.ModelViewSet):
-    serializer_class = AcademicDegreeOfferSerializer
-    queryset = AcademicDegreeOffer.objects.all()
-
-class AcademicDisciplineViewSet(viewsets.ModelViewSet):
-    serializer_class = AcademicDisciplineSerializer
-    queryset = AcademicDiscipline.objects.all()
+class DisciplineViewSet(viewsets.ModelViewSet):
+    serializer_class = DisciplineSerializer
+    queryset = Discipline.objects.all()
 
 class StudentViewSet(viewsets.ModelViewSet):
     serializer_class = StudentSerializer
