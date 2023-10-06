@@ -26,7 +26,6 @@ class User(AbstractUser):
         verbose_name = "Usuario"
         verbose_name_plural = "Usuarios"
 
-
 class Group(models.Model):
     name = models.CharField(max_length=25, unique=True, verbose_name="Grupo")
     description = models.CharField(max_length=50, verbose_name="Descripción")
@@ -101,9 +100,6 @@ class Student(models.Model):
         verbose_name = "Estudiante"
         verbose_name_plural = "Estudiantes"
         ordering = ["id"]
-
-
-
 
 class DiagnosisQuestion(models.Model):
     identificator = models.SmallAutoField(primary_key=True, null=False, editable=False, verbose_name="ID", unique=True)

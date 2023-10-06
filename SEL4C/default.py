@@ -1,410 +1,73 @@
 from SEL4C.models import (
-    Gender,
-    Country,
     User,
-    Administrator,
     Group,
     Institution,
-    AcademicDegree,
-    AcademicDegreeOffer,
-    AcademicDiscipline,
+    Discipline, 
+    Degree,
     DiagnosisQuestion,
     Test,
     TrainingReagent,
 )
 
-genders = Gender.objects.bulk_create(
-    [
-        Gender(denomination="Masculino"),
-        Gender(denomination="Femenino"),
-        Gender(denomination="Prefiero no decir"),
-        Gender(denomination="No binario"),
-    ]
-)
-
-countries = Country.objects.bulk_create(
-    [
-        Country(denomination="Afganistán", code="AFG"),
-        Country(denomination="Albania", code="ALB"),
-        Country(denomination="Alemania", code="DEU"),
-        Country(denomination="Andorra", code="AND"),
-        Country(denomination="Angola", code="AGO"),
-        Country(denomination="Anguila", code="AIA"),
-        Country(denomination="Antártida", code="ATA"),
-        Country(denomination="Antigua y Barbuda", code="ATG"),
-        Country(denomination="Arabia Saudita", code="SAU"),
-        Country(denomination="Argelia", code="DZA"),
-        Country(denomination="Argentina", code="ARG"),
-        Country(denomination="Armenia", code="ARM"),
-        Country(denomination="Aruba", code="ABW"),
-        Country(denomination="Australia", code="AUS"),
-        Country(denomination="Austria", code="AUT"),
-        Country(denomination="Azerbaiyán", code="AZE"),
-        Country(denomination="Bahamas", code="BHS"),
-        Country(denomination="Bahrein", code="BHR"),
-        Country(denomination="Bailía de Guernsey", code="GGY"),
-        Country(denomination="Bangladesh", code="BGD"),
-        Country(denomination="Barbados", code="BRB"),
-        Country(denomination="Belarús", code="BLR"),
-        Country(denomination="Bélgica", code="BEL"),
-        Country(denomination="Belice", code="BLZ"),
-        Country(denomination="Benín", code="BEN"),
-        Country(denomination="Bermudas", code="BMU"),
-        Country(denomination="Bolivia", code="BOL"),
-        Country(denomination="Bosnia y Hercegovina", code="BIH"),
-        Country(denomination="Botsuana", code="BWA"),
-        Country(denomination="Brasil", code="BRA"),
-        Country(denomination="Brunéi", code="BRN"),
-        Country(denomination="Bulgaria", code="BGR"),
-        Country(denomination="Burkina Faso", code="BFA"),
-        Country(denomination="Burundi", code="BDI"),
-        Country(denomination="Bután", code="BTN"),
-        Country(denomination="Cabo Verde", code="CPV"),
-        Country(denomination="Camboya", code="KHM"),
-        Country(denomination="Camerún", code="CMR"),
-        Country(denomination="Canadá", code="CAN"),
-        Country(denomination="Caribe Neerlandés", code="BES"),
-        Country(denomination="Catar", code="QAT"),
-        Country(denomination="Chad", code="TCD"),
-        Country(denomination="Chequia", code="CZE"),
-        Country(denomination="Chile", code="CHL"),
-        Country(denomination="China", code="CHN"),
-        Country(denomination="Chipre", code="CYP"),
-        Country(denomination="Ciudad del Vaticano", code="VAT"),
-        Country(denomination="Colombia", code="COL"),
-        Country(denomination="Comores", code="COM"),
-        Country(denomination="Corea del Norte", code="PRK"),
-        Country(denomination="Corea del Sur", code="KOR"),
-        Country(denomination="Costa de Marfil", code="CIV"),
-        Country(denomination="Costa Rica", code="CRI"),
-        Country(denomination="Croacia", code="HRV"),
-        Country(denomination="Cuba", code="CUB"),
-        Country(denomination="Curaçao", code="CUW"),
-        Country(denomination="Dinamarca", code="DNK"),
-        Country(denomination="Dominica", code="DMA"),
-        Country(denomination="Ecuador", code="ECU"),
-        Country(denomination="Egipto", code="EGY"),
-        Country(denomination="El Salvador", code="SLV"),
-        Country(denomination="Emiratos Árabes Unidos", code="ARE"),
-        Country(denomination="Eritrea", code="ERI"),
-        Country(denomination="Eslovaquia", code="SVK"),
-        Country(denomination="Eslovenia", code="SVN"),
-        Country(denomination="España", code="ESP"),
-        Country(denomination="Estados Federados de Micronesia", code="FSM"),
-        Country(denomination="Estados Unidos de América", code="USA"),
-        Country(denomination="Estonia", code="EST"),
-        Country(denomination="Esuatini", code="SWZ"),
-        Country(denomination="Etiopía", code="ETH"),
-        Country(denomination="Filipinas", code="PHL"),
-        Country(denomination="Finlandia", code="FIN"),
-        Country(denomination="Fiyi", code="FJI"),
-        Country(denomination="Francia", code="FRA"),
-        Country(denomination="Gabón", code="GAB"),
-        Country(denomination="Gambia", code="GMB"),
-        Country(denomination="Georgia", code="GEO"),
-        Country(
-            denomination="Georgia del Sur y las Islas Sandwich del Sur", code="SGS"
-        ),
-        Country(denomination="Ghana", code="GHA"),
-        Country(denomination="Gibraltar", code="GIB"),
-        Country(denomination="Granada", code="GRD"),
-        Country(denomination="Grecia", code="GRC"),
-        Country(denomination="Groenlandia", code="GRL"),
-        Country(denomination="Guadalupe", code="GLP"),
-        Country(denomination="Guam", code="GUM"),
-        Country(denomination="Guatemala", code="GTM"),
-        Country(denomination="Guayana", code="GUY"),
-        Country(denomination="Guayana Francesa", code="GUF"),
-        Country(denomination="Guinea", code="GIN"),
-        Country(denomination="Guinea Ecuatorial", code="GNQ"),
-        Country(denomination="Guinea-Bissau", code="GNB"),
-        Country(denomination="Haití", code="HTI"),
-        Country(denomination="Honduras", code="HND"),
-        Country(denomination="Hong Kong", code="HKG"),
-        Country(denomination="Hungría", code="HUN"),
-        Country(denomination="India", code="IND"),
-        Country(denomination="Indonesia", code="IDN"),
-        Country(denomination="Irán", code="IRN"),
-        Country(denomination="Iraq", code="IRQ"),
-        Country(denomination="Irlanda", code="IRL"),
-        Country(denomination="Isla Bouvet", code="BVT"),
-        Country(denomination="Isla de Man", code="IMN"),
-        Country(denomination="Isla de Navidad", code="CXR"),
-        Country(denomination="Isla de San Martín", code="MAF"),
-        Country(denomination="Isla Mauricio", code="MUS"),
-        Country(denomination="Isla Norfolk", code="NFK"),
-        Country(denomination="Islandia", code="ISL"),
-        Country(denomination="Islas Åland", code="ALA"),
-        Country(denomination="Islas Caimán", code="CYM"),
-        Country(denomination="Islas Cocos", code="CCK"),
-        Country(denomination="Islas Cook", code="COK"),
-        Country(denomination="Islas Feroe", code="FRO"),
-        Country(denomination="Islas Heard y McDonald", code="HMD"),
-        Country(denomination="Islas Malvinas", code="FLK"),
-        Country(denomination="Islas Marianas del Norte", code="MNP"),
-        Country(denomination="Islas Marshall", code="MHL"),
-        Country(denomination="Islas Pitcairn", code="PCN"),
-        Country(denomination="Islas Salomón", code="SLB"),
-        Country(denomination="Islas Turcas y Caicos", code="TCA"),
-        Country(
-            denomination="Islas ultramarinas menores de los Estados Unidos", code="UMI"
-        ),
-        Country(denomination="Islas Vírgenes (UK)", code="VGB"),
-        Country(denomination="Islas Vírgenes Americanas", code="VIR"),
-        Country(denomination="Israel", code="ISR"),
-        Country(denomination="Italia", code="ITA"),
-        Country(denomination="Jamaica", code="JAM"),
-        Country(denomination="Japón", code="JPN"),
-        Country(denomination="Jersey", code="JEY"),
-        Country(denomination="Jordania", code="JOR"),
-        Country(denomination="Kazajistán​​​", code="KAZ"),
-        Country(denomination="Kenia", code="KEN"),
-        Country(denomination="Kirguistán", code="KGZ"),
-        Country(denomination="Kiribati", code="KIR"),
-        Country(denomination="Kosovo", code="XXK"),
-        Country(denomination="Kuwait", code="KWT"),
-        Country(denomination="Laos", code="LAO"),
-        Country(denomination="Lesotho", code="LSO"),
-        Country(denomination="Letonia", code="LVA"),
-        Country(denomination="Líbano", code="LBN"),
-        Country(denomination="Liberia", code="LBR"),
-        Country(denomination="Libia", code="LBY"),
-        Country(denomination="Liechtenstein", code="LIE"),
-        Country(denomination="Lituania", code="LTU"),
-        Country(denomination="Luxemburgo", code="LUX"),
-        Country(denomination="Macao", code="MAC"),
-        Country(denomination="Macedonia del Norte", code="MKD"),
-        Country(denomination="Madagascar", code="MDG"),
-        Country(denomination="Malasia", code="MYS"),
-        Country(denomination="Malaui", code="MWI"),
-        Country(denomination="Maldivas", code="MDV"),
-        Country(denomination="Malí", code="MLI"),
-        Country(denomination="Malta", code="MLT"),
-        Country(denomination="Marruecos", code="MAR"),
-        Country(denomination="Martinica", code="MTQ"),
-        Country(denomination="Mauritania", code="MRT"),
-        Country(denomination="Mayotte", code="MYT"),
-        Country(denomination="México", code="MEX"),
-        Country(denomination="Moldavia", code="MDA"),
-        Country(denomination="Mongolia", code="MNG"),
-        Country(denomination="Montenegro", code="MNE"),
-        Country(denomination="Montserrat", code="MSR"),
-        Country(denomination="Mozambique", code="MOZ"),
-        Country(denomination="Myanmar", code="MMR"),
-        Country(denomination="Namibia", code="NAM"),
-        Country(denomination="Nauru", code="NRU"),
-        Country(denomination="Nepal", code="NPL"),
-        Country(denomination="Nicaragua", code="NIC"),
-        Country(denomination="Níger", code="NER"),
-        Country(denomination="Nigeria", code="NGA"),
-        Country(denomination="Niue", code="NIU"),
-        Country(denomination="Noruega", code="NOR"),
-        Country(denomination="Nueva Caledonia", code="NCL"),
-        Country(denomination="Nueva Zelandia", code="NZL"),
-        Country(denomination="Omán", code="OMN"),
-        Country(denomination="Países Bajos", code="NLD"),
-        Country(denomination="Pakistán", code="PAK"),
-        Country(denomination="Palaos", code="PLW"),
-        Country(denomination="Palestina", code="PSE"),
-        Country(denomination="Panamá", code="PAN"),
-        Country(denomination="Papúa Nueva Guinea", code="PNG"),
-        Country(denomination="Paraguay", code="PRY"),
-        Country(denomination="Perú", code="PER"),
-        Country(denomination="Polinesia Francesa", code="PYF"),
-        Country(denomination="Polonia", code="POL"),
-        Country(denomination="Portugal", code="PRT"),
-        Country(denomination="Principado de Mónaco", code="MCO"),
-        Country(denomination="Puerto Rico", code="PRI"),
-        Country(denomination="Reino Unido", code="GBR"),
-        Country(denomination="República Centroafricana", code="CAF"),
-        Country(denomination="República del Congo", code="COG"),
-        Country(denomination="República Democrática del Congo", code="COD"),
-        Country(denomination="República Dominicana", code="DOM"),
-        Country(denomination="Reunión", code="REU"),
-        Country(denomination="Ruanda", code="RWA"),
-        Country(denomination="Rumania", code="ROU"),
-        Country(denomination="Rusia", code="RUS"),
-        Country(denomination="Sáhara Occidental", code="ESH"),
-        Country(denomination="Samoa", code="WSM"),
-        Country(denomination="Samoa Americana", code="ASM"),
-        Country(denomination="San Bartolomé", code="BLM"),
-        Country(denomination="San Cristóbal y Nieves", code="KNA"),
-        Country(denomination="San Marino", code="SMR"),
-        Country(denomination="San Pedro y Miquelón", code="SPM"),
-        Country(denomination="San Vicente y las Granadinas", code="VCT"),
-        Country(denomination="Santa Elena, Ascensión y Tristán de Acuña", code="SHN"),
-        Country(denomination="Santa Lucía", code="LCA"),
-        Country(denomination="Santo Tomé y Príncipe", code="STP"),
-        Country(denomination="Senegal", code="SEN"),
-        Country(denomination="Serbia", code="SRB"),
-        Country(denomination="Seychelles", code="SYC"),
-        Country(denomination="Sierra Leona", code="SLE"),
-        Country(denomination="Singapur", code="SGP"),
-        Country(denomination="Sint Maarten", code="SXM"),
-        Country(denomination="Siria", code="SYR"),
-        Country(denomination="Somalia", code="SOM"),
-        Country(denomination="Sri Lanka", code="LKA"),
-        Country(denomination="Sudáfrica", code="ZAF"),
-        Country(denomination="Sudán", code="SDN"),
-        Country(denomination="Sudán del Sur", code="SSD"),
-        Country(denomination="Suecia", code="SWE"),
-        Country(denomination="Suiza", code="CHE"),
-        Country(denomination="Surinam", code="SUR"),
-        Country(denomination="Svalbard y Jan Mayen", code="SJM"),
-        Country(denomination="Tailandia", code="THA"),
-        Country(denomination="Taiwán", code="TWN"),
-        Country(denomination="Tanzania", code="TZA"),
-        Country(denomination="Tayikistán", code="TJK"),
-        Country(denomination="Territorio Británico del Océano Índico", code="IOT"),
-        Country(
-            denomination="Territorios Australes y Antárticos Franceses", code="ATF"
-        ),
-        Country(denomination="Timor Oriental", code="TLS"),
-        Country(denomination="Togo", code="TGO"),
-        Country(denomination="Tokelau", code="TKL"),
-        Country(denomination="Tonga", code="TON"),
-        Country(denomination="Trinidad y Tobago", code="TTO"),
-        Country(denomination="Túnez", code="TUN"),
-        Country(denomination="Turkmenistán", code="TKM"),
-        Country(denomination="Turquía", code="TUR"),
-        Country(denomination="Tuvalu", code="TUV"),
-        Country(denomination="Ucrania", code="UKR"),
-        Country(denomination="Uganda", code="UGA"),
-        Country(denomination="Uruguay", code="URY"),
-        Country(denomination="Uzbekistán", code="UZB"),
-        Country(denomination="Vanuatu", code="VUT"),
-        Country(denomination="Venezuela", code="VEN"),
-        Country(denomination="Vietnam", code="VNM"),
-        Country(denomination="Wallis y Futuna", code="WLF"),
-        Country(denomination="Yemen", code="YEM"),
-        Country(denomination="Yibuti", code="DJI"),
-        Country(denomination="Zambia", code="ZMB"),
-        Country(denomination="Zimbabue", code="ZWE"),
-    ]
-)
-
-
 administrator = User.objects.create(
-    email="admin@tec.mx",
+    username="admin@tec.mx",
     name="José Carlos",
-    firstLastname="Vázquez",
-    age=47,
-    password="1230",
-    gender=genders[0],
-    country=countries[0],
+    first_lastname="Vázquez"
 )
-administrator = Administrator.objects.create(identificator=administrator, code="")
 
 groups = Group.objects.bulk_create(
     [
-        Group(denomination="Cátedra UNESCO-Invierno 2023"),
-        Group(denomination="Grupo Prueba"),
-        Group(denomination="Prueba Novus"),
+        Group(name="Cátedra UNESCO-Invierno 2023"),
+        Group(name="Grupo Prueba"),
+        Group(name="Prueba Novus"),
     ]
 )
 
 institutions = Institution.objects.bulk_create(
     [
-        Institution(denomination="Tecnológico de Monterrey"),
+        Institution(name="Tecnológico de Monterrey"),
     ]
 )
 
-academicDegrees = AcademicDegree.objects.bulk_create(
+disciplines = Discipline.objects.bulk_create(
     [
-        AcademicDegree(denomination="University"),
+        Discipline(
+            name="Ingeniería y Ciencias"
+        ),
+        Discipline(
+            name="Humanidades y Educación"
+        ),
+        Discipline(
+            name="Ciencias Sociales"
+        ),
+        Discipline(
+            name="Ciencias de la Salud"
+        ),
+        Discipline(
+            name="Arquitectura, Arte y Diseño"
+        ),
+        Discipline(
+            name="Negocios"
+        ),
     ]
 )
 
-academicDegreeOffers = AcademicDegreeOffer.objects.bulk_create(
+degrees = Degree.objects.bulk_create(
     [
-        AcademicDegreeOffer(
+        Degree(
             institution=institutions[0],
-            academicDegree=academicDegrees[0],
-            denomination="Pregrado",
+            discipline=disciplines[0],
+            type="Pregrado",
         ),
-        AcademicDegreeOffer(
+        Degree(
             institution=institutions[0],
-            academicDegree=academicDegrees[0],
-            denomination="Posgrado",
+            discipline=disciplines[0],
+            type="Posgrado",
         ),
-        AcademicDegreeOffer(
+        Degree(
             institution=institutions[0],
-            academicDegree=academicDegrees[0],
-            denomination="Educación continua",
-        ),
-    ]
-)
-
-academicDisciplines = AcademicDiscipline.objects.bulk_create(
-    [
-        AcademicDiscipline(
-            denomination="Ingeniería y Ciencias",
-            academicDegreeOffer=academicDegreeOffers[0],
-        ),
-        AcademicDiscipline(
-            denomination="Humanidades y Educación",
-            academicDegreeOffer=academicDegreeOffers[0],
-        ),
-        AcademicDiscipline(
-            denomination="Ciencias Sociales",
-            academicDegreeOffer=academicDegreeOffers[0],
-        ),
-        AcademicDiscipline(
-            denomination="Ciencias de la Salud",
-            academicDegreeOffer=academicDegreeOffers[0],
-        ),
-        AcademicDiscipline(
-            denomination="Arquitectura, Arte y Diseño",
-            academicDegreeOffer=academicDegreeOffers[0],
-        ),
-        AcademicDiscipline(
-            denomination="Negocios", academicDegreeOffer=academicDegreeOffers[0]
-        ),
-        AcademicDiscipline(
-            denomination="Ingeniería y Ciencias",
-            academicDegreeOffer=academicDegreeOffers[1],
-        ),
-        AcademicDiscipline(
-            denomination="Humanidades y Educación",
-            academicDegreeOffer=academicDegreeOffers[1],
-        ),
-        AcademicDiscipline(
-            denomination="Ciencias Sociales",
-            academicDegreeOffer=academicDegreeOffers[1],
-        ),
-        AcademicDiscipline(
-            denomination="Ciencias de la Salud",
-            academicDegreeOffer=academicDegreeOffers[1],
-        ),
-        AcademicDiscipline(
-            denomination="Arquitectura, Arte y Diseño",
-            academicDegreeOffer=academicDegreeOffers[1],
-        ),
-        AcademicDiscipline(
-            denomination="Negocios", academicDegreeOffer=academicDegreeOffers[1]
-        ),
-        AcademicDiscipline(
-            denomination="Ingeniería y Ciencias",
-            academicDegreeOffer=academicDegreeOffers[2],
-        ),
-        AcademicDiscipline(
-            denomination="Humanidades y Educación",
-            academicDegreeOffer=academicDegreeOffers[2],
-        ),
-        AcademicDiscipline(
-            denomination="Ciencias Sociales",
-            academicDegreeOffer=academicDegreeOffers[2],
-        ),
-        AcademicDiscipline(
-            denomination="Ciencias de la Salud",
-            academicDegreeOffer=academicDegreeOffers[2],
-        ),
-        AcademicDiscipline(
-            denomination="Arquitectura, Arte y Diseño",
-            academicDegreeOffer=academicDegreeOffers[2],
-        ),
-        AcademicDiscipline(
-            denomination="Negocios", academicDegreeOffer=academicDegreeOffers[2]
+            discipline=disciplines[0],
+            type="Educación continua",
         ),
     ]
 )
@@ -587,7 +250,6 @@ tests = Test.objects.bulk_create(
 
 tests[0].diagnosisQuestions.add(*diagnosisQuestions[0:25])
 tests[1].diagnosisQuestions.add(*diagnosisQuestions[25:50])
-
 
 trainingReagents = TrainingReagent.objects.bulk_create(
     [

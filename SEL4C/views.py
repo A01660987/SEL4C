@@ -16,7 +16,6 @@ from querystring_parser import parser
     destroy=extend_schema(description="Delete an item"),
 )
 
-
 class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
     queryset = User.objects.all()
@@ -112,6 +111,8 @@ def diagnosis(request):
                 for index in range(len(questions)):
                     queryset[index]["diagnosisQuestions"] = questions[index]
                 return JsonResponse(queryset, safe=False, status=200)
+            else:
+                return JsonResponse({"mensaje": "no"}, safe=False, status=404)
         case "POST":
             data = "{\"identificator\": 1,\"activity\": 2,\"content\": [{\"screen\": 1,\"content\": \"string\",\"media\": null}]}"
             response = json.loads(data)

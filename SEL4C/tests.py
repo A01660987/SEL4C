@@ -1,4 +1,4 @@
-from SEL4C.models import Gender, Country, User, DiagnosisQuestion, Test, TrainingReagent
+from SEL4C.models import User, DiagnosisQuestion, Test, TrainingReagent
 
 """
 print(Gender.objects.all())
