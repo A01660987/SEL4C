@@ -6,8 +6,7 @@ from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 from rest_framework import routers
 from rest_framework_extensions.routers import ExtendedSimpleRouter
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
-from SEL4C.views import UserViewSet, GroupViewSet, InstitutionViewSet, DegreeViewSet, DisciplineViewSet, StudentViewSet, DiagnosisQuestionViewSet, TestViewSet, ImplementationProcessViewSet, CompetenceDiagnosisViewSet, DiagnosisTestViewSet, CompetenceViewSet, ResourceViewSet, TrainingReagentViewSet, TrainingActivityViewSet
-from SEL4C.views import activity, diagnosis, credentials
+from SEL4C.views import *
 
 router: ExtendedSimpleRouter = ExtendedSimpleRouter()
 

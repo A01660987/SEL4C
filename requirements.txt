@@ -1,5 +1,5 @@
 django
-django-extensions
+django-countries
 python-decouple
 djangorestframework
 djangorestframework-simplejwt
