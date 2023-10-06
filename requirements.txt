@@ -6,3 +6,4 @@ djangorestframework-simplejwt
 drf_spectacular
 drf-extensions
 bcrypt
+querystring-parser

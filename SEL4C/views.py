@@ -137,9 +137,8 @@ def credentials(request):
         case "POST":
             response = parser.parse(request.body)
             print(response)
-            user = User.objects.create(gender=Gender.objects.get(identificator=1), country=Country.objects.get(identificator=20), email="claudia@utez.edu.mx", name="Claudia", firstLastname="Vivas", secondLastname=None, age=17, password="123", agreedPolicies=True)
+            user = User.objects.create(gender='F', country="MX", email="claudia@utez.edu.mx", name="Claudia", firstLastname="Vivas", secondLastname=None, age=17, password="123", agreedPolicies=True)
             student = Student.objects.create(identificator = user, group=Group.objects.get(identificator=1), code="S"+str(user.identificator))
-            student.academicDisciplines.add(AcademicDiscipline.objects.get(identificator = 1))
             implementationProcess = ImplementationProcess.objects.create(student=student)
             return JsonResponse({"implementationProcess": implementationProcess.identificator}, safe=False, status=202)
         case _:
