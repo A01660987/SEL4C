@@ -6,25 +6,21 @@ from django_countries.fields import CountryField
 class User(AbstractUser):
     first_name = None
     last_name = None
-    email = None
     # El username es el correo electrónico, sin embargo Django requiere que cada usuario tenga un campo llamado específicamente "username".
     username = models.EmailField(unique=True, verbose_name="Correo electrónico")
     name = models.CharField(max_length=150, verbose_name="Nombre(s)")
-    firstLastName = models.CharField(max_length=150, verbose_name="Apellido paterno")
-    secondLastName = models.CharField(max_length=150, verbose_name="Apellido materno")
-    dateRegistered = models.DateTimeField(auto_now_add=True, verbose_name="Fecha de registro")
-    dateModified = models.DateTimeField(auto_now=True, verbose_name="Fecha de modificación")
-    status = models.BooleanField(default=True, verbose_name="Estatus")
+    first_lastname = models.CharField(max_length=150, verbose_name="Apellido paterno")
+    second_lastname = models.CharField(max_length=150, verbose_name="Apellido materno")
+    date_modified = models.DateTimeField(auto_now=True, verbose_name="Fecha de modificación")
     
-
     REQUIRED_FIELDS = [
         'name',
-        'firstLastName',
-        'secondLastName',
+        'first_lastname',
+        'second_lastname',
     ]
 
     def __str__(self):
-        return self.email
+        return self.username
     
     class Meta:
         verbose_name = "Usuario"
@@ -34,7 +30,7 @@ class User(AbstractUser):
 class Group(models.Model):
     name = models.CharField(max_length=25, unique=True, verbose_name="Grupo")
     description = models.CharField(max_length=50, verbose_name="Descripción")
-    status = models.BooleanField(default=True, verbose_name="Estatus")
+    is_active = models.BooleanField(default=True, verbose_name="Estatus")
 
     def __str__(self):
         return self.name
@@ -47,7 +43,7 @@ class Group(models.Model):
 class Institution(models.Model):
     name = models.CharField(max_length=25, unique=True, verbose_name="Institución")
     description = models.CharField(max_length=50, verbose_name="Descripción")
-    status = models.BooleanField(default=True, verbose_name="Estatus")
+    is_active = models.BooleanField(default=True, verbose_name="Estatus")
 
     def __str__(self):
         return self.name
@@ -86,7 +82,7 @@ class Degree(models.Model):
 class Student(models.Model):
     id = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, unique=True, verbose_name="ID")
     age = models.PositiveSmallIntegerField(validators=[MinValueValidator(18), MaxValueValidator(130)], verbose_name="Edad")
-    agreedPolicies = models.BooleanField(default=True, verbose_name="¿Acepta las políticas de privacidad?")
+    agreed_policies = models.BooleanField(default=True, verbose_name="¿Acepta las políticas de privacidad?")
     
     GENDER_CHOICES = [
         ('M', 'Masculino'),

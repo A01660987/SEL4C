@@ -2,13 +2,14 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.admin.views.decorators import staff_member_required
+from SEL4C.models import *
 
 
 def home(request):
     return render(request, "home.html")
 
 
-def login_user(request):
+def login_view(request):
     if(request.method == "POST"):
         email = request.POST["email"]
         password = request.POST["password"]
@@ -18,9 +19,14 @@ def login_user(request):
             return redirect("dashboard")
         else:
             messages.error(request,'Correo electrónico y/o contraseña inválidos.')
-            return redirect('login_user')
+            return redirect('login_view')
         
     return render(request, "login.html")
+
+
+def logout_view(request):
+    logout(request)
+    return redirect("home")
 
 
 def about(request):
@@ -31,9 +37,7 @@ def aboutTeam(request):
     return render(request, "about-team.html")
 
 
-def register(request):
-    return render(request, "register.html")
-
-@staff_member_required
+@staff_member_required(login_url="/login")
 def dashboard(request):
-    return render(request, "dashboard.html")
+    user = User.objects.get(username=request.user.username)
+    return render(request, "dashboard.html", {"user": user})
