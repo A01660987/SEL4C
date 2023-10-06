@@ -6,7 +6,7 @@ from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 from rest_framework import routers
 from rest_framework_extensions.routers import ExtendedSimpleRouter
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
-from SEL4C.views import UserViewSet, GroupViewSet, InstitutionViewSet, DegreeViewSet, DisciplineViewSet, StudentViewSet, DiagnosisQuestionViewSet, TestViewSet, ImplementationProcessViewSet, CompetenceDiagnosisViewSet, DiagnosisTestViewSet, CompetenceViewSet, ResourceViewSet, TrainingReagentViewSet, TrainingActivityViewSet
+from SEL4C.views import *
 
 router: ExtendedSimpleRouter = ExtendedSimpleRouter()
 
@@ -35,5 +35,8 @@ urlpatterns = [
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'), 
     path('token/verify/', TokenVerifyView.as_view(), name='token_refresh'), 
     path('api/', include(router.urls)), 
+    path('api/activity', activity, name="api/activity"), 
+    path('api/diagnosis', diagnosis, name="api/diagnosis"), 
+    path('api/credentials', credentials, name="api/credentials"), 
     path('', include('web.urls'))
 ]  + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
