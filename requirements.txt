@@ -7,4 +7,3 @@ drf_spectacular
 drf-extensions
 bcrypt
 querystring-parser
-django_countries
