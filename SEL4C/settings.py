@@ -23,7 +23,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = config("SECRET_KEY")
 
-DEBUG = True
+DEBUG = False # Cambiar esto a True en tu copia local para desarrollo (no olvides cambiarlo de regreso a False antes de hacer commit)
+
+SECURE_SSL_REDIRECT = True
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+# Quitar las últimas 4 líneas en tu copia local para desarrollo (no olvides restaurarlas antes de hacer commit)
 
 ALLOWED_HOSTS = ["sel4c.azurewebsites.net", "127.0.0.1", "localhost"]
 
@@ -62,11 +68,6 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
-
-SECURE_SSL_REDIRECT = True
-SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
-CSRF_COOKIE_SECURE = True
-SESSION_COOKIE_SECURE = True
 
 ROOT_URLCONF = "SEL4C.urls"
 

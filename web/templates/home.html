@@ -7,7 +7,7 @@
 
 <nav class="navbar navbar-expand-lg px-3 bg-primary fixed-top shadow-sm" data-bs-theme="dark">
   <div class="container-fluid">
-    <a class="navbar-brand" href="/"><img src="{% static 'svg/logo_white.svg' %}" alt="SEL4C" height="50"></a>
+    <a class="navbar-brand" href="{% url 'home' %}"><img src="{% static 'svg/logo_white.svg' %}" alt="SEL4C" height="50"></a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -21,12 +21,12 @@
             Acerca de
           </a>
         <ul class="dropdown-menu" data-bs-theme="light">
-          <li><a class="dropdown-item" href="/about">SEL4C</a></li>
-          <li><a class="dropdown-item" href="/about/team  ">El equipo</a></li>
+          <li><a class="dropdown-item" href="{% url 'about' %}">SEL4C</a></li>
+          <li><a class="dropdown-item" href="{% url 'about_team' %}">El equipo</a></li>
         </ul>
         </li>
         <li class="nav-item px-3">
-          <a class="nav-link" href="/login">Iniciar sesión</a>
+          <a class="nav-link" href="{% url 'login' %}">Iniciar sesión</a>
         </li>
       </ul>
     </div>
@@ -45,8 +45,8 @@
                 La metodología SEL4C (Social Entrepreneurship Learning for Complexity) pretende enseñar a jóvenes emprendedores como tú a ser agentes de cambio y traer sus ideas innovadoras a la realidad.
             </p>
         </div>
-        <a href="/login" type="button" width="20" class="fw-semibold btn btn-primary fs-6 px-4 py-2 rounded-pill shadow-sm me-2">INICIAR SESIÓN</a>
-        <a href="/about" type="button" width="20" class="fw-semibold btn btn-outline-secondary fs-6 px-4 py-2 rounded-pill shadow-sm">APRENDE MÁS</a>
+        <a href="{% url 'login' %}" type="button" width="20" class="fw-semibold btn btn-primary fs-6 px-4 py-2 rounded-pill shadow-sm me-2">INICIAR SESIÓN</a>
+        <a href="{% url 'about' %}" type="button" width="20" class="fw-semibold btn btn-outline-secondary fs-6 px-4 py-2 rounded-pill shadow-sm">APRENDE MÁS</a>
         <div class="my-5">
             <a href="https://tec.mx/es/ife" target="_blank"><img src="{% static 'svg/ife_logo_black.svg' %}" class="my-4" height=100 alt="Institute for the Future of Education, Tecnológico de Monterrey"></a>
         </div>

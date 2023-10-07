@@ -72,7 +72,12 @@ class Degree(models.Model):
     type = models.CharField(max_length=1, choices=DEGREE_TYPES, verbose_name="Tipo")
     discipline = models.ForeignKey(Discipline, on_delete=models.CASCADE, verbose_name="Disciplina")
     institution = models.ForeignKey(Institution, on_delete=models.CASCADE, verbose_name="Institución")
+    name = models.CharField(max_length=100, verbose_name="Título")
+    acronym = models.CharField(max_length=10, verbose_name="Siglas")
 
+    def __str__(self):
+        return self.name + ", " + self.institution.name
+    
     class Meta:
         verbose_name = "Título académico"
         verbose_name_plural = "Títulos académicos"
@@ -93,8 +98,11 @@ class Student(models.Model):
     
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES, verbose_name="Género")
     country = CountryField(verbose_name="País")
-    group = models.ForeignKey(Group, on_delete=models.CASCADE, verbose_name="Grupo")
+    group = models.ForeignKey(Group, on_delete=models.CASCADE, blank=True, verbose_name="Grupo")
     degree = models.ManyToManyField(Degree, verbose_name="Título académico")
+
+    def __str__(self):
+        return self.id.name + " " + self.id.first_lastname + " " + self.id.second_lastname
 
     class Meta:
         verbose_name = "Estudiante"
