@@ -60,4 +60,4 @@ jobs:
         with:
           app-name: 'SEL4C'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_78415052BCAC44FDB939CF1CCBCF6B9F }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_DFA1AB53323B4B788FDDC247BAFE3EC0 }}

@@ -1,5 +1,5 @@
 # SEL4C
-
+Social Entrepreneurship Learning for Complexity
 ### Equipo 9:
 - Antonio Cedillo Rodríguez 
 - Diego Figueroa Peart
