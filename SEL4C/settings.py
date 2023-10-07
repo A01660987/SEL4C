@@ -23,7 +23,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 SECRET_KEY = config("SECRET_KEY")
+
 DEBUG = False
+
+SECURE_SSL_REDIRECT = True
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+# Quitar las últimas 4 líneas en tu copia local (no olvides restaurarlas antes de hacer commit)
+
+
 ALLOWED_HOSTS = ["sel4c.azurewebsites.net", "127.0.0.1", "localhost"]
 CSRF_TRUSTED_ORIGINS = [
     "http://sel4c.azurewebsites.net",
