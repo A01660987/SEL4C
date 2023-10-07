@@ -1,6 +1,7 @@
 django
 django-countries
 python-decouple
+whitenoise
 djangorestframework
 djangorestframework-simplejwt
 drf_spectacular
