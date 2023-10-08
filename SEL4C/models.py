@@ -28,7 +28,7 @@ class User(AbstractUser):
 
 class Group(models.Model):
     name = models.CharField(max_length=100, unique=True, verbose_name="Grupo")
-    is_active = models.BooleanField(default=True, verbose_name="Estatus")
+    is_active = models.BooleanField(default=True, verbose_name="Activo")
 
     def __str__(self):
         return self.name
@@ -40,7 +40,7 @@ class Group(models.Model):
 
 class Institution(models.Model):
     name = models.CharField(max_length=100, unique=True, verbose_name="Institución")
-    is_active = models.BooleanField(default=True, verbose_name="Estatus")
+    is_active = models.BooleanField(default=True, verbose_name="Activo")
 
     def __str__(self):
         return self.name
