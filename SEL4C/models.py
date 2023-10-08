@@ -27,8 +27,7 @@ class User(AbstractUser):
         verbose_name_plural = "Usuarios"
 
 class Group(models.Model):
-    name = models.CharField(max_length=25, unique=True, verbose_name="Grupo")
-    description = models.CharField(max_length=50, verbose_name="Descripción")
+    name = models.CharField(max_length=100, unique=True, verbose_name="Grupo")
     is_active = models.BooleanField(default=True, verbose_name="Estatus")
 
     def __str__(self):
@@ -40,8 +39,7 @@ class Group(models.Model):
         ordering = ["name"]
 
 class Institution(models.Model):
-    name = models.CharField(max_length=25, unique=True, verbose_name="Institución")
-    description = models.CharField(max_length=50, verbose_name="Descripción")
+    name = models.CharField(max_length=100, unique=True, verbose_name="Institución")
     is_active = models.BooleanField(default=True, verbose_name="Estatus")
 
     def __str__(self):
@@ -53,7 +51,7 @@ class Institution(models.Model):
         ordering = ["name"]
 
 class Discipline(models.Model):
-    name = models.CharField(max_length=25, unique=True, verbose_name="Disciplina")
+    name = models.CharField(max_length=100, unique=True, verbose_name="Disciplina")
 
     def __str__(self):
         return self.name
