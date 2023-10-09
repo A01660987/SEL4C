@@ -142,3 +142,6 @@ class TrainingActivitySerializer(serializers.ModelSerializer):
     class Meta:
         model=TrainingActivity
         fields="__all__"
+
+class FileUploadSerializer(serializers.Serializer):
+    file = serializers.FileField()

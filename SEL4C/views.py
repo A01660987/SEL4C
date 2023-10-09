@@ -1,6 +1,7 @@
 from drf_spectacular.utils import extend_schema, extend_schema_view
 from rest_framework import viewsets
 from django.http import JsonResponse
+from rest_framework.response import Response
 from SEL4C.serializers import *
 from SEL4C.models import *
 from django.views.decorators.csrf import csrf_exempt
@@ -8,6 +9,10 @@ from django.db.models import Q
 import json, os
 from querystring_parser import parser
 from django.core.files.storage import FileSystemStorage
+from rest_framework.views import APIView
+from rest_framework.parsers import FileUploadParser
+from .permissions import *
+from rest_framework.permissions import AllowAny #tmp
 
 
 @extend_schema_view(
@@ -148,17 +153,29 @@ def credentials(request):
             return JsonResponse({"mensaje": "no"}, safe=False, status=404)
 
 
-@csrf_exempt
-def upload(request):
-    if request.method == "POST" and request.FILES["file"]:
-        # actividad = request.POST["activity"]
-        # nombre_evidencia = request.POST["evidence_name"]
-        myfile = request.FILES["file"]
-        fs = FileSystemStorage()
-        # path = os.path.join(fs.location, actividad, nombre_evidencia, myfile.name)
-        path = os.path.join(fs.location, myfile.name)
-        filename = fs.save(path, myfile)
-        uploaded_file_url = fs.url(filename)
-        return JsonResponse({"status": "success"}, safe=False, status=201)
+class FileUploadView(APIView):
+    parser_classes = (FileUploadParser,)
+    serializer_class = FileUploadSerializer
+    # permission_classes = permission_user
+    permission_classes = [AllowAny]
 
-    return JsonResponse({"status": "error"}, safe=False, status=404)
+    @csrf_exempt
+    def post(self, request):
+        if request.method == "POST" and request.FILES["file"]:
+            # actividad = request.POST["activity"]
+            # nombre_evidencia = request.POST["evidence_name"]
+             # path = os.path.join(fs.location, actividad, nombre_evidencia, myfile.name)
+            
+            uploaded_file = request.FILES["file"]
+            fs = FileSystemStorage()
+           
+            path = os.path.join(fs.location, uploaded_file.name)
+            
+            filename = fs.save(path, uploaded_file)
+            uploaded_file_url = fs.url(filename)
+
+
+
+            return JsonResponse({"status": "success"}, safe=False, status=201)
+
+        return JsonResponse({"status": "error"}, safe=False, status=404)

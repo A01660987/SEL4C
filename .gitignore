@@ -18,6 +18,7 @@ env/
 
 # Ignore media files
 media/
+test.txt
 
 # Ignore generated documentation
 docs/_build/

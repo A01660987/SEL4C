@@ -29,6 +29,7 @@ router.register(r'training-activity', TrainingActivityViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls), 
+    path('upload/', FileUploadView.as_view(), name='upload'),
     path('api/schema/', SpectacularAPIView.as_view(api_version='v2'), name='schema'),
     path('schema/swagger/', SpectacularSwaggerView.as_view()), 
     path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'), 
@@ -38,6 +39,5 @@ urlpatterns = [
     path('api/activity', activity, name="api/activity"), 
     path('api/diagnosis', diagnosis, name="api/diagnosis"), 
     path('api/credentials', credentials, name="api/credentials"), 
-    path("api/upload", upload, name="api/upload"),
     path('', include('web.urls'))
 ]  + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
