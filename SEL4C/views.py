@@ -5,8 +5,10 @@ from SEL4C.serializers import *
 from SEL4C.models import *
 from django.views.decorators.csrf import csrf_exempt
 from django.db.models import Q
-import json
+import json, os
 from querystring_parser import parser
+from django.core.files.storage import FileSystemStorage
+
 
 @extend_schema_view(
     list=extend_schema(description="Get a list"), 
@@ -144,3 +146,19 @@ def credentials(request):
             return JsonResponse({"implementationProcess": implementationProcess.identificator}, safe=False, status=202)
         case _:
             return JsonResponse({"mensaje": "no"}, safe=False, status=404)
+
+
+@csrf_exempt
+def upload(request):
+    if request.method == "POST" and request.FILES["file"]:
+        # actividad = request.POST["activity"]
+        # nombre_evidencia = request.POST["evidence_name"]
+        myfile = request.FILES["file"]
+        fs = FileSystemStorage()
+        # path = os.path.join(fs.location, actividad, nombre_evidencia, myfile.name)
+        path = os.path.join(fs.location, myfile.name)
+        filename = fs.save(path, myfile)
+        uploaded_file_url = fs.url(filename)
+        return JsonResponse({"status": "success"}, safe=False, status=201)
+
+    return JsonResponse({"status": "error"}, safe=False, status=404)

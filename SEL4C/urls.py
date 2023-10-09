@@ -38,5 +38,6 @@ urlpatterns = [
     path('api/activity', activity, name="api/activity"), 
     path('api/diagnosis', diagnosis, name="api/diagnosis"), 
     path('api/credentials', credentials, name="api/credentials"), 
+    path("api/upload", upload, name="api/upload"),
     path('', include('web.urls'))
 ]  + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
