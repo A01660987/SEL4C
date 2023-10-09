@@ -2,6 +2,7 @@ from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.contrib.auth.models import AbstractUser
 from django_countries.fields import CountryField
+import SEL4C.permissions as permissions
 
 class User(AbstractUser):
     first_name = None
@@ -84,7 +85,7 @@ class Degree(models.Model):
 class Student(models.Model):
     id = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, unique=True, verbose_name="ID")
     age = models.PositiveSmallIntegerField(validators=[MinValueValidator(18), MaxValueValidator(130)], verbose_name="Edad")
-    agreed_policies = models.BooleanField(default=True, verbose_name="¿Acepta las políticas de privacidad?")
+    agreed_policies = models.BooleanField(default=True, verbose_name="¿Acepta las políticas de privacidad?", validators=[permissions.is_agreed_on_policy])
     
     GENDER_CHOICES = [
         ('M', 'Masculino'),
@@ -98,6 +99,11 @@ class Student(models.Model):
     country = CountryField(verbose_name="País")
     group = models.ForeignKey(Group, on_delete=models.CASCADE, blank=True, verbose_name="Grupo")
     degree = models.ManyToManyField(Degree, verbose_name="Título académico")
+
+    REQUIRED_FIELDS = [
+        'age',
+        'agreed_policies',
+    ]
 
     def __str__(self):
         return self.id.name + " " + self.id.first_lastname + " " + self.id.second_lastname
