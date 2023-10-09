@@ -12,7 +12,7 @@ from django.core.files.storage import FileSystemStorage
 from rest_framework.views import APIView
 from rest_framework.parsers import FileUploadParser
 from .permissions import *
-from rest_framework.permissions import AllowAny #tmp
+from rest_framework.permissions import * #tmp
 
 
 @extend_schema_view(
@@ -26,6 +26,8 @@ from rest_framework.permissions import AllowAny #tmp
 class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
     queryset = User.objects.all()
+    permission_classes = [AllowAny]
+    #TODO allow creation for users but not with priviliges
 
 class GroupViewSet(viewsets.ModelViewSet):
     serializer_class = GroupSerializer
@@ -157,19 +159,21 @@ class FileUploadView(APIView):
     parser_classes = (FileUploadParser,)
     serializer_class = FileUploadSerializer
     # permission_classes = permission_user
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
 
     @csrf_exempt
     def post(self, request):
-        if request.method == "POST" and request.FILES["file"]:
+        if request.method == "POST" and request.FILES["file"] and request.user:
             # actividad = request.POST["activity"]
             # nombre_evidencia = request.POST["evidence_name"]
              # path = os.path.join(fs.location, actividad, nombre_evidencia, myfile.name)
-            
+            user = request.user
             uploaded_file = request.FILES["file"]
             fs = FileSystemStorage()
+            print(user)
+            print(user.username)
            
-            path = os.path.join(fs.location, uploaded_file.name)
+            path = os.path.join(fs.location, user.username, uploaded_file.name)
             
             filename = fs.save(path, uploaded_file)
             uploaded_file_url = fs.url(filename)

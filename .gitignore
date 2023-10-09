@@ -16,6 +16,9 @@ env/
 *.sqlite3
 *.db
 
+# Ignore for disclosure
+SEL4C/migrations/
+
 # Ignore media files
 media/
 test.txt
