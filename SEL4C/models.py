@@ -13,7 +13,6 @@ class User(AbstractUser):
     first_lastname = models.CharField(max_length=150, verbose_name="Apellido paterno")
     second_lastname = models.CharField(max_length=150, verbose_name="Apellido materno")
     date_modified = models.DateTimeField(auto_now=True, verbose_name="Fecha de modificación")
-    last_login = models.DateTimeField(auto_now=True, verbose_name="Fecha de login")
     
     REQUIRED_FIELDS = [
         'name',
@@ -84,7 +83,7 @@ class Degree(models.Model):
         ordering = ["institution", "discipline", "type"]
 
 class Student(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name="user ID")
+    user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name="Usuario")
     age = models.PositiveSmallIntegerField(validators=[MinValueValidator(18), MaxValueValidator(130)], verbose_name="Edad")
     agreed_policies = models.BooleanField(default=True, verbose_name="¿Acepta las políticas de privacidad?", validators=[permissions.is_agreed_on_policy])
     
