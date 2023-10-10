@@ -148,6 +148,9 @@ PASSWORD_HASHERS = [
 ]
 AUTH_USER_MODEL = 'SEL4C.User'
 LOGIN_REDIRECT_URL = "/dashboard/"
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'dashboard'
+LOGOUT_REDIRECT_URL = 'home'
 
 
 # Internationalization
