@@ -84,7 +84,7 @@ class Degree(models.Model):
         ordering = ["institution", "discipline", "type"]
 
 class Student(models.Model):
-    id = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, unique=True, verbose_name="ID")
+    user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name="user ID")
     age = models.PositiveSmallIntegerField(validators=[MinValueValidator(18), MaxValueValidator(130)], verbose_name="Edad")
     agreed_policies = models.BooleanField(default=True, verbose_name="¿Acepta las políticas de privacidad?", validators=[permissions.is_agreed_on_policy])
     
@@ -112,7 +112,7 @@ class Student(models.Model):
     class Meta:
         verbose_name = "Estudiante"
         verbose_name_plural = "Estudiantes"
-        ordering = ["id"]
+        ordering = ["user"]
 
 class DiagnosisQuestion(models.Model):
     identificator = models.SmallAutoField(primary_key=True, null=False, editable=False, verbose_name="ID", unique=True)
