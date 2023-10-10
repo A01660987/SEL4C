@@ -13,6 +13,7 @@ from rest_framework.views import APIView
 from rest_framework.parsers import FileUploadParser
 from .permissions import *
 from rest_framework.permissions import * #tmp
+from rest_framework import status
 
 
 @extend_schema_view(
@@ -24,10 +25,18 @@ from rest_framework.permissions import * #tmp
 )
 
 class UserViewSet(viewsets.ModelViewSet):
-    serializer_class = UserSerializer
+    serializer_class = RegistrationSerializer
     queryset = User.objects.all()
     permission_classes = [AllowAny]
     #TODO allow creation for users but not with priviliges
+
+
+    def create(self, request, *args, **kwargs):
+        serializer = RegistrationSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class GroupViewSet(viewsets.ModelViewSet):
     serializer_class = GroupSerializer

@@ -12,6 +12,9 @@ venv/
 env/
 *.env
 
+# Ignore sensitive data
+migrations/
+
 # Ignore local development settings
 *.sqlite3
 *.db

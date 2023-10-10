@@ -28,7 +28,7 @@ router.register(r'training-reagent', TrainingReagentViewSet)
 router.register(r'training-activity', TrainingActivityViewSet)
 
 urlpatterns = [
-    path('admin/', admin.site.urls), 
+    path('admin/', admin.site.urls),
     path('upload/', FileUploadView.as_view(), name='upload'),
     path('api/schema/', SpectacularAPIView.as_view(api_version='v2'), name='schema'),
     path('schema/swagger/', SpectacularSwaggerView.as_view()), 
