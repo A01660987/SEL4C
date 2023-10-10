@@ -24,19 +24,12 @@ from rest_framework import status
 )
 
 class UserViewSet(viewsets.ModelViewSet):
-    serializer_class = RegistrationSerializer
+    serializer_class = UserRegistrationSerializer
     queryset = User.objects.all()
     permission_classes = [CustomUserPermission]
     #TODO allow creation for users but not with priviliges
 
 
-    def create(self, request, *args, **kwargs):
-        serializer = RegistrationSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class GroupViewSet(viewsets.ModelViewSet):
     serializer_class = GroupSerializer
@@ -57,6 +50,34 @@ class DisciplineViewSet(viewsets.ModelViewSet):
 class StudentViewSet(viewsets.ModelViewSet):
     serializer_class = StudentSerializer
     queryset = Student.objects.all()
+    # permission_classes = [CustomUserPermission]
+    #TODO allow creation for users but not with priviliges
+
+    def post(self, request, format=None):
+        # Deserialize the request data
+        student_data = request.data
+
+        # Extract user data from student data
+        user_data = student_data.pop('user')
+
+        # Create a User object
+        user_serializer = UserRegistrationSerializer(data=user_data)
+        if user_serializer.is_valid():
+            user = user_serializer.save()
+        else:
+            return Response(user_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+        # Create a Student object associated with the User
+        student_serializer = StudentSerializer(data=student_data)
+        if student_serializer.is_valid():
+            student_serializer.save(user=user)
+            return Response(student_serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            # If there is an error in the Student data, delete the User
+            user.delete()
+            return Response(student_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
 
 class DiagnosisQuestionViewSet(viewsets.ModelViewSet):
     serializer_class = DiagnosisQuestionSerializer

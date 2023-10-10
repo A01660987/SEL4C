@@ -59,5 +59,6 @@ class CustomUserPermission(permissions.BasePermission):
 
 """Returns true when agreed on policy"""
 def is_agreed_on_policy(value):
-    if value != "true":
+    if not value:
         raise serializers.ValidationError('Policies have to be accepted')
+    return True

@@ -12,13 +12,12 @@ class CreatableSlugRelatedField(serializers.SlugRelatedField):
         except (TypeError, ValueError):
             self.fail('invalid')
 
-class RegistrationSerializer(serializers.ModelSerializer):
+class UserRegistrationSerializer(serializers.ModelSerializer):
     password2 = serializers.CharField(style={"input_type": "password"}, write_only=True)
 
     class Meta:
         model = User
         fields = ["email", "password", "password2", "name", "first_lastname", "second_lastname"]
-        # fields = "__all__"
         extra_kwargs = {
             'password': {'write_only': True}
         }
@@ -70,6 +69,12 @@ class DisciplineSerializer(serializers.ModelSerializer):
         fields="__all__"
 
 class StudentSerializer(serializers.ModelSerializer):
+
+    user = UserRegistrationSerializer()
+    class Meta:
+        model=Student
+        fields="__all__"
+
     group = CreatableSlugRelatedField(
         many=False,
         slug_field='id',
@@ -80,9 +85,6 @@ class StudentSerializer(serializers.ModelSerializer):
         slug_field='id',
         queryset=Discipline.objects.all()
     )
-    class Meta:
-        model=Student
-        fields="__all__"
 
 class DiagnosisQuestionSerializer(serializers.ModelSerializer):
     class Meta:
