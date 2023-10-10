@@ -36,7 +36,7 @@
 <div id="content" class="row mt-5" style="margin-right: 0;">
     <div id="landing" class="col ms-5 me-3 my-4">
         <div>
-            <p class="display-4 fw-bolder mb-4 mt-5">
+            <p class="display-4 fw-bold mb-4 mt-5">
                 Emprendimiento social.
                 <br>
                 Te mostraremos cómo.
@@ -48,17 +48,17 @@
         <a href="{% url 'login' %}" type="button" width="20" class="fw-semibold btn btn-primary fs-6 px-4 py-2 rounded-pill shadow-sm me-2">INICIAR SESIÓN</a>
         <a href="{% url 'about' %}" type="button" width="20" class="fw-semibold btn btn-outline-secondary fs-6 px-4 py-2 rounded-pill shadow-sm">APRENDE MÁS</a>
         <div class="my-5">
-            <a href="https://tec.mx/es/ife" target="_blank"><img src="{% static 'svg/ife_logo_black.svg' %}" class="my-4" height=100 alt="Institute for the Future of Education, Tecnológico de Monterrey"></a>
+            <a href="https://tec.mx/es/ife" target="_blank"><img src="{% static 'svg/ife_logo_black.svg' %}" class="my-4" height=100 alt="Institute for the Future of Education"></a>
         </div>
     </div>
-    <div class="col pe-0 d-none d-xl-block">
+    <div class="col pe-0 d-none d-lg-block">
         <img src="{% static 'png/landing2.png' %}" class="float-end img-fluid">
     </div>
-    <div class="col pe-0 d-xl-none">
+    <div class="col pe-0 d-lg-none">
       <img src="{% static 'png/landing.png' %}" class="float-end" style="max-width: 100vw;">
   </div>
   <div id="why-sel4c" class="bg-primary text-light p-5">
-      <p class="display-1 fw-semibold text-center">
+      <p class="display-3 fw-semibold text-center">
           ¿Por qué SEL4C?
       </p>
   </div>
@@ -68,22 +68,26 @@
     </p>
 </div>
   <div class="bg-primary row py-4 text-center">
-    <div class="col">
-      <img src="{% static 'svg/logo_white.svg' %}" alt="SEL4C" height="70" class="mx-5">
-      <img src="{% static 'svg/ife_logo_white.svg' %}" alt="Institute for the Future of Education, Tecnológico de Monterrey" height="70">
+    <div class="col align-self-center text-center text-md-start">
+      <img src="{% static 'svg/logo_white.svg' %}" alt="SEL4C" height="40" class="ms-5 mb-3 mb-md-0">
+      <img src="{% static 'svg/ife_logo_white.svg' %}" alt="Institute for the Future of Education, Tecnológico de Monterrey" height="40" class="ms-5">
     </div>
-    <div class="col align-self-center">
-      <p class="text-light fs-5" style="margin-bottom: 0;">
+    <div class="col align-self-center text-center" style="margin-right: 0;">
+      <p class="text-light fs-6" style="margin-bottom: 0;">
         Copyright © 2023, SEL4C. Todos los derechos reservados.
       </p>
     </div>
-    <div class="col align-self-center">
-      <a class="text-light fs-5 me-5">
-        Términos y condiciones
-      </a>
-      <a class="text-light fs-5">
-        Aviso de privacidad
-      </a>
+    <div class="col align-self-center text-end">
+      <div class="mb-2">
+        <a class="text-light fs-6">
+          Términos y condiciones
+        </a>
+      </div>
+        <div>
+        <a class="text-light fs-6">
+          Aviso de privacidad
+        </a>
+      </div>
     </div>
   </div>
 </div>
