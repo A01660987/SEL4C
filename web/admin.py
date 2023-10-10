@@ -1,12 +1,27 @@
 from django.contrib import admin
 from django.contrib.auth.models import Group as authGroup
+from django.contrib.auth.admin import UserAdmin
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from SEL4C.models import *
-from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
-class UserAdmin(BaseUserAdmin):
-
+class UserAdmin(UserAdmin):
+    add_form = UserCreationForm
+    form = UserChangeForm
     model = User
-    # extra = 1
+    list_display = ('username', 'name', 'first_lastname', 'second_lastname', 'is_staff')
+    list_filter = ('is_staff',)
+    fieldsets = (
+        (None, {'fields': ('username', 'password', 'name', 'first_lastname', 'second_lastname')}),
+        ('Permissions', {'fields': ('is_staff', 'is_active', 'is_superuser')}),
+    )
+    add_fieldsets = (
+        (None, {
+            'classes': ('wide',),
+            'fields': ('username', 'password1', 'password2', 'name', 'first_lastname', 'second_lastname' , 'is_staff', 'is_active', 'is_superuser')}
+        ),
+    )
+    search_fields = ('username',)
+    ordering = ('username',)
 
 admin.site.unregister(authGroup)
 admin.site.register(User, UserAdmin)
