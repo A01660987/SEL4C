@@ -126,7 +126,6 @@ class DiagnosisQuestion(models.Model):
         db_table = "diagnosisquestion"
         verbose_name = "Diagnosis Question"
         verbose_name_plural = "Diagnosis Questions"
-        ordering = ["identificator"]
 
 class Test(models.Model):
     denomination = models.CharField(primary_key=False, null=False, editable=True, verbose_name="Test", unique=True, max_length=25)
@@ -141,7 +140,6 @@ class Test(models.Model):
         db_table = "test"
         verbose_name = "Test"
         verbose_name_plural = "Tests"
-        ordering = ["identificator"]
 
 class ImplementationProcess(models.Model):
     registered = models.DateTimeField(primary_key=False, null=False, editable=False, verbose_name="Registered", unique=False, auto_now_add=True)
@@ -155,7 +153,6 @@ class ImplementationProcess(models.Model):
         db_table = "implementationprocess"
         verbose_name = "Implementation Process"
         verbose_name_plural = "Implementation Processes"
-        ordering = ["identificator"]
 
 class CompetenceDiagnosis(models.Model):
     completed = models.BooleanField(primary_key=False, null=False, editable=True, verbose_name="Completed", unique=False, default=True)
@@ -169,7 +166,6 @@ class CompetenceDiagnosis(models.Model):
         db_table = "competencediagnosis"
         verbose_name = "Competence Diagnosis"
         verbose_name_plural = "Competence Diagnoses"
-        ordering = ["identificator"]
 
 class DiagnosisTest(models.Model):
     competenceDiagnosis = models.ForeignKey(CompetenceDiagnosis, on_delete=models.CASCADE, primary_key=False, null=False, blank=False, editable=False, verbose_name="Competence Diagnosis", unique=False)
@@ -183,7 +179,6 @@ class DiagnosisTest(models.Model):
         db_table = "diagnosistest"
         verbose_name = "Diagnosis Test"
         verbose_name_plural = "DiagnosisTests"
-        ordering = ["identificator"]
         unique_together = (("competenceDiagnosis", "diagnosisQuestion"), )
 
 class Competence(models.Model):
@@ -200,7 +195,6 @@ class Competence(models.Model):
         db_table = "competence"
         verbose_name = "Competence"
         verbose_name_plural = "Competences"
-        ordering = ["identificator"]
 
 class Resource(models.Model):
     denomination = models.CharField(primary_key=False, null=False, editable=True, verbose_name="Resource", unique=True, max_length=25)
@@ -217,7 +211,6 @@ class Resource(models.Model):
         db_table = "resource"
         verbose_name = "Resource"
         verbose_name_plural = "Resources"
-        ordering = ["identificator"]
 
 class TrainingReagent(models.Model):
     denomination = models.CharField(primary_key=False, null=False, editable=True, verbose_name="Training Reagent", unique=True, max_length=50)
@@ -238,7 +231,6 @@ class TrainingReagent(models.Model):
         db_table = "trainingreagent"
         verbose_name = "Training Reagent"
         verbose_name_plural = "Training Reagents"
-        ordering = ["identificator"]
 
 class TrainingActivity(models.Model):
     trainingReagent = models.ForeignKey(TrainingReagent, on_delete=models.CASCADE, primary_key=False, null=False, blank=False, editable=False, verbose_name="Training Reagent", unique=False)
@@ -254,5 +246,4 @@ class TrainingActivity(models.Model):
         db_table = "trainingactivity"
         verbose_name = "Training Activity"
         verbose_name_plural = "Training Activities"
-        ordering = ["identificator"]
         unique_together = (("trainingReagent", "implementationProcess"), )
