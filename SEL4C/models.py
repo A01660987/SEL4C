@@ -13,6 +13,7 @@ class User(AbstractUser):
     first_lastname = models.CharField(max_length=150, verbose_name="Apellido paterno")
     second_lastname = models.CharField(max_length=150, verbose_name="Apellido materno")
     date_modified = models.DateTimeField(auto_now=True, verbose_name="Fecha de modificación")
+    last_login = models.DateTimeField(auto_now=True, verbose_name="Fecha de login")
     
     REQUIRED_FIELDS = [
         'name',
