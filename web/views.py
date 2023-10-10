@@ -19,7 +19,7 @@ def login_view(request):
             return redirect("dashboard")
         else:
             messages.error(request,'Correo electrónico y/o contraseña inválidos.')
-            return redirect('login_view')
+            return redirect("login")
         
     return render(request, "login.html")
 
@@ -33,11 +33,11 @@ def about(request):
     return render(request, "about.html")
 
 
-def aboutTeam(request):
+def about_team(request):
     return render(request, "about-team.html")
 
 
-@staff_member_required(login_url="/login")
+@staff_member_required()
 def dashboard(request):
     user = User.objects.get(username=request.user.username)
     return render(request, "dashboard.html", {"user": user})
