@@ -106,7 +106,7 @@ class Student(models.Model):
     ]
 
     def __str__(self):
-        return self.id.name + " " + self.id.first_lastname + " " + self.id.second_lastname
+        return self.user.name + " " + self.user.first_lastname + " " + self.user.second_lastname
 
     class Meta:
         verbose_name = "Estudiante"
@@ -114,7 +114,6 @@ class Student(models.Model):
         ordering = ["user"]
 
 class DiagnosisQuestion(models.Model):
-    identificator = models.SmallAutoField(primary_key=True, null=False, editable=False, verbose_name="ID", unique=True)
     question = models.TextField(primary_key=False, null=False, editable=True, verbose_name="Question", unique=True)
     registered = models.DateTimeField(primary_key=False, null=False, editable=False, verbose_name="Registered", unique=False, auto_now_add=True)
     updated = models.DateTimeField(primary_key=False, null=False, editable=True, verbose_name="Updated", unique=False, auto_now_add=True)
@@ -130,7 +129,6 @@ class DiagnosisQuestion(models.Model):
         ordering = ["identificator"]
 
 class Test(models.Model):
-    identificator = models.SmallAutoField(primary_key=True, null=False, editable=False, verbose_name="ID", unique=True)
     denomination = models.CharField(primary_key=False, null=False, editable=True, verbose_name="Test", unique=True, max_length=25)
     description = models.CharField(primary_key=False, null=True, editable=True, verbose_name="Description", unique=False, max_length=50)
     status = models.BooleanField(primary_key=False, null=False, editable=True, verbose_name="Status", unique=False, default=True)
@@ -146,7 +144,6 @@ class Test(models.Model):
         ordering = ["identificator"]
 
 class ImplementationProcess(models.Model):
-    identificator = models.BigAutoField(primary_key=True, null=False, editable=False, verbose_name="ID", unique=True)
     registered = models.DateTimeField(primary_key=False, null=False, editable=False, verbose_name="Registered", unique=False, auto_now_add=True)
     updated = models.DateTimeField(primary_key=False, null=False, editable=True, verbose_name="Updated", unique=False, auto_now_add=True)
     student = models.ForeignKey(Student, on_delete=models.CASCADE, primary_key=False, null=False, blank=False, editable=False, verbose_name="Student", unique=False)
@@ -161,7 +158,6 @@ class ImplementationProcess(models.Model):
         ordering = ["identificator"]
 
 class CompetenceDiagnosis(models.Model):
-    identificator = models.BigAutoField(primary_key=True, null=False, editable=False, verbose_name="ID", unique=True)
     completed = models.BooleanField(primary_key=False, null=False, editable=True, verbose_name="Completed", unique=False, default=True)
     registered = models.DateTimeField(primary_key=False, null=False, editable=False, verbose_name="Registered", unique=False, auto_now_add=True)
     implementationProcess = models.ForeignKey(ImplementationProcess, on_delete=models.CASCADE, primary_key=False, null=False, blank=False, editable=False, verbose_name="Implementation Process", unique=False)
@@ -176,7 +172,6 @@ class CompetenceDiagnosis(models.Model):
         ordering = ["identificator"]
 
 class DiagnosisTest(models.Model):
-    identificator = models.BigAutoField(primary_key=True, null=False, editable=False, verbose_name="ID", unique=True)
     competenceDiagnosis = models.ForeignKey(CompetenceDiagnosis, on_delete=models.CASCADE, primary_key=False, null=False, blank=False, editable=False, verbose_name="Competence Diagnosis", unique=False)
     diagnosisQuestion = models.ForeignKey(DiagnosisQuestion, on_delete=models.CASCADE, primary_key=False, null=False, blank=False, editable=False, verbose_name="Diagnosis Question", unique=False)
     answer = models.PositiveSmallIntegerField(primary_key=False, null=False, editable=True, verbose_name="Answer", unique=False, validators=[MinValueValidator(0), MaxValueValidator(4)])
@@ -192,7 +187,6 @@ class DiagnosisTest(models.Model):
         unique_together = (("competenceDiagnosis", "diagnosisQuestion"), )
 
 class Competence(models.Model):
-    identificator = models.SmallAutoField(primary_key=True, null=False, editable=False, verbose_name="ID", unique=True)
     denomination = models.CharField(primary_key=False, null=False, editable=True, verbose_name="Competence", unique=True, max_length=50)
     description = models.TextField(primary_key=False, null=True, editable=True, verbose_name="Description", unique=False)
     registered = models.DateTimeField(primary_key=False, null=False, editable=False, verbose_name="Registered", unique=False, auto_now_add=True)
@@ -209,7 +203,6 @@ class Competence(models.Model):
         ordering = ["identificator"]
 
 class Resource(models.Model):
-    identificator = models.SmallAutoField(primary_key=True, null=False, editable=False, verbose_name="ID", unique=True)
     denomination = models.CharField(primary_key=False, null=False, editable=True, verbose_name="Resource", unique=True, max_length=25)
     link = models.TextField(primary_key=False, null=False, editable=True, verbose_name="Link", unique=True)
     description = models.TextField(primary_key=False, null=True, editable=True, verbose_name="Description", unique=False)
@@ -227,7 +220,6 @@ class Resource(models.Model):
         ordering = ["identificator"]
 
 class TrainingReagent(models.Model):
-    identificator = models.SmallAutoField(primary_key=True, null=False, editable=False, verbose_name="ID", unique=True)
     denomination = models.CharField(primary_key=False, null=False, editable=True, verbose_name="Training Reagent", unique=True, max_length=50)
     goals = models.TextField(primary_key=False, null=True, editable=True, verbose_name="Goals", unique=False)
     description = models.TextField(primary_key=False, null=True, editable=True, verbose_name="Description", unique=False)
@@ -249,7 +241,6 @@ class TrainingReagent(models.Model):
         ordering = ["identificator"]
 
 class TrainingActivity(models.Model):
-    identificator = models.BigAutoField(primary_key=True, null=False, editable=False, verbose_name="ID", unique=True)
     trainingReagent = models.ForeignKey(TrainingReagent, on_delete=models.CASCADE, primary_key=False, null=False, blank=False, editable=False, verbose_name="Training Reagent", unique=False)
     implementationProcess = models.ForeignKey(ImplementationProcess, on_delete=models.CASCADE, primary_key=False, null=False, blank=False, editable=False, verbose_name="Implementation Process", unique=False)
     link = models.TextField(primary_key=False, null=True, editable=False, verbose_name="Link", unique=False)
