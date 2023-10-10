@@ -25,13 +25,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = config("SECRET_KEY")
 
+# Cambiar a True para pruebas locales
 DEBUG = False
 
+# Comentar para pruebas locales
 SECURE_SSL_REDIRECT = True
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
-# Quitar las últimas 4 líneas en tu copia local (no olvides restaurarlas antes de hacer commit)
 
 
 ALLOWED_HOSTS = ["sel4c.azurewebsites.net", "127.0.0.1", "localhost"]
@@ -97,6 +98,7 @@ WSGI_APPLICATION = 'SEL4C.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+# Comentar para pruebas locales
 DATABASES = {
     'default': {
         "ENGINE": "django.db.backends.postgresql",
@@ -111,8 +113,7 @@ DATABASES = {
     }
 }
 
-# Enable for local testing
-
+# Descomentar para pruebas locales
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.sqlite3',
