@@ -12,7 +12,6 @@ from django.core.files.storage import FileSystemStorage
 from rest_framework.views import APIView
 from rest_framework.parsers import FileUploadParser
 from .permissions import *
-from rest_framework.permissions import * #tmp
 from rest_framework import status
 
 
@@ -27,7 +26,7 @@ from rest_framework import status
 class UserViewSet(viewsets.ModelViewSet):
     serializer_class = RegistrationSerializer
     queryset = User.objects.all()
-    permission_classes = [AllowAny]
+    permission_classes = [CustomUserPermission]
     #TODO allow creation for users but not with priviliges
 
 
@@ -36,6 +35,7 @@ class UserViewSet(viewsets.ModelViewSet):
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
+        
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class GroupViewSet(viewsets.ModelViewSet):
@@ -168,7 +168,7 @@ class FileUploadView(APIView):
     parser_classes = (FileUploadParser,)
     serializer_class = FileUploadSerializer
     # permission_classes = permission_user
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [permission_post]
 
     @csrf_exempt
     def post(self, request):

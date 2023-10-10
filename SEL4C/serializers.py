@@ -102,7 +102,7 @@ class TestSerializer(serializers.ModelSerializer):
 class ImplementationProcessSerializer(serializers.ModelSerializer):
     student = CreatableSlugRelatedField(
         many=False,
-        slug_field='identificator',
+        slug_field='user',
         queryset=Student.objects.all()
     )
     class Meta:
