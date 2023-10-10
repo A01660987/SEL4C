@@ -12,7 +12,7 @@ venv/
 env/
 *.env
 
-# Ignore sensitive data
+# Ignore migrations
 migrations/
 
 # Ignore local development settings

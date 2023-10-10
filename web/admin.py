@@ -12,13 +12,19 @@ class UserAdmin(UserAdmin):
     list_filter = ('is_staff',)
     fieldsets = (
         (None, {'fields': ('username', 'password', 'name', 'first_lastname', 'second_lastname')}),
-        ('Permissions', {'fields': ('is_staff', 'is_active', 'is_superuser')}),
+        ('Permisos', {'fields': ('is_staff', 'is_superuser', 'is_active',)}),
     )
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('username', 'password1', 'password2', 'name', 'first_lastname', 'second_lastname' , 'is_staff', 'is_active', 'is_superuser')}
+            'fields': ('username', 'password1', 'password2', 'name', 'first_lastname', 'second_lastname',)
+            }
         ),
+        ('Permisos', {
+            'classes': ('wide',),
+            'fields': ('is_staff', 'is_superuser',)
+            }
+        )
     )
     search_fields = ('username',)
     ordering = ('username',)
