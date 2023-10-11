@@ -50,7 +50,7 @@ class DisciplineViewSet(viewsets.ModelViewSet):
 class StudentViewSet(viewsets.ModelViewSet):
     serializer_class = StudentSerializer
     queryset = Student.objects.all()
-    # permission_classes = [CustomUserPermission]
+    permission_classes = [CustomUserPermission]
     #TODO allow creation for users but not with priviliges
 
     def post(self, request, format=None):
@@ -188,8 +188,7 @@ def credentials(request):
 class FileUploadView(APIView):
     parser_classes = (FileUploadParser,)
     serializer_class = FileUploadSerializer
-    # permission_classes = permission_user
-    # permission_classes = [permission_post]
+    permission_classes = [FileUploadPermission]
 
     @csrf_exempt
     def post(self, request):

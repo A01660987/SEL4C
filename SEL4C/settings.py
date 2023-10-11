@@ -26,13 +26,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config("SECRET_KEY")
 
 # Cambiar a True para pruebas locales
-DEBUG = False
+DEBUG = True
 
 # Comentar para pruebas locales
-SECURE_SSL_REDIRECT = True
-SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
-CSRF_COOKIE_SECURE = True
-SESSION_COOKIE_SECURE = True
+# SECURE_SSL_REDIRECT = True
+# SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+# CSRF_COOKIE_SECURE = True
+# SESSION_COOKIE_SECURE = True
 
 
 ALLOWED_HOSTS = [
@@ -103,29 +103,29 @@ WSGI_APPLICATION = 'SEL4C.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 # Comentar para pruebas locales
-DATABASES = {
-    'default': {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": "sel4c-database",
-        "USER": config("DB_USER"),
-        "PASSWORD": config("DB_PASSWORD"),
-        "HOST": config("DB_HOST"),
-        "PORT": "5432",
-        "OPTIONS": {
-            "sslmode": "require",
-        }
-    }
-}
+# DATABASES = {
+#     'default': {
+#         "ENGINE": "django.db.backends.postgresql",
+#         "NAME": "sel4c-database",
+#         "USER": config("DB_USER"),
+#         "PASSWORD": config("DB_PASSWORD"),
+#         "HOST": config("DB_HOST"),
+#         "PORT": "5432",
+#         "OPTIONS": {
+#             "sslmode": "require",
+#         }
+#     }
+# }
 
 # Descomentar para pruebas locales
-'''
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-'''
+
 
 
 # Password validation

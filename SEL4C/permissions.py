@@ -9,15 +9,15 @@ class CustomUserPermission(permissions.BasePermission):
             return True
 
         if request.method == 'GET':
-            # Allow all authenticated users to list users
+            # Allow admin users to list users
             return request.user.is_admin
 
         return False
 
     def has_object_permission(self, request, view, obj):
         if request.method == 'GET':
-            # Allow any user to retrieve user details
-            return True
+            # Allow users to retrieve own user details
+            return request.user.is_authenticated and request.user == obj
 
         if request.method == 'PUT':
             # Allow users to update their own data
@@ -25,12 +25,24 @@ class CustomUserPermission(permissions.BasePermission):
 
         if request.method == 'DELETE':
             # Allow admin users to delete users
-            return request.user.is_authenticated and request.user.is_staff
+            return request.user.is_admin
 
         return False
 
 
+class FileUploadPermission(permissions.BasePermission):
 
+    """Authenticated users are allowed to commit files"""
+    def has_permission(self, request, view):
+        if request.method == 'POST':
+            # Allow unauthenticated users to register
+            return request.user.is_authenticated
+        
+        return False
+    
+    """No changes possible to commited files"""
+    def has_object_permission(self, request, view, obj):
+        return False
 
 
 # """Allow authenticated users to use GET"""
