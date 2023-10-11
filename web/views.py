@@ -40,4 +40,5 @@ def about_team(request):
 @staff_member_required()
 def dashboard(request):
     user = User.objects.get(username=request.user.username)
-    return render(request, "dashboard.html", {"user": user})
+    students = Student.objects.all()
+    return render(request, "dashboard.html", {"user": user, "students": students,})
