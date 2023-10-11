@@ -10,7 +10,7 @@ import json, os
 from querystring_parser import parser
 from django.core.files.storage import FileSystemStorage
 from rest_framework.views import APIView
-from rest_framework.parsers import FileUploadParser
+from rest_framework.parsers import FileUploadParser, MultiPartParser
 from .permissions import *
 from rest_framework import status
 
@@ -186,29 +186,29 @@ def credentials(request):
 
 
 class FileUploadView(APIView):
-    parser_classes = (FileUploadParser,)
+    # parser_classes = (FileUploadParser,)
+    parser_classes = (MultiPartParser,)
     serializer_class = FileUploadSerializer
     permission_classes = [FileUploadPermission]
 
     @csrf_exempt
     def post(self, request):
         if request.method == "POST" and request.FILES["file"] and request.user:
+
+            serializer = FileUploadSerializer(data=request.data)
+            if serializer.is_valid():
             # actividad = request.POST["activity"]
             # nombre_evidencia = request.POST["evidence_name"]
-             # path = os.path.join(fs.location, actividad, nombre_evidencia, myfile.name)
-            user = request.user
-            uploaded_file = request.FILES["file"]
-            fs = FileSystemStorage()
-            print(user)
-            print(user.username)
-           
-            path = os.path.join(fs.location, user.username, uploaded_file.name)
+            #TODO add fields/folders for activity
+                user = request.user
+                uploaded_file = request.FILES["file"]
+                fs = FileSystemStorage()
             
-            filename = fs.save(path, uploaded_file)
-            uploaded_file_url = fs.url(filename)
+                path = os.path.join(fs.location, user.username, uploaded_file.name)
+                
+                filename = fs.save(path, uploaded_file)
+                uploaded_file_url = fs.url(filename)
 
-
-
-            return JsonResponse({"status": "success"}, safe=False, status=201)
+                return JsonResponse({"status": "success"}, safe=False, status=201)
 
         return JsonResponse({"status": "error"}, safe=False, status=404)
