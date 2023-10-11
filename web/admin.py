@@ -26,7 +26,6 @@ class UserAdmin(UserAdmin):
             }
         )
     )
-    search_fields = ('username',)
     ordering = ('username',)
 
 admin.site.unregister(authGroup)
