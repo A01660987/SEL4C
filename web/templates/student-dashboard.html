@@ -8,7 +8,7 @@
 <nav class="navbar navbar-expand-lg px-3 bg-primary fixed-top shadow-sm" data-bs-theme="dark">
     <div class="container-fluid">
       <img class="me-3" src="{% static 'svg/logo_white.svg' %}" alt="SEL4C" height="50">
-      <h2 class="text-light mb-0 fw-semibold">Dashboard<span class="d-none d-md-inline"> de {{ user.name }}</span></h2>
+      <h2 class="text-light mb-0 fw-semibold">Dashboard<span class="d-none d-md-inline"> de {{ student.user.name }}</span></h2>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -23,10 +23,7 @@
 </nav>
 
 <div id="content" class="mt-5 mx-4">
-  <p class= "pt-5 fs-4">
-    Estudiantes:
-  </p>
-  <div class="row text-center w-100 mb-2 ps-3 pe-5 me-3 d-none d-lg-flex">
+  <div class="row text-center w-100 mb-2 ps-3 pe-5 me-3 d-none d-lg-flex pt-5">
     <div class="col text-start">
       <p class="fs-4 fw-bold mb-0">Nombre</p>
     </div>
@@ -37,8 +34,7 @@
       <p class="fs-4 fw-bold mb-0">Progreso</p>
     </div>
   </div>
-  <div class="accordion" id="accordion1">
-    {% for student in students %}
+  <div class="accordion pt-5 pt-lg-0" id="accordion1">
     <div class="accordion-item bg-body-tertiary border-0 mb-3">
       <div class="accordion-header">
         <button class="accordion-button collapsed bg-body-tertiary" type="button" data-bs-toggle="collapse" data-bs-target="#{{ student.user.username|cut:"@"|cut:"." }}" aria-expanded="false" aria-controls="{{ student.user.username|cut:"@"|cut:"." }}">
@@ -72,7 +68,6 @@
         </div>
       </div>
     </div>
-    {% endfor %}
   </div>
 </div>
 

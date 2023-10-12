@@ -86,6 +86,7 @@ class Student(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name="Usuario")
     age = models.PositiveSmallIntegerField(validators=[MinValueValidator(18), MaxValueValidator(130)], verbose_name="Edad")
     agreed_policies = models.BooleanField(default=True, verbose_name="¿Acepta las políticas de privacidad?", validators=[permissions.is_agreed_on_policy])
+    progress = models.PositiveSmallIntegerField(default=0, validators=[MaxValueValidator(100)], verbose_name="Progreso")
     
     GENDER_CHOICES = [
         ('M', 'Masculino'),
