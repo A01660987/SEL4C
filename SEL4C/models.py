@@ -114,6 +114,81 @@ class Student(models.Model):
         verbose_name_plural = "Estudiantes"
         ordering = ["user"]
 
+
+class ActivityText(models.Model):
+    title = models.TextField( verbose_name="Title")
+    country = CountryField(verbose_name="País")
+
+    def __str__(self):
+        return "Activity" + self.title
+    
+    class Meta:
+        verbose_name = "Activity"
+        verbose_name_plural = "Activities"
+        ordering = ["title"]
+
+class Activity(models.Model):
+    activity_number = models.PositiveSmallIntegerField(verbose_name="Number of activity")
+    activity_text = models.ForeignKey(ActivityText, on_delete=models.CASCADE, verbose_name="Activity text")
+
+    def __str__(self):
+        return "Activity" + self.activity_number
+    
+    class Meta:
+        verbose_name = "Activity"
+        verbose_name_plural = "Activities"
+        ordering = ["activity_number"]
+
+
+class ExerciseStep(models.Model):
+    exerciseStep_number = models.PositiveSmallIntegerField(verbose_name="Number of exercise")
+    activity = models.ForeignKey(Activity, on_delete=models.CASCADE, verbose_name="Activity")
+
+    def __str__(self):
+        return "Exercise" + self.exerciseStep_number + ", Activity" + self.activity
+    
+    class Meta:
+        verbose_name = "Exercise"
+        verbose_name_plural = "Exercises"
+        ordering = ["exerciseStep_number"]
+
+
+class AnswerUpload(models.Model):
+    uploaded = models.DateTimeField(auto_now=True, verbose_name="Fecha de upload")
+    link = models.TextField(verbose_name="File link")
+
+    def __str__(self):
+        return "Exercise" + self.exerciseStep_number + ", Activity" + self.activity
+    
+    class Meta:
+        verbose_name = "Exercise"
+        verbose_name_plural = "Exercises"
+        ordering = ["exerciseStep_number"]
+
+class Answer(models.Model):
+
+    ANSWER_TYPES = [
+        ('U', 'Upload'),
+        ('T', 'Text'),
+        ('R', 'Rating'),
+    ]
+
+    type = models.CharField(max_length=1, choices=ANSWER_TYPES, verbose_name="Tipo")
+    upload = models.ForeignKey(Activity, on_delete=models.CASCADE, verbose_name="Activity")
+    upload = models.ForeignKey(Activity, on_delete=models.CASCADE, verbose_name="Activity")
+    upload = models.ForeignKey(Activity, on_delete=models.CASCADE, verbose_name="Activity")
+    student = models.ForeignKey(Student, on_delete=models.CASCADE, verbose_name="Student")
+    exercise = models.ForeignKey(ExerciseStep, on_delete=models.CASCADE, verbose_name="Exercise")
+
+    def __str__(self):
+        return "Exercise" + self.exerciseStep_number + ", Activity" + self.activity
+    
+    class Meta:
+        verbose_name = "Exercise"
+        verbose_name_plural = "Exercises"
+        ordering = ["exerciseStep_number"]
+
+
 class DiagnosisQuestion(models.Model):
     question = models.TextField(primary_key=False, null=False, editable=True, verbose_name="Question", unique=True)
     registered = models.DateTimeField(primary_key=False, null=False, editable=False, verbose_name="Registered", unique=False, auto_now_add=True)
