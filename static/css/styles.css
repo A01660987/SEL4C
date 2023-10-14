@@ -63,3 +63,16 @@
     -ms-user-select: none;
     user-select: none;
 }
+
+.accordion-button:not(.collapsed) {
+    color: var(--bs-accordion-btn-color);
+    background-color: var(--bs-accordion-btn-bg);
+    box-shadow: none;
+}
+
+.accordion-button:focus {
+    z-index: 3;
+    border: none;
+    outline: 0;
+    box-shadow: none;
+}
