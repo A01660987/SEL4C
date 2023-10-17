@@ -17,6 +17,7 @@ router.register(r'institution', InstitutionViewSet)
 router.register(r'degree', DegreeViewSet)
 router.register(r'discipline', DisciplineViewSet)
 router.register(r'student', StudentViewSet)
+router.register(r'answer', AnswerViewSet)
 
 
 
@@ -29,8 +30,9 @@ urlpatterns = [
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'), 
     path('token/verify/', TokenVerifyView.as_view(), name='token_refresh'), 
     path('api/', include(router.urls)), 
-    path('api/activity', activity, name="api/activity"), 
-    path('api/diagnosis', diagnosis, name="api/diagnosis"), 
-    path('api/credentials', credentials, name="api/credentials"), 
     path('', include('web.urls'))
 ]  + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+# Include file view in browser when DEBUG=TRUE
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

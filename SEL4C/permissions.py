@@ -2,6 +2,7 @@ from rest_framework import authentication, permissions, serializers
 
 from rest_framework import permissions
 
+"""Registering unauthenticated users, get and update own data is possible for authenticated users """
 class CustomUserPermission(permissions.BasePermission):
     def has_permission(self, request, view):
         if request.method == 'POST':
@@ -30,6 +31,7 @@ class CustomUserPermission(permissions.BasePermission):
         return False
 
 
+"""Allow only uploading files when authenticated"""
 class FileUploadPermission(permissions.BasePermission):
 
     """Authenticated users are allowed to commit files"""
@@ -44,29 +46,6 @@ class FileUploadPermission(permissions.BasePermission):
     def has_object_permission(self, request, view, obj):
         return False
 
-
-# """Allow authenticated users to use GET"""
-# def permission_get(self):
-#     if self.request.method == "GET":
-#         return [permissions.IsAuthenticated()]
-#     else:
-#         return [permissions.IsAdminUser()]
-    
-# """Allow authenticated users to use POST"""
-# def permission_post(self):
-#     if self.request.method == "POST":
-#         return [permissions.IsAuthenticated()]
-#     else:
-#         return [permissions.IsAdminUser()]
-
-# """Allow unauthenticated users to register with POST and users to change own data"""
-# def permission_user(self, request, view):
-#     if self.request.method in ["POST"]:
-#         return [permissions.AllowAny()]
-#     elif self.request.method in ["PUT"]:
-#         return request.user.is_authenticated and request.user == view.get_object()
-    
-#     return [permissions.IsAdminUser()]
 
 
 """Returns true when agreed on policy"""

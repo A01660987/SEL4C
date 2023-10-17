@@ -88,7 +88,67 @@ class StudentSerializer(serializers.ModelSerializer):
         queryset=Discipline.objects.all()
     )
 
+"""Multi-use answer_string field. Depending on answer type gets interpreted in a different way, eg. as Int when Type=R (rating)"""
+class AnswerSerializer(serializers.ModelSerializer):
+    answer_string = serializers.CharField(style={"input_type": "text"}, write_only=True)
+
+    activity = CreatableSlugRelatedField(
+        many=False,
+        slug_field='activity_number',
+        queryset=Activity.objects.all()
+    )
+
+    exerciseStep = CreatableSlugRelatedField(
+        many=False,
+        slug_field='exerciseStep_number',
+        queryset=ExerciseStep.objects.all()
+    )
+    class Meta:
+        model = Answer
+        fields = ["type", "answer_string", "activity", "exerciseStep"]
+
+    def save(self, **kwargs):
+        answer_type = self.validated_data['type']
+        exerciseStep = self.validated_data['exerciseStep']
+        activity = self.validated_data['activity']
+        user = self.context['request'].user
+        answer = Answer(type=answer_type, user=user, exercise=exerciseStep, activity=activity)
+
+        match answer_type:
+            case 'U':
+                raise serializers.ValidationError({'type': 'Upload via /upload/'})
+            
+            case 'T':
+                textAnswer = AnswerText(text=self.validated_data['answer_string'])
+                textAnswer.save()
+                answer.text_answer = textAnswer
+                answer.save()
+
+
+            case 'R':
+                ratingAnswer = AnswerRating(rating=self.validated_data['answer_string'])
+                ratingAnswer.save()
+                answer.rating_answer = ratingAnswer
+                answer.save()
+                
+            case _:
+                raise serializers.ValidationError({'type': 'Type not defined'})
+
+        return answer
+
 
 
 class FileUploadSerializer(serializers.Serializer):
     file = serializers.FileField()
+
+    activity = CreatableSlugRelatedField(
+        many=False,
+        slug_field='activity_number',
+        queryset=Activity.objects.all()
+    )
+
+    exerciseStep = CreatableSlugRelatedField(
+        many=False,
+        slug_field='exerciseStep_number',
+        queryset=ExerciseStep.objects.all()
+    )

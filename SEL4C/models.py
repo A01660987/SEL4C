@@ -201,8 +201,9 @@ class Answer(models.Model):
     upload_answer = models.ForeignKey(AnswerUpload, on_delete=models.CASCADE, verbose_name="Upload", null=True, blank=True)
     text_answer = models.ForeignKey(AnswerText, on_delete=models.CASCADE, verbose_name="Text", null=True, blank=True)
     rating_answer = models.ForeignKey(AnswerRating, on_delete=models.CASCADE, verbose_name="Rating", null=True, blank=True)
-    student = models.ForeignKey(Student, on_delete=models.CASCADE, verbose_name="Student")
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="User")
     exercise = models.ForeignKey(ExerciseStep, on_delete=models.CASCADE, verbose_name="Exercise")
+    activity = models.ForeignKey(Activity, on_delete=models.CASCADE, verbose_name="Activity")
     submitted = models.DateTimeField(auto_now=True, verbose_name="Fecha de submit")
 
     def __str__(self):
