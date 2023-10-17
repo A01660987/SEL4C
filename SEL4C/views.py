@@ -79,41 +79,7 @@ class StudentViewSet(viewsets.ModelViewSet):
 
 
 
-class DiagnosisQuestionViewSet(viewsets.ModelViewSet):
-    serializer_class = DiagnosisQuestionSerializer
-    queryset = DiagnosisQuestion.objects.all()
 
-class TestViewSet(viewsets.ModelViewSet):
-    serializer_class = TestSerializer
-    queryset = Test.objects.all()
-
-class ImplementationProcessViewSet(viewsets.ModelViewSet):
-    serializer_class = ImplementationProcessSerializer
-    queryset = ImplementationProcess.objects.all()
-
-class CompetenceDiagnosisViewSet(viewsets.ModelViewSet):
-    serializer_class = CompetenceDiagnosisSerializer
-    queryset = CompetenceDiagnosis.objects.all()
-
-class DiagnosisTestViewSet(viewsets.ModelViewSet):
-    serializer_class = DiagnosisTestSerializer
-    queryset = DiagnosisTest.objects.all()
-
-class CompetenceViewSet(viewsets.ModelViewSet):
-    serializer_class = CompetenceSerializer
-    queryset = Competence.objects.all()
-
-class ResourceViewSet(viewsets.ModelViewSet):
-    serializer_class = ResourceSerializer
-    queryset = Resource.objects.all()
-
-class TrainingReagentViewSet(viewsets.ModelViewSet):
-    serializer_class = TrainingReagentSerializer
-    queryset = TrainingReagent.objects.all()
-
-class TrainingActivityViewSet(viewsets.ModelViewSet):
-    serializer_class = TrainingActivitySerializer
-    queryset = TrainingActivity.objects.all()
 
 @csrf_exempt
 def activity(request):

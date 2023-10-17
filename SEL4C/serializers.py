@@ -3,6 +3,8 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.utils.encoding import smart_str
 from rest_framework import serializers
 
+
+"""Difference between SlugRelatedField is the creation of an object if no object is found"""
 class CreatableSlugRelatedField(serializers.SlugRelatedField):
     def to_internal_value(self, data):
         try:
@@ -86,95 +88,7 @@ class StudentSerializer(serializers.ModelSerializer):
         queryset=Discipline.objects.all()
     )
 
-class DiagnosisQuestionSerializer(serializers.ModelSerializer):
-    class Meta:
-        model=DiagnosisQuestion
-        fields="__all__"
 
-class TestSerializer(serializers.ModelSerializer):
-    diagnosisQuestions = CreatableSlugRelatedField(
-        many=True,
-        slug_field='identificator',
-        queryset=DiagnosisQuestion.objects.all()
-    )
-    class Meta:
-        model=Test
-        fields="__all__"
-
-class ImplementationProcessSerializer(serializers.ModelSerializer):
-    student = CreatableSlugRelatedField(
-        many=False,
-        slug_field='user',
-        queryset=Student.objects.all()
-    )
-    class Meta:
-        model=ImplementationProcess
-        fields="__all__"
-
-class CompetenceDiagnosisSerializer(serializers.ModelSerializer):
-    implementationProcess = CreatableSlugRelatedField(
-        many=False,
-        slug_field='identificator',
-        queryset=ImplementationProcess.objects.all()
-    )
-    class Meta:
-        model=CompetenceDiagnosis
-        fields="__all__"
-
-class DiagnosisTestSerializer(serializers.ModelSerializer):
-    competenceDiagnosis = CreatableSlugRelatedField(
-        many=False,
-        slug_field='identificator',
-        queryset=CompetenceDiagnosis.objects.all()
-    )
-    diagnosisQuestion = CreatableSlugRelatedField(
-        many=False,
-        slug_field='identificator',
-        queryset=DiagnosisQuestion.objects.all()
-    )
-    class Meta:
-        model=DiagnosisTest
-        fields="__all__"
-
-class CompetenceSerializer(serializers.ModelSerializer):
-    class Meta:
-        model=Competence
-        fields="__all__"
-
-class ResourceSerializer(serializers.ModelSerializer):
-    class Meta:
-        model=Resource
-        fields="__all__"
-
-class TrainingReagentSerializer(serializers.ModelSerializer):
-    competences = CreatableSlugRelatedField(
-        many=True,
-        slug_field='identificator',
-        queryset=Competence.objects.all()
-    )
-    resources = CreatableSlugRelatedField(
-        many=True,
-        slug_field='identificator',
-        queryset=Resource.objects.all()
-    )
-    class Meta:
-        model=TrainingReagent
-        fields="__all__"
-
-class TrainingActivitySerializer(serializers.ModelSerializer):
-    trainingReagent = CreatableSlugRelatedField(
-        many=False,
-        slug_field='identificator',
-        queryset=TrainingReagent.objects.all()
-    )
-    implementationProcess = CreatableSlugRelatedField(
-        many=False,
-        slug_field='identificator',
-        queryset=ImplementationProcess.objects.all()
-    )
-    class Meta:
-        model=TrainingActivity
-        fields="__all__"
 
 class FileUploadSerializer(serializers.Serializer):
     file = serializers.FileField()

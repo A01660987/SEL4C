@@ -114,6 +114,7 @@ class Student(models.Model):
         ordering = ["user"]
 
 
+"""Holds the title for an activity. Through the country field different languages are possible for the future"""
 class ActivityText(models.Model):
     title = models.TextField( verbose_name="Title")
     country = CountryField(verbose_name="País")
@@ -126,6 +127,8 @@ class ActivityText(models.Model):
         verbose_name_plural = "Activities"
         ordering = ["title"]
 
+
+"""An activity is the title for a group of exercise steps. E.g. name = 'Identification' displays at the main screen and is connected to 4 exercise steps"""
 class Activity(models.Model):
     activity_number = models.PositiveSmallIntegerField(verbose_name="Number of activity")
     activity_text = models.ForeignKey(ActivityText, on_delete=models.CASCADE, verbose_name="Activity text")
@@ -139,6 +142,7 @@ class Activity(models.Model):
         ordering = ["activity_number"]
 
 
+"""An exercise step is created when an answer to an exercise is necessary. E.g. 3 in-app screens of instructions and an upload form afterwards form one exercise step"""
 class ExerciseStep(models.Model):
     exerciseStep_number = models.PositiveSmallIntegerField(verbose_name="Number of exercise")
     activity = models.ForeignKey(Activity, on_delete=models.CASCADE, verbose_name="Activity")
@@ -153,17 +157,39 @@ class ExerciseStep(models.Model):
 
 
 class AnswerUpload(models.Model):
-    uploaded = models.DateTimeField(auto_now=True, verbose_name="Fecha de upload")
     link = models.TextField(verbose_name="File link")
+    filename = models.TextField(verbose_name="File name")
 
     def __str__(self):
-        return "Exercise" + self.exerciseStep_number + ", Activity" + self.activity
+        return "Upload name " + self.filename
     
     class Meta:
-        verbose_name = "Exercise"
-        verbose_name_plural = "Exercises"
-        ordering = ["exerciseStep_number"]
+        verbose_name = "Upload"
+        verbose_name_plural = "Uploads"
+        ordering = ["uploaded"]
 
+class AnswerText(models.Model):
+    answer = models.TextField(verbose_name="Answer")
+
+    def __str__(self):
+        return "Answer: " + self.answer[:10] # first 10 characters of answer
+    
+    class Meta:
+        verbose_name = "Text answer"
+        verbose_name_plural = "Text answers"
+
+class AnswerRating(models.Model):
+    answer = models.PositiveSmallIntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)], verbose_name="Rating")
+
+    def __str__(self):
+        return "Rating: " + self.answer
+    
+    class Meta:
+        verbose_name = "Rating answer"
+        verbose_name_plural = "Rating answers"
+
+
+"""An answer can be of 3 types and can only be one at the same time. Other Foreign Keys are in this case NULL. Answer-FK are initialized with NULL and not required"""
 class Answer(models.Model):
 
     ANSWER_TYPES = [
@@ -173,152 +199,18 @@ class Answer(models.Model):
     ]
 
     type = models.CharField(max_length=1, choices=ANSWER_TYPES, verbose_name="Tipo")
-    upload = models.ForeignKey(Activity, on_delete=models.CASCADE, verbose_name="Activity")
-    upload = models.ForeignKey(Activity, on_delete=models.CASCADE, verbose_name="Activity")
-    upload = models.ForeignKey(Activity, on_delete=models.CASCADE, verbose_name="Activity")
+    upload_answer = models.ForeignKey(AnswerUpload, on_delete=models.CASCADE, verbose_name="Upload", null=True, blank=True)
+    text_answer = models.ForeignKey(AnswerText, on_delete=models.CASCADE, verbose_name="Text", null=True, blank=True)
+    rating_answer = models.ForeignKey(AnswerRating, on_delete=models.CASCADE, verbose_name="Rating", null=True, blank=True)
     student = models.ForeignKey(Student, on_delete=models.CASCADE, verbose_name="Student")
     exercise = models.ForeignKey(ExerciseStep, on_delete=models.CASCADE, verbose_name="Exercise")
+    submitted = models.DateTimeField(auto_now=True, verbose_name="Fecha de submit")
 
     def __str__(self):
-        return "Exercise" + self.exerciseStep_number + ", Activity" + self.activity
+        return "Answer of type" + self.type + ", Student " + self.student
     
     class Meta:
-        verbose_name = "Exercise"
-        verbose_name_plural = "Exercises"
-        ordering = ["exerciseStep_number"]
-
-
-class DiagnosisQuestion(models.Model):
-    question = models.TextField(primary_key=False, null=False, editable=True, verbose_name="Question", unique=True)
-    registered = models.DateTimeField(primary_key=False, null=False, editable=False, verbose_name="Registered", unique=False, auto_now_add=True)
-    updated = models.DateTimeField(primary_key=False, null=False, editable=True, verbose_name="Updated", unique=False, auto_now_add=True)
-    status = models.BooleanField(primary_key=False, null=False, editable=True, verbose_name="Status", unique=False, default=True)
-
-    def __str__(self):
-        return self.question
-    
-    class Meta:
-        db_table = "diagnosisquestion"
-        verbose_name = "Diagnosis Question"
-        verbose_name_plural = "Diagnosis Questions"
-
-class Test(models.Model):
-    denomination = models.CharField(primary_key=False, null=False, editable=True, verbose_name="Test", unique=True, max_length=25)
-    description = models.CharField(primary_key=False, null=True, editable=True, verbose_name="Description", unique=False, max_length=50)
-    status = models.BooleanField(primary_key=False, null=False, editable=True, verbose_name="Status", unique=False, default=True)
-    diagnosisQuestions = models.ManyToManyField(DiagnosisQuestion)
-
-    def __str__(self):
-        return self.denomination
-    
-    class Meta:
-        db_table = "test"
-        verbose_name = "Test"
-        verbose_name_plural = "Tests"
-
-class ImplementationProcess(models.Model):
-    registered = models.DateTimeField(primary_key=False, null=False, editable=False, verbose_name="Registered", unique=False, auto_now_add=True)
-    updated = models.DateTimeField(primary_key=False, null=False, editable=True, verbose_name="Updated", unique=False, auto_now_add=True)
-    student = models.ForeignKey(Student, on_delete=models.CASCADE, primary_key=False, null=False, blank=False, editable=False, verbose_name="Student", unique=False)
-
-    def __str__(self):
-        return self.identificator
-    
-    class Meta:
-        db_table = "implementationprocess"
-        verbose_name = "Implementation Process"
-        verbose_name_plural = "Implementation Processes"
-
-class CompetenceDiagnosis(models.Model):
-    completed = models.BooleanField(primary_key=False, null=False, editable=True, verbose_name="Completed", unique=False, default=True)
-    registered = models.DateTimeField(primary_key=False, null=False, editable=False, verbose_name="Registered", unique=False, auto_now_add=True)
-    implementationProcess = models.ForeignKey(ImplementationProcess, on_delete=models.CASCADE, primary_key=False, null=False, blank=False, editable=False, verbose_name="Implementation Process", unique=False)
-
-    def __str__(self):
-        return self.identificator
-    
-    class Meta:
-        db_table = "competencediagnosis"
-        verbose_name = "Competence Diagnosis"
-        verbose_name_plural = "Competence Diagnoses"
-
-class DiagnosisTest(models.Model):
-    competenceDiagnosis = models.ForeignKey(CompetenceDiagnosis, on_delete=models.CASCADE, primary_key=False, null=False, blank=False, editable=False, verbose_name="Competence Diagnosis", unique=False)
-    diagnosisQuestion = models.ForeignKey(DiagnosisQuestion, on_delete=models.CASCADE, primary_key=False, null=False, blank=False, editable=False, verbose_name="Diagnosis Question", unique=False)
-    answer = models.PositiveSmallIntegerField(primary_key=False, null=False, editable=True, verbose_name="Answer", unique=False, validators=[MinValueValidator(0), MaxValueValidator(4)])
-
-    def __str__(self):
-        return self.identificator
-    
-    class Meta:
-        db_table = "diagnosistest"
-        verbose_name = "Diagnosis Test"
-        verbose_name_plural = "DiagnosisTests"
-        unique_together = (("competenceDiagnosis", "diagnosisQuestion"), )
-
-class Competence(models.Model):
-    denomination = models.CharField(primary_key=False, null=False, editable=True, verbose_name="Competence", unique=True, max_length=50)
-    description = models.TextField(primary_key=False, null=True, editable=True, verbose_name="Description", unique=False)
-    registered = models.DateTimeField(primary_key=False, null=False, editable=False, verbose_name="Registered", unique=False, auto_now_add=True)
-    updated = models.DateTimeField(primary_key=False, null=False, editable=True, verbose_name="Updated", unique=False, auto_now_add=True)
-    status = models.BooleanField(primary_key=False, null=False, editable=True, verbose_name="Status", unique=False, default=True)
-
-    def __str__(self):
-        return self.denomination
-    
-    class Meta:
-        db_table = "competence"
-        verbose_name = "Competence"
-        verbose_name_plural = "Competences"
-
-class Resource(models.Model):
-    denomination = models.CharField(primary_key=False, null=False, editable=True, verbose_name="Resource", unique=True, max_length=25)
-    link = models.TextField(primary_key=False, null=False, editable=True, verbose_name="Link", unique=True)
-    description = models.TextField(primary_key=False, null=True, editable=True, verbose_name="Description", unique=False)
-    registered = models.DateTimeField(primary_key=False, null=False, editable=False, verbose_name="Registered", unique=False, auto_now_add=True)
-    updated = models.DateTimeField(primary_key=False, null=False, editable=True, verbose_name="Updated", unique=False, auto_now_add=True)
-    status = models.BooleanField(primary_key=False, null=False, editable=True, verbose_name="Status", unique=False, default=True)
-
-    def __str__(self):
-        return self.denomination
-    
-    class Meta:
-        db_table = "resource"
-        verbose_name = "Resource"
-        verbose_name_plural = "Resources"
-
-class TrainingReagent(models.Model):
-    denomination = models.CharField(primary_key=False, null=False, editable=True, verbose_name="Training Reagent", unique=True, max_length=50)
-    goals = models.TextField(primary_key=False, null=True, editable=True, verbose_name="Goals", unique=False)
-    description = models.TextField(primary_key=False, null=True, editable=True, verbose_name="Description", unique=False)
-    indications = models.TextField(primary_key=False, null=True, editable=True, verbose_name="Indications", unique=False)
-    questions = models.TextField(primary_key=False, null=True, editable=True, verbose_name="Questions", unique=False)
-    registered = models.DateTimeField(primary_key=False, null=False, editable=False, verbose_name="Registered", unique=False, auto_now_add=True)
-    updated = models.DateTimeField(primary_key=False, null=False, editable=True, verbose_name="Updated", unique=False, auto_now_add=True)
-    status = models.BooleanField(primary_key=False, null=False, editable=True, verbose_name="Status", unique=False, default=True)
-    competences = models.ManyToManyField(Competence)
-    resources = models.ManyToManyField(Resource)
-
-    def __str__(self):
-        return self.denomination
-    
-    class Meta:
-        db_table = "trainingreagent"
-        verbose_name = "Training Reagent"
-        verbose_name_plural = "Training Reagents"
-
-class TrainingActivity(models.Model):
-    trainingReagent = models.ForeignKey(TrainingReagent, on_delete=models.CASCADE, primary_key=False, null=False, blank=False, editable=False, verbose_name="Training Reagent", unique=False)
-    implementationProcess = models.ForeignKey(ImplementationProcess, on_delete=models.CASCADE, primary_key=False, null=False, blank=False, editable=False, verbose_name="Implementation Process", unique=False)
-    link = models.TextField(primary_key=False, null=True, editable=False, verbose_name="Link", unique=False)
-    completed = models.BooleanField(primary_key=False, null=False, editable=True, verbose_name="Completed", unique=False, default=True)
-    registered = models.DateTimeField(primary_key=False, null=False, editable=False, verbose_name="Registered", unique=False, auto_now_add=True)
-
-    def __str__(self):
-        return self.identificator
-    
-    class Meta:
-        db_table = "trainingactivity"
-        verbose_name = "Training Activity"
-        verbose_name_plural = "Training Activities"
-        unique_together = (("trainingReagent", "implementationProcess"), )
+        verbose_name = "Answer"
+        verbose_name_plural = "Answers"
+        ordering = ["submitted"]
+        
