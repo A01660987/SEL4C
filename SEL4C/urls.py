@@ -17,15 +17,8 @@ router.register(r'institution', InstitutionViewSet)
 router.register(r'degree', DegreeViewSet)
 router.register(r'discipline', DisciplineViewSet)
 router.register(r'student', StudentViewSet)
-router.register(r'diagnosis-question', DiagnosisQuestionViewSet)
-router.register(r'test', TestViewSet)
-router.register(r'implementation-process', ImplementationProcessViewSet)
-router.register(r'competence-diagnosis', CompetenceDiagnosisViewSet)
-router.register(r'diagnosis-test', DiagnosisTestViewSet)
-router.register(r'competence', CompetenceViewSet)
-router.register(r'resource', ResourceViewSet)
-router.register(r'training-reagent', TrainingReagentViewSet)
-router.register(r'training-activity', TrainingActivityViewSet)
+
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),

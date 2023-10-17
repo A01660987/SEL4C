@@ -166,10 +166,9 @@ class AnswerUpload(models.Model):
     class Meta:
         verbose_name = "Upload"
         verbose_name_plural = "Uploads"
-        ordering = ["uploaded"]
 
 class AnswerText(models.Model):
-    answer = models.TextField(verbose_name="Answer")
+    text = models.TextField(verbose_name="Answer")
 
     def __str__(self):
         return "Answer: " + self.answer[:10] # first 10 characters of answer
@@ -179,7 +178,7 @@ class AnswerText(models.Model):
         verbose_name_plural = "Text answers"
 
 class AnswerRating(models.Model):
-    answer = models.PositiveSmallIntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)], verbose_name="Rating")
+    rating = models.PositiveSmallIntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)], verbose_name="Rating")
 
     def __str__(self):
         return "Rating: " + self.answer

@@ -1,4 +1,4 @@
-from SEL4C.models import User, Group, Institution, Discipline, Degree, Student, DiagnosisQuestion, Test, ImplementationProcess, CompetenceDiagnosis, DiagnosisTest, Competence, Resource, TrainingReagent, TrainingActivity
+from SEL4C.models import *
 from django.core.exceptions import ObjectDoesNotExist
 from django.utils.encoding import smart_str
 from rest_framework import serializers
