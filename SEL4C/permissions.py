@@ -37,7 +37,6 @@ class FileUploadPermission(permissions.BasePermission):
     """Authenticated users are allowed to commit files"""
     def has_permission(self, request, view):
         if request.method == 'POST':
-            # Allow unauthenticated users to register
             return request.user.is_authenticated
         
         return False
