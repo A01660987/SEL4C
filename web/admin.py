@@ -30,7 +30,6 @@ class UserAdmin(UserAdmin):
 
 admin.site.unregister(authGroup)
 admin.site.register(User, UserAdmin)
-admin.site.register(Group)
 admin.site.register(Institution)
 admin.site.register(Discipline)
 admin.site.register(Degree)

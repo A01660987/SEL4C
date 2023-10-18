@@ -12,7 +12,6 @@ router: ExtendedSimpleRouter = ExtendedSimpleRouter()
 
 router = routers.DefaultRouter()
 router.register(r'user', UserViewSet)
-router.register(r'group', GroupViewSet)
 router.register(r'institution', InstitutionViewSet)
 router.register(r'degree', DegreeViewSet)
 router.register(r'discipline', DisciplineViewSet)

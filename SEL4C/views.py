@@ -29,10 +29,6 @@ class UserViewSet(viewsets.ModelViewSet):
     permission_classes = [CustomUserPermission]
 
 
-class GroupViewSet(viewsets.ModelViewSet):
-    serializer_class = GroupSerializer
-    queryset = Group.objects.all()
-
 class InstitutionViewSet(viewsets.ModelViewSet):
     serializer_class = InstitutionSerializer
     queryset = Institution.objects.all()

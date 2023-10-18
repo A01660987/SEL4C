@@ -27,18 +27,6 @@ class User(AbstractUser):
         verbose_name = "Usuario"
         verbose_name_plural = "Usuarios"
 
-class Group(models.Model):
-    name = models.CharField(max_length=100, unique=True, verbose_name="Grupo")
-    is_active = models.BooleanField(default=True, verbose_name="Activo")
-
-    def __str__(self):
-        return self.name
-    
-    class Meta:
-        verbose_name = "Grupo"
-        verbose_name_plural = "Grupos"
-        ordering = ["name"]
-
 class Institution(models.Model):
     name = models.CharField(max_length=100, unique=True, verbose_name="Institución")
     is_active = models.BooleanField(default=True, verbose_name="Activo")
@@ -97,7 +85,6 @@ class Student(models.Model):
     
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES, verbose_name="Género")
     country = CountryField(verbose_name="País")
-    group = models.ForeignKey(Group, on_delete=models.CASCADE, blank=True, verbose_name="Grupo")
     degree = models.ManyToManyField(Degree, verbose_name="Título académico")
 
     REQUIRED_FIELDS = [

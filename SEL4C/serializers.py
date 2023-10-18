@@ -50,10 +50,6 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
 #             raise serializers.ValidationError({'current_password': 'Does not match'})
 #         return value
 
-class GroupSerializer(serializers.ModelSerializer):
-    class Meta:
-        model=Group
-        fields="__all__"
 
 class InstitutionSerializer(serializers.ModelSerializer):
     class Meta:
@@ -77,11 +73,6 @@ class StudentSerializer(serializers.ModelSerializer):
         model=Student
         fields="__all__"
 
-    group = CreatableSlugRelatedField(
-        many=False,
-        slug_field='id',
-        queryset=Group.objects.all()
-    )
     Disciplines = CreatableSlugRelatedField(
         many=True,
         slug_field='id',
