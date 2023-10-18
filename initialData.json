@@ -1,0 +1,28 @@
+[
+    {
+        "model": "SEL4C.Institution",
+        "pk": 1,
+        "fields": {
+            "name": "Technologico de Monterrey",
+            "is_active": true
+        }
+    },
+    {
+        "model": "SEL4C.Discipline",
+        "pk": 1,
+        "fields": {
+            "name": "Informatica"
+        }
+    },
+    {
+        "model": "SEL4C.Degree",
+        "pk": 1,
+        "fields": {
+            "type": "M",
+            "discipline": 1,
+            "institution": 1,
+            "name": "Maestría",
+            "acronym": "TEC"
+        }
+    }
+]

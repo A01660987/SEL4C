@@ -29,7 +29,6 @@ class User(AbstractUser):
 
 class Institution(models.Model):
     name = models.CharField(max_length=100, unique=True, verbose_name="Institución")
-    is_active = models.BooleanField(default=True, verbose_name="Activo")
 
     def __str__(self):
         return self.name
@@ -71,7 +70,7 @@ class Degree(models.Model):
         ordering = ["institution", "discipline", "type"]
 
 class Student(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name="Usuario")
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Usuario")
     age = models.PositiveSmallIntegerField(validators=[MinValueValidator(18), MaxValueValidator(130)], verbose_name="Edad")
     agreed_policies = models.BooleanField(default=True, verbose_name="¿Acepta las políticas de privacidad?", validators=[permissions.is_agreed_on_policy])
     
@@ -85,7 +84,10 @@ class Student(models.Model):
     
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES, verbose_name="Género")
     country = CountryField(verbose_name="País")
-    degree = models.ManyToManyField(Degree, verbose_name="Título académico")
+    degree = models.OneToOneField(Degree, on_delete=models.CASCADE, verbose_name="Título académico")
+    degree = models.ForeignKey(Degree, on_delete=models.CASCADE, verbose_name="Degree")
+    discipline = models.ForeignKey(Discipline, on_delete=models.CASCADE, verbose_name="Discipline")
+    institution = models.ForeignKey(Institution, on_delete=models.CASCADE, verbose_name="Institution")
 
     REQUIRED_FIELDS = [
         'age',

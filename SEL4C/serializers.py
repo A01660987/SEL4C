@@ -2,6 +2,7 @@ from SEL4C.models import *
 from django.core.exceptions import ObjectDoesNotExist
 from django.utils.encoding import smart_str
 from rest_framework import serializers
+from django.contrib.auth.password_validation import validate_password
 
 
 """Difference between SlugRelatedField is the creation of an object if no object is found"""
@@ -23,6 +24,11 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         extra_kwargs = {
             'password': {'write_only': True}
         }
+    
+# Will raise ValidationError if the password is not matching requirements
+    def validate_password(self, value):
+        validate_password(value)  
+        return value
 
     def save(self, **kwargs):
         email = self.validated_data['email']
@@ -73,11 +79,38 @@ class StudentSerializer(serializers.ModelSerializer):
         model=Student
         fields="__all__"
 
-    Disciplines = CreatableSlugRelatedField(
-        many=True,
-        slug_field='id',
-        queryset=Discipline.objects.all()
-    )
+    def create(self, validated_data):
+
+        user_data = validated_data.pop('user')
+        username = user_data.get('email')
+
+        existing_user = User.objects.filter(username=username).first()
+        if existing_user:
+            raise serializers.ValidationError("User with this email already exists.")
+
+        # Create a User object
+        user_serializer = UserRegistrationSerializer(data=user_data)
+        if user_serializer.is_valid():
+            user = user_serializer.save()
+        else:
+            raise serializers.ValidationError(user_serializer.errors)
+
+        student = Student.objects.create(
+            user=user,
+            age=validated_data.get('age'),
+            agreed_policies=validated_data.get('agreed_policies'),
+            gender=validated_data.get('gender'),
+            country=validated_data.get('country'),
+            degree=validated_data.get('degree'),
+            discipline=validated_data.get('discipline'),
+            institution=validated_data.get('institution'))
+
+        if not student:
+            user.delete() # Delete user if student couldnt be created
+            raise serializers.ValidationError("Student could not be created")
+
+        return student
+
 
 """Multi-use answer_string field. Depending on answer type gets interpreted in a different way, eg. as Int when Type=R (rating)"""
 class AnswerSerializer(serializers.ModelSerializer):
