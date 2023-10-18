@@ -187,7 +187,7 @@ class Answer(models.Model):
     upload_answer = models.ForeignKey(AnswerUpload, on_delete=models.CASCADE, verbose_name="Carga", null=True, blank=True)
     text_answer = models.ForeignKey(AnswerText, on_delete=models.CASCADE, verbose_name="Texto", null=True, blank=True)
     rating_answer = models.ForeignKey(AnswerRating, on_delete=models.CASCADE, verbose_name="Valuación", null=True, blank=True)
-    student = models.ForeignKey(Student, on_delete=models.CASCADE, verbose_name="Estudiante")
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Usuario") # Has to be user for easier implementation
     exercise = models.ForeignKey(ExerciseStep, on_delete=models.CASCADE, verbose_name="Ejercicio")
     activity = models.ForeignKey(Activity, on_delete=models.CASCADE, verbose_name="Actividad")
     submitted = models.DateTimeField(auto_now=True, verbose_name="Fecha de envío")

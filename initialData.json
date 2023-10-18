@@ -3,8 +3,7 @@
         "model": "SEL4C.Institution",
         "pk": 1,
         "fields": {
-            "name": "Technologico de Monterrey",
-            "is_active": true
+            "name": "Technologico de Monterrey"
         }
     },
     {
@@ -19,8 +18,6 @@
         "pk": 1,
         "fields": {
             "type": "M",
-            "discipline": 1,
-            "institution": 1,
             "name": "Maestría",
             "acronym": "TEC"
         }
