@@ -56,18 +56,16 @@ class Degree(models.Model):
         ('D', 'Doctorado'),
     ]
     type = models.CharField(max_length=1, choices=DEGREE_TYPES, verbose_name="Tipo")
-    discipline = models.ForeignKey(Discipline, on_delete=models.CASCADE, verbose_name="Disciplina")
-    institution = models.ForeignKey(Institution, on_delete=models.CASCADE, verbose_name="Institución")
     name = models.CharField(max_length=100, verbose_name="Título")
     acronym = models.CharField(max_length=10, verbose_name="Siglas")
 
     def __str__(self):
-        return self.name + ", " + self.institution.name
+        return self.name
     
     class Meta:
         verbose_name = "Título académico"
         verbose_name_plural = "Títulos académicos"
-        ordering = ["institution", "discipline", "type"]
+        ordering = ["name"]
 
 class Student(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Usuario")
@@ -84,10 +82,9 @@ class Student(models.Model):
     
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES, verbose_name="Género")
     country = CountryField(verbose_name="País")
-    degree = models.OneToOneField(Degree, on_delete=models.CASCADE, verbose_name="Título académico")
-    degree = models.ForeignKey(Degree, on_delete=models.CASCADE, verbose_name="Degree")
-    discipline = models.ForeignKey(Discipline, on_delete=models.CASCADE, verbose_name="Discipline")
-    institution = models.ForeignKey(Institution, on_delete=models.CASCADE, verbose_name="Institution")
+    degree = models.ForeignKey(Degree, on_delete=models.CASCADE, verbose_name="Título académico")
+    discipline = models.ForeignKey(Discipline, on_delete=models.CASCADE, verbose_name="Disciplina")
+    institution = models.ForeignKey(Institution, on_delete=models.CASCADE, verbose_name="Institución")
 
     REQUIRED_FIELDS = [
         'age',
@@ -105,101 +102,101 @@ class Student(models.Model):
 
 """Holds the title for an activity. Through the country field different languages are possible for the future"""
 class ActivityText(models.Model):
-    title = models.TextField( verbose_name="Title")
+    title = models.TextField( verbose_name="Título")
     country = CountryField(verbose_name="País")
 
     def __str__(self):
-        return "Activity" + self.title
+        return "Título de actividad: " + self.title
     
     class Meta:
-        verbose_name = "Activity"
-        verbose_name_plural = "Activities"
+        verbose_name = "Título de actividad"
+        verbose_name_plural = "Títulos de actividad"
         ordering = ["title"]
 
 
 """An activity is the title for a group of exercise steps. E.g. name = 'Identification' displays at the main screen and is connected to 4 exercise steps"""
 class Activity(models.Model):
-    activity_number = models.PositiveSmallIntegerField(verbose_name="Number of activity")
-    activity_text = models.ForeignKey(ActivityText, on_delete=models.CASCADE, verbose_name="Activity text")
+    activity_number = models.PositiveSmallIntegerField(verbose_name="Número de actividad")
+    activity_text = models.ForeignKey(ActivityText, on_delete=models.CASCADE, verbose_name="Texto de actividad")
 
     def __str__(self):
-        return "Activity" + self.activity_number
+        return "Actividad: " + self.activity_number
     
     class Meta:
-        verbose_name = "Activity"
-        verbose_name_plural = "Activities"
+        verbose_name = "Actividad"
+        verbose_name_plural = "Actividades"
         ordering = ["activity_number"]
 
 
 """An exercise step is created when an answer to an exercise is necessary. E.g. 3 in-app screens of instructions and an upload form afterwards form one exercise step"""
 class ExerciseStep(models.Model):
-    exerciseStep_number = models.PositiveSmallIntegerField(verbose_name="Number of exercise")
-    activity = models.ForeignKey(Activity, on_delete=models.CASCADE, verbose_name="Activity")
+    exerciseStep_number = models.PositiveSmallIntegerField(verbose_name="Número de ejercicio")
+    activity = models.ForeignKey(Activity, on_delete=models.CASCADE, verbose_name="Actividad")
 
     def __str__(self):
-        return "Exercise" + self.exerciseStep_number + ", Activity" + self.activity
+        return "Ejercicio: " + self.exerciseStep_number + ", Actividad: " + self.activity
     
     class Meta:
-        verbose_name = "Exercise"
-        verbose_name_plural = "Exercises"
+        verbose_name = "Ejercicio"
+        verbose_name_plural = "Ejercicios"
         ordering = ["exerciseStep_number"]
 
 
 class AnswerUpload(models.Model):
-    link = models.TextField(verbose_name="File link")
-    filename = models.TextField(verbose_name="File name")
+    link = models.TextField(verbose_name="Link al archivo")
+    filename = models.TextField(verbose_name="Nombre del archivo")
 
     def __str__(self):
-        return "Upload name " + self.filename
+        return "Nombre del archivo: " + self.filename
     
     class Meta:
-        verbose_name = "Upload"
-        verbose_name_plural = "Uploads"
+        verbose_name = "Carga de archivo"
+        verbose_name_plural = "Cargas de archivo"
 
 class AnswerText(models.Model):
-    text = models.TextField(verbose_name="Answer")
+    text = models.TextField(verbose_name="Respuesta")
 
     def __str__(self):
-        return "Answer: " + self.answer[:10] # first 10 characters of answer
+        return "Respuesta: " + self.text[:10] # first 10 characters of answer
     
     class Meta:
-        verbose_name = "Text answer"
-        verbose_name_plural = "Text answers"
+        verbose_name = "Texto de respuesta"
+        verbose_name_plural = "Textos de respuesta"
 
 class AnswerRating(models.Model):
     rating = models.PositiveSmallIntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)], verbose_name="Rating")
 
     def __str__(self):
-        return "Rating: " + self.answer
+        return "Valuación: " + self.rating
     
     class Meta:
-        verbose_name = "Rating answer"
-        verbose_name_plural = "Rating answers"
+        verbose_name = "Valuación"
+        verbose_name_plural = "Valuaciones"
 
 
 """An answer can be of 3 types and can only be one at the same time. Other Foreign Keys are in this case NULL. Answer-FK are initialized with NULL and not required"""
 class Answer(models.Model):
 
     ANSWER_TYPES = [
-        ('U', 'Upload'),
-        ('T', 'Text'),
-        ('R', 'Rating'),
+        ('U', 'Carga'),
+        ('T', 'Texto'),
+        ('R', 'Valuación'),
     ]
 
     type = models.CharField(max_length=1, choices=ANSWER_TYPES, verbose_name="Tipo")
-    upload_answer = models.ForeignKey(AnswerUpload, on_delete=models.CASCADE, verbose_name="Upload", null=True, blank=True)
-    text_answer = models.ForeignKey(AnswerText, on_delete=models.CASCADE, verbose_name="Text", null=True, blank=True)
-    rating_answer = models.ForeignKey(AnswerRating, on_delete=models.CASCADE, verbose_name="Rating", null=True, blank=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="User")
-    exercise = models.ForeignKey(ExerciseStep, on_delete=models.CASCADE, verbose_name="Exercise")
-    activity = models.ForeignKey(Activity, on_delete=models.CASCADE, verbose_name="Activity")
-    submitted = models.DateTimeField(auto_now=True, verbose_name="Fecha de submit")
+    upload_answer = models.ForeignKey(AnswerUpload, on_delete=models.CASCADE, verbose_name="Carga", null=True, blank=True)
+    text_answer = models.ForeignKey(AnswerText, on_delete=models.CASCADE, verbose_name="Texto", null=True, blank=True)
+    rating_answer = models.ForeignKey(AnswerRating, on_delete=models.CASCADE, verbose_name="Valuación", null=True, blank=True)
+    student = models.ForeignKey(Student, on_delete=models.CASCADE, verbose_name="Estudiante")
+    exercise = models.ForeignKey(ExerciseStep, on_delete=models.CASCADE, verbose_name="Ejercicio")
+    activity = models.ForeignKey(Activity, on_delete=models.CASCADE, verbose_name="Actividad")
+    submitted = models.DateTimeField(auto_now=True, verbose_name="Fecha de envío")
 
     def __str__(self):
-        return "Answer of type" + self.type + ", Student " + self.student
+        return "Tipo de respuesta: " + self.type + ", Estudiante: " + self.student
     
     class Meta:
-        verbose_name = "Answer"
-        verbose_name_plural = "Answers"
+        verbose_name = "Respuesta"
+        verbose_name_plural = "Respuestas"
         ordering = ["submitted"]
         

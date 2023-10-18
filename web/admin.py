@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.contrib.auth.models import Group as authGroup
+from django.contrib.auth.models import Group
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from SEL4C.models import *
@@ -26,9 +26,8 @@ class UserAdmin(UserAdmin):
             }
         )
     )
-    ordering = ('username',)
 
-admin.site.unregister(authGroup)
+admin.site.unregister(Group)
 admin.site.register(User, UserAdmin)
 admin.site.register(Institution)
 admin.site.register(Discipline)
