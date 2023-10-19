@@ -24,6 +24,46 @@
 
 <div id="content" class="mt-5 mx-4">
   <p class= "pt-5 fs-4">
+    General:
+  </p><br>
+  <table width="100%" border="0">
+    <tr>
+      <td>
+        <strong>Especialidad</strong><br>
+        <iframe src="https://sel4c.azurewebsites.net/student_degree_chart/" width="200" height="200" border="0"></iframe>
+      </td>
+      <td>
+        <strong>Disciplina</strong><br>
+        <iframe src="https://sel4c.azurewebsites.net/student_discipline_chart/" width="200" height="200" border="0"></iframe>
+      </td>
+      <td>
+        <strong>Institución</strong><br>
+        <iframe src="https://sel4c.azurewebsites.net/student_institution_chart/" width="200" height="200" border="0"></iframe>
+      </td>
+      <td>
+        <strong>Respuestas</strong><br>
+        <iframe src="https://sel4c.azurewebsites.net/answer_activity_chart/" width="200" height="200" border="0"></iframe>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <strong>Género</strong><br>
+        <iframe src="https://sel4c.azurewebsites.net/student_gender_chart/" width="200" height="200" border="0"></iframe>
+      </td>
+      <td>
+        <strong>Edad</strong><br>
+        <iframe src="https://sel4c.azurewebsites.net/student_age_chart/" width="200" height="200" border="0"></iframe>
+      </td>
+      <td>
+        <strong>País</strong><br>
+        <iframe src="https://sel4c.azurewebsites.net/student_country_chart/" width="200" height="200" border="0"></iframe>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<div id="content" class="mt-5 mx-4">
+  <p class= "pt-5 fs-4">
     Estudiantes:
   </p>
   <div class="row text-center w-100 mb-2 ps-3 pe-5 me-3 d-none d-lg-flex">
@@ -66,15 +106,12 @@
             <p class="fs-6 mb-1"><strong>Título más reciente: </strong>{{ student.degree.last }}</p>
             <a type="button" width="20" class="fw-semibold btn btn-secondary rounded-pill shadow-sm">ARCHIVOS</a>
           </div>
-          <div id="graphs" class="text-center">
-            <img class="me-4" height="400" src="https://i.imgur.com/ydKtbpU.png">
-            <img height="400" src="https://i.imgur.com/7NiKvhh.png">
-          </div>   
         </div>
       </div>
     </div>
     {% endfor %}
   </div>
 </div>
+<br><br><br>
 
 {% endblock main %}
