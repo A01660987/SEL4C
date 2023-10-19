@@ -57,7 +57,6 @@ class Degree(models.Model):
     ]
     type = models.CharField(max_length=1, choices=DEGREE_TYPES, verbose_name="Tipo")
     name = models.CharField(max_length=100, verbose_name="Título")
-    acronym = models.CharField(max_length=10, verbose_name="Siglas")
 
     def __str__(self):
         return self.name
@@ -66,6 +65,21 @@ class Degree(models.Model):
         verbose_name = "Título académico"
         verbose_name_plural = "Títulos académicos"
         ordering = ["name"]
+
+
+"""Holds every combination of Institution, Discipline and Degree offered by a Institution"""
+class AvailableStudies(models.Model):
+    institution = models.ForeignKey(Institution, on_delete=models.CASCADE, verbose_name="Institution")
+    discipline = models.ForeignKey(Discipline, on_delete=models.CASCADE, verbose_name="Usuario")
+    degree = models.ForeignKey(Degree, on_delete=models.CASCADE, verbose_name="Usuario")
+
+    def __str__(self):
+        return self.id
+    
+    class Meta:
+        verbose_name = "AvailableStudies"
+        verbose_name_plural = "AvailableStudies"
+        ordering = ["institution"]
 
 class Student(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Usuario")
@@ -82,9 +96,7 @@ class Student(models.Model):
     
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES, verbose_name="Género")
     country = CountryField(verbose_name="País")
-    degree = models.ForeignKey(Degree, on_delete=models.CASCADE, verbose_name="Título académico")
-    discipline = models.ForeignKey(Discipline, on_delete=models.CASCADE, verbose_name="Disciplina")
-    institution = models.ForeignKey(Institution, on_delete=models.CASCADE, verbose_name="Institución")
+    studies = models.ForeignKey(AvailableStudies, on_delete=models.CASCADE, verbose_name="Studies")
 
     REQUIRED_FIELDS = [
         'age',

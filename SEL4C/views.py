@@ -5,12 +5,10 @@ from rest_framework.response import Response
 from SEL4C.serializers import *
 from SEL4C.models import *
 from django.views.decorators.csrf import csrf_exempt
-from django.db.models import Q
-import json, os
-from querystring_parser import parser
+import os
 from django.core.files.storage import FileSystemStorage
 from rest_framework.views import APIView
-from rest_framework.parsers import FileUploadParser, MultiPartParser
+from rest_framework.parsers import MultiPartParser
 from .permissions import *
 from rest_framework import status
 
@@ -33,17 +31,50 @@ class StudentViewSet(viewsets.ModelViewSet):
     queryset = Student.objects.all()
     permission_classes = [CustomUserPermission]
 
+"""Get a list of all Institutions available"""
 class InstitutionViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = InstitutionSerializer
     queryset = Institution.objects.all()
+    permission_classes = [permissions.AllowAny]
 
+
+"""Get a list of available degrees in an institution"""
 class DegreeViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = DegreeSerializer
     queryset = Degree.objects.all()
+    permission_classes = [permissions.AllowAny]
 
+
+    def get_queryset(self):
+        institution_id = self.request.query_params.get('institution_id')
+
+        # If id provided, return objects which are available for this institution
+        if institution_id:
+            return Degree.objects.filter(availablestudies__institution_id=institution_id).distinct()
+        else:
+            # Return the original queryset if institution_id is not provided
+            return self.queryset
+
+
+"""Get a list of available disciplines with according Institution and degree id"""
 class DisciplineViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = DisciplineSerializer
     queryset = Discipline.objects.all()
+    permission_classes = [permissions.AllowAny]
+
+
+    def get_queryset(self):
+        institution_id = self.request.query_params.get('institution_id')
+        degree_id = self.request.query_params.get('degree_id')
+
+        # If id provided, return objects which are available for this institution
+        if institution_id:
+            return Discipline.objects.filter(availablestudies__institution_id=institution_id,
+                                         availablestudies__degree_id=degree_id
+                                         )
+        else:
+            # Return the original queryset if institution_id is not provided
+            return self.queryset
 
 
 

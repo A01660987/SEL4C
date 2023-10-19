@@ -14,12 +14,61 @@
         }
     },
     {
+        "model": "SEL4C.Discipline",
+        "pk": 2,
+        "fields": {
+            "name": "Informática"
+        }
+    },
+    {
         "model": "SEL4C.Degree",
         "pk": 1,
         "fields": {
             "type": "M",
-            "name": "Maestría en Ciencias Computacionales",
-            "acronym": "MCC"
+            "name": "Maestría"
+        }
+    },
+    {
+        "model": "SEL4C.Degree",
+        "pk": 2,
+        "fields": {
+            "type": "L",
+            "name": "Licenciatura"
+        }
+    },
+    {
+        "model": "SEL4C.Degree",
+        "pk": 3,
+        "fields": {
+            "type": "D",
+            "name": "Doctorado"
+        }
+    },
+    {
+        "model": "SEL4C.AvailableStudies",
+        "pk": 1,
+        "fields": {
+            "institution": 1,
+            "discipline": 1,
+            "degree": 1
+        }
+    },
+    {
+        "model": "SEL4C.AvailableStudies",
+        "pk": 2,
+        "fields": {
+            "institution": 1,
+            "discipline": 1,
+            "degree": 2
+        }
+    },
+    {
+        "model": "SEL4C.AvailableStudies",
+        "pk": 3,
+        "fields": {
+            "institution": 1,
+            "discipline": 2,
+            "degree": 2
         }
     }
 ]

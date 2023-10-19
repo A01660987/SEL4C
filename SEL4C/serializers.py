@@ -101,9 +101,7 @@ class StudentSerializer(serializers.ModelSerializer):
             agreed_policies=validated_data.get('agreed_policies'),
             gender=validated_data.get('gender'),
             country=validated_data.get('country'),
-            degree=validated_data.get('degree'),
-            discipline=validated_data.get('discipline'),
-            institution=validated_data.get('institution'))
+            studies=validated_data.get('studies'))
 
         if not student:
             user.delete() # Delete user if student couldnt be created
