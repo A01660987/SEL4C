@@ -28,29 +28,40 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     permission_classes = [CustomUserPermission]
 
-
-class InstitutionViewSet(viewsets.ModelViewSet):
-    serializer_class = InstitutionSerializer
-    queryset = Institution.objects.all()
-
-class DegreeViewSet(viewsets.ModelViewSet):
-    serializer_class = DegreeSerializer
-    queryset = Degree.objects.all()
-
-class DisciplineViewSet(viewsets.ModelViewSet):
-    serializer_class = DisciplineSerializer
-    queryset = Discipline.objects.all()
-
 class StudentViewSet(viewsets.ModelViewSet):
     serializer_class = StudentSerializer
     queryset = Student.objects.all()
     permission_classes = [CustomUserPermission]
 
+class InstitutionViewSet(viewsets.ReadOnlyModelViewSet):
+    serializer_class = InstitutionSerializer
+    queryset = Institution.objects.all()
+
+class DegreeViewSet(viewsets.ReadOnlyModelViewSet):
+    serializer_class = DegreeSerializer
+    queryset = Degree.objects.all()
+
+class DisciplineViewSet(viewsets.ReadOnlyModelViewSet):
+    serializer_class = DisciplineSerializer
+    queryset = Discipline.objects.all()
 
 
-class AnswerViewSet(viewsets.ModelViewSet):
+
+class AnswerViewSet(APIView):
     serializer_class = AnswerSerializer
     queryset = Answer.objects.all()
+
+    @csrf_exempt
+    def post(self, request):
+        if request.method == "POST" and request.user:
+            answer_serializer = AnswerSerializer(data=request.data)
+            if answer_serializer.is_valid():
+                answer_serializer.save()
+                return JsonResponse({"status": "success"}, safe=False, status=201)
+            
+            return Response(answer_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        
+        return JsonResponse({"status": "only 'POST' allowed"}, safe=False, status=404)
     #TODO what other views (POST, etc) are necessary?
 
 

@@ -12,22 +12,22 @@ router: ExtendedSimpleRouter = ExtendedSimpleRouter()
 
 router = routers.DefaultRouter()
 router.register(r'user', UserViewSet)
+router.register(r'student', StudentViewSet)
 router.register(r'institution', InstitutionViewSet)
 router.register(r'degree', DegreeViewSet)
 router.register(r'discipline', DisciplineViewSet)
-router.register(r'student', StudentViewSet)
-router.register(r'answer', AnswerViewSet)
 
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('upload/', FileUploadView.as_view(), name='upload'),
+    path('api/upload/', FileUploadView.as_view(), name='upload'),
+    path('api/answer/', AnswerViewSet.as_view(), name='answer'),
     path('api/schema/', SpectacularAPIView.as_view(api_version='v2'), name='schema'),
     path('schema/swagger/', SpectacularSwaggerView.as_view()), 
     path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'), 
-    path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'), 
-    path('token/verify/', TokenVerifyView.as_view(), name='token_refresh'), 
+    # path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'), 
+    # path('token/verify/', TokenVerifyView.as_view(), name='token_refresh'), 
     path('api/', include(router.urls)), 
     path('', include('web.urls'))
 ]  + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
