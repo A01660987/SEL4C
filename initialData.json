@@ -154,7 +154,8 @@
             "username": "a123456@tec.mx",
             "name": "José",
             "first_lastname": "Martinez",
-            "second_lastname": "André"
+            "second_lastname": "André",
+            "date_modified": "2023-10-19"
         }
     },
     {
@@ -164,7 +165,8 @@
             "username": "mlopez@example.com",
             "name": "María",
             "first_lastname": "López",
-            "second_lastname": "García"
+            "second_lastname": "García",
+            "date_modified": "2023-10-19"
         }
     },
     {
@@ -174,7 +176,8 @@
             "username": "emartinez@example.com",
             "name": "Elena",
             "first_lastname": "Martinez",
-            "second_lastname": "Gomez"
+            "second_lastname": "Gomez",
+            "date_modified": "2023-10-19"
         }
     },
     {
@@ -184,7 +187,8 @@
             "username": "jgutierrez@example.com",
             "name": "Juan",
             "first_lastname": "Gutierrez",
-            "second_lastname": "Lopez"
+            "second_lastname": "Lopez",
+            "date_modified": "2023-10-19"
         }
     },
     {
@@ -194,7 +198,8 @@
             "username": "lrodriguez@example.com",
             "name": "Laura",
             "first_lastname": "Rodriguez",
-            "second_lastname": "Santos"
+            "second_lastname": "Santos",
+            "date_modified": "2023-10-19"
         }
     },
     {
@@ -255,6 +260,222 @@
             "gender": "M",
             "country": "MX",
             "studies": 6
+        }
+    },
+    {
+        "model": "SEL4C.ActivityText",
+        "pk": 1,
+        "fields": {
+            "title": "Diagnóstico Inicial",
+            "country": "MX"
+        }
+    },
+    {
+        "model": "SEL4C.ActivityText",
+        "pk": 2,
+        "fields": {
+            "title": "Identificación",
+            "country": "MX"
+        }
+    },
+    {
+        "model": "SEL4C.ActivityText",
+        "pk": 3,
+        "fields": {
+            "title": "Investigación",
+            "country": "MX"
+        }
+    },
+    {
+        "model": "SEL4C.ActivityText",
+        "pk": 4,
+        "fields": {
+            "title": "Ideación",
+            "country": "MX"
+        }
+    },
+    {
+        "model": "SEL4C.ActivityText",
+        "pk": 5,
+        "fields": {
+            "title": "Socialización",
+            "country": "MX"
+        }
+    },
+    {
+        "model": "SEL4C.ActivityText",
+        "pk": 6,
+        "fields": {
+            "title": "Entregable final",
+            "country": "MX"
+        }
+    },
+    {
+        "model": "SEL4C.ActivityText",
+        "pk": 7,
+        "fields": {
+            "title": "Evaluación de Cierre",
+            "country": "MX"
+        }
+    },
+    {
+        "model": "SEL4C.Activity",
+        "pk": 1,
+        "fields": {
+            "activity_number": 1,
+            "activity_text": 1
+        }
+    },
+    {
+        "model": "SEL4C.Activity",
+        "pk": 2,
+        "fields": {
+            "activity_number": 2,
+            "activity_text": 2
+        }
+    },
+    {
+        "model": "SEL4C.Activity",
+        "pk": 3,
+        "fields": {
+            "activity_number": 3,
+            "activity_text": 3
+        }
+    },
+    {
+        "model": "SEL4C.Activity",
+        "pk": 4,
+        "fields": {
+            "activity_number": 4,
+            "activity_text": 4
+        }
+    },
+    {
+        "model": "SEL4C.Activity",
+        "pk": 5,
+        "fields": {
+            "activity_number": 5,
+            "activity_text": 5
+        }
+    },
+    {
+        "model": "SEL4C.Activity",
+        "pk": 6,
+        "fields": {
+            "activity_number": 6,
+            "activity_text": 6
+        }
+    },
+    {
+        "model": "SEL4C.Activity",
+        "pk": 7,
+        "fields": {
+            "activity_number": 7,
+            "activity_text": 7
+        }
+    },
+    {
+        "model": "SEL4C.ExerciseStep",
+        "pk": 1,
+        "fields": {
+            "exerciseStep_number": 1,
+            "activity": 1
+        }
+    },
+    {
+        "model": "SEL4C.ExerciseStep",
+        "pk": 2,
+        "fields": {
+            "exerciseStep_number": 1,
+            "activity": 2
+        }
+    },
+    {
+        "model": "SEL4C.ExerciseStep",
+        "pk": 3,
+        "fields": {
+            "exerciseStep_number": 2,
+            "activity": 2
+        }
+    },
+    {
+        "model": "SEL4C.ExerciseStep",
+        "pk": 4,
+        "fields": {
+            "exerciseStep_number": 3,
+            "activity": 2
+        }
+    },
+    {
+        "model": "SEL4C.ExerciseStep",
+        "pk": 5,
+        "fields": {
+            "exerciseStep_number": 1,
+            "activity": 3
+        }
+    },
+    {
+        "model": "SEL4C.ExerciseStep",
+        "pk": 6,
+        "fields": {
+            "exerciseStep_number": 2,
+            "activity": 3
+        }
+    },
+    {
+        "model": "SEL4C.ExerciseStep",
+        "pk": 6,
+        "fields": {
+            "exerciseStep_number": 3,
+            "activity": 3
+        }
+    },
+    {
+        "model": "SEL4C.ExerciseStep",
+        "pk": 7,
+        "fields": {
+            "exerciseStep_number": 4,
+            "activity": 3
+        }
+    },
+    {
+        "model": "SEL4C.ExerciseStep",
+        "pk": 8,
+        "fields": {
+            "exerciseStep_number": 1,
+            "activity": 4
+        }
+    },
+    {
+        "model": "SEL4C.ExerciseStep",
+        "pk": 9,
+        "fields": {
+            "exerciseStep_number": 1,
+            "activity": 5
+        }
+    },
+    {
+        "model": "SEL4C.ExerciseStep",
+        "pk": 10,
+        "fields": {
+            "exerciseStep_number": 2,
+            "activity": 5
+        }
+    },
+    {
+        "model": "SEL4C.ExerciseStep",
+        "pk": 11,
+        "fields": {
+            "exerciseStep_number": 1,
+            "activity": 6
+        }
+    },
+    {
+        "model": "SEL4C.ExerciseStep",
+        "pk": 12,
+        "fields": {
+            "exerciseStep_number": 1,
+            "activity": 7
         }
     }
 ]

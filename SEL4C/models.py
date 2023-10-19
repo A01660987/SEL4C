@@ -190,9 +190,9 @@ class AnswerRating(models.Model):
 class Answer(models.Model):
 
     ANSWER_TYPES = [
-        ('U', 'Carga'),
-        ('T', 'Texto'),
-        ('R', 'Valuación'),
+        ('U', 'Carga'), # Upload
+        ('T', 'Texto'), # Text
+        ('R', 'Valuación'), # Rating
     ]
 
     type = models.CharField(max_length=1, choices=ANSWER_TYPES, verbose_name="Tipo")

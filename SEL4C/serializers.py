@@ -110,7 +110,7 @@ class StudentSerializer(serializers.ModelSerializer):
         return student
 
 
-"""Multi-use answer_string field. Depending on answer type gets interpreted in a different way, eg. as Int when Type=R (rating)"""
+"""Multi-use answer_string field. Depending on answer type the field gets interpreted in a different way, eg. as Int when Type=R (rating)"""
 class AnswerSerializer(serializers.ModelSerializer):
     answer_string = serializers.CharField(style={"input_type": "text"}, write_only=True)
 
