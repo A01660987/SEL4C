@@ -17,10 +17,11 @@ class CreatableSlugRelatedField(serializers.SlugRelatedField):
 
 class UserRegistrationSerializer(serializers.ModelSerializer):
     password2 = serializers.CharField(style={"input_type": "password"}, write_only=True)
+    # username = serializers.CharField(source='user.username', read_only=True)
 
     class Meta:
         model = User
-        fields = ["email", "password", "password2", "name", "first_lastname", "second_lastname"]
+        fields = ["username", "password", "password2", "name", "first_lastname", "second_lastname"]
         extra_kwargs = {
             'password': {'write_only': True}
         }
@@ -31,14 +32,14 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         return value
 
     def save(self, **kwargs):
-        email = self.validated_data['email']
+        username = self.validated_data['username']
         password = self.validated_data['password']
         password2 = self.validated_data['password2']
         name = self.validated_data['name'] 
         first_lastname = self.validated_data['first_lastname'] 
         second_lastname = self.validated_data['second_lastname']
 
-        user = User(username=email, name=name, first_lastname=first_lastname, second_lastname=second_lastname, **kwargs)
+        user = User(username=username, name=name, first_lastname=first_lastname, second_lastname=second_lastname, **kwargs)
 
         if password != password2:
             raise serializers.ValidationError({'password': 'Passwords must match.'})
@@ -46,15 +47,11 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         user.save()
         return user
     
-# TODO   
-# class PasswordChangeSerializer(serializers.Serializer):
-#     current_password = serializers.CharField(style={"input_type": "password"}, required=True)
-#     new_password = serializers.CharField(style={"input_type": "password"}, required=True)
+class ChangeEmailSerializer(serializers.Serializer):
+    email = serializers.EmailField(required=True)
 
-#     def validate_current_password(self, value):
-#         if not self.context['request'].user.check_password(value):
-#             raise serializers.ValidationError({'current_password': 'Does not match'})
-#         return value
+class ChangePasswordSerializer(serializers.Serializer):
+    password = serializers.CharField(required=True)
 
 
 class InstitutionSerializer(serializers.ModelSerializer):

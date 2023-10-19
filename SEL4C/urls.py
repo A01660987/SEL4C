@@ -11,7 +11,7 @@ from SEL4C.views import *
 router: ExtendedSimpleRouter = ExtendedSimpleRouter()
 
 router = routers.DefaultRouter()
-router.register(r'user', UserViewSet)
+# router.register(r'user', UserViewSet)
 router.register(r'student', StudentViewSet)
 router.register(r'institution', InstitutionViewSet)
 router.register(r'degree', DegreeViewSet)
@@ -25,7 +25,9 @@ urlpatterns = [
     path('api/answer/', AnswerViewSet.as_view(), name='answer'),
     path('api/schema/', SpectacularAPIView.as_view(api_version='v2'), name='schema'),
     path('schema/swagger/', SpectacularSwaggerView.as_view()), 
-    path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'), 
+    path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/change-password/', ChangePasswordView.as_view(), name='change-password'),
+    path('api/change-email/', ChangeEmailView.as_view(), name='change-email'), 
     # path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'), 
     # path('token/verify/', TokenVerifyView.as_view(), name='token_refresh'), 
     path('api/', include(router.urls)), 
