@@ -69,16 +69,16 @@ class Degree(models.Model):
 
 """Holds every combination of Institution, Discipline and Degree offered by a Institution"""
 class AvailableStudies(models.Model):
-    institution = models.ForeignKey(Institution, on_delete=models.CASCADE, verbose_name="Institution")
-    discipline = models.ForeignKey(Discipline, on_delete=models.CASCADE, verbose_name="Usuario")
-    degree = models.ForeignKey(Degree, on_delete=models.CASCADE, verbose_name="Usuario")
+    institution = models.ForeignKey(Institution, on_delete=models.CASCADE, verbose_name="Institución")
+    discipline = models.ForeignKey(Discipline, on_delete=models.CASCADE, verbose_name="Disciplina")
+    degree = models.ForeignKey(Degree, on_delete=models.CASCADE, verbose_name="Título académico")
 
     def __str__(self):
         return str(self.id)
     
     class Meta:
-        verbose_name = "AvailableStudies"
-        verbose_name_plural = "AvailableStudies"
+        verbose_name = "Estudio disponible"
+        verbose_name_plural = "Esudios disponibles"
         ordering = ["institution"]
 
 class Student(models.Model):
