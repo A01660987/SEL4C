@@ -3,14 +3,14 @@
         "model": "SEL4C.Institution",
         "pk": 1,
         "fields": {
-            "name": "Technologico de Monterrey"
+            "name": "Tecnológico de Monterrey"
         }
     },
     {
         "model": "SEL4C.Discipline",
         "pk": 1,
         "fields": {
-            "name": "Informatica"
+            "name": "Ingeniería"
         }
     },
     {
@@ -18,8 +18,8 @@
         "pk": 1,
         "fields": {
             "type": "M",
-            "name": "Maestría",
-            "acronym": "TEC"
+            "name": "Maestría en Ciencias Computacionales",
+            "acronym": "MCC"
         }
     }
 ]

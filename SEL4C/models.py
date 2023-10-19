@@ -193,7 +193,7 @@ class Answer(models.Model):
     submitted = models.DateTimeField(auto_now=True, verbose_name="Fecha de envío")
 
     def __str__(self):
-        return "Tipo de respuesta: " + self.type + ", Estudiante: " + self.student
+        return "Tipo de respuesta: " + self.type + ", Estudiante: " + self.user.name + " " + self.user.first_lastname + " " + self.user.second_lastname
     
     class Meta:
         verbose_name = "Respuesta"
