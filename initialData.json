@@ -3,21 +3,70 @@
         "model": "SEL4C.Institution",
         "pk": 1,
         "fields": {
-            "name": "Tecnológico de Monterrey"
+            "name": "Tecnológico de Monterrey (ITESM)"
+        }
+    },
+    {
+        "model": "SEL4C.Institution",
+        "pk": 2,
+        "fields": {
+            "name": "Universidad Nacional Autónoma de México (UNAM)"
+        }
+    },
+    {
+        "model": "SEL4C.Institution",
+        "pk": 3,
+        "fields": {
+            "name": "Universidad de las Américas Puebla (UDLAP)"
+        }
+    },
+    {
+        "model": "SEL4C.Institution",
+        "pk": 4,
+        "fields": {
+            "name": "Benemérita Universidad Autónoma de Puebla (BUAP)"
+        }
+    },
+    {
+        "model": "SEL4C.Institution",
+        "pk": 5,
+        "fields": {
+            "name": "Instituto Politécnico Nacional (IPN)"
+        }
+    },
+    {
+        "model": "SEL4C.Institution",
+        "pk": 6,
+        "fields": {
+            "name": "Universidad Autónoma de Guadalajara (UAG)"
         }
     },
     {
         "model": "SEL4C.Discipline",
         "pk": 1,
         "fields": {
-            "name": "Ingeniería"
+            "name": "Ingeniería Electrónica"
         }
     },
     {
         "model": "SEL4C.Discipline",
         "pk": 2,
         "fields": {
-            "name": "Informática"
+            "name": "Ciencias de la Computación"
+        }
+    },
+    {
+        "model": "SEL4C.Discipline",
+        "pk": 3,
+        "fields": {
+            "name": "Arquitectura"
+        }
+    },
+    {
+        "model": "SEL4C.Discipline",
+        "pk": 4,
+        "fields": {
+            "name": "Psicología"
         }
     },
     {
@@ -69,6 +118,143 @@
             "institution": 1,
             "discipline": 2,
             "degree": 2
+        }
+    },
+    {
+        "model": "SEL4C.AvailableStudies",
+        "pk": 4,
+        "fields": {
+            "institution": 2,
+            "discipline": 2,
+            "degree": 2
+        }
+    },
+    {
+        "model": "SEL4C.AvailableStudies",
+        "pk": 5,
+        "fields": {
+            "institution": 3,
+            "discipline": 1,
+            "degree": 3
+        }
+    },
+    {
+        "model": "SEL4C.AvailableStudies",
+        "pk": 6,
+        "fields": {
+            "institution": 4,
+            "discipline": 4,
+            "degree": 1
+        }
+    },
+    {
+        "model": "SEL4C.User",
+        "pk": 1,
+        "fields": {
+            "username": "a123456@tec.mx",
+            "name": "José",
+            "first_lastname": "Martinez",
+            "second_lastname": "André"
+        }
+    },
+    {
+        "model": "SEL4C.User",
+        "pk": 2,
+        "fields": {
+            "username": "mlopez@example.com",
+            "name": "María",
+            "first_lastname": "López",
+            "second_lastname": "García"
+        }
+    },
+    {
+        "model": "SEL4C.User",
+        "pk": 3,
+        "fields": {
+            "username": "emartinez@example.com",
+            "name": "Elena",
+            "first_lastname": "Martinez",
+            "second_lastname": "Gomez"
+        }
+    },
+    {
+        "model": "SEL4C.User",
+        "pk": 4,
+        "fields": {
+            "username": "jgutierrez@example.com",
+            "name": "Juan",
+            "first_lastname": "Gutierrez",
+            "second_lastname": "Lopez"
+        }
+    },
+    {
+        "model": "SEL4C.User",
+        "pk": 5,
+        "fields": {
+            "username": "lrodriguez@example.com",
+            "name": "Laura",
+            "first_lastname": "Rodriguez",
+            "second_lastname": "Santos"
+        }
+    },
+    {
+        "model": "SEL4C.Student",
+        "pk": 1,
+        "fields": {
+            "user": 1,
+            "age": 20,
+            "agreed_policies": true,
+            "gender": "M",
+            "country": "MX",
+            "studies": 2
+        }
+    },
+    {
+        "model": "SEL4C.Student",
+        "pk": 2,
+        "fields": {
+            "user": 5,
+            "age": 23,
+            "agreed_policies": true,
+            "gender": "F",
+            "country": "MX",
+            "studies": 3
+        }
+    },
+    {
+        "model": "SEL4C.Student",
+        "pk": 3,
+        "fields": {
+            "user": 2,
+            "age": 23,
+            "agreed_policies": true,
+            "gender": "F",
+            "country": "MX",
+            "studies": 3
+        }
+    },
+    {
+        "model": "SEL4C.Student",
+        "pk": 4,
+        "fields": {
+            "user": 3,
+            "age": 22,
+            "agreed_policies": true,
+            "gender": "F",
+            "country": "MX",
+            "studies": 1
+        }
+    },
+    {
+        "model": "SEL4C.Student",
+        "pk": 5,
+        "fields": {
+            "user": 4,
+            "age": 21,
+            "agreed_policies": true,
+            "gender": "M",
+            "country": "MX",
+            "studies": 6
         }
     }
 ]
