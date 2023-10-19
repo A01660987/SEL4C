@@ -37,9 +37,6 @@ def about(request):
     return render(request, "about.html")
 
 
-def about_team(request):
-    return render(request, "about-team.html")
-
 @staff_member_required()
 def dashboard(request):
     user = User.objects.get(username=request.user.username)

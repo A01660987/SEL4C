@@ -16,14 +16,8 @@
         <li class="nav-item px-3">
           <a class="nav-link active fw-semibold" aria-current="page">Inicio</a>
         </li>
-        <li class="nav-item px-3 dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Acerca de
-          </a>
-        <ul class="dropdown-menu" data-bs-theme="light">
-          <li><a class="dropdown-item" href="{% url 'about' %}">SEL4C</a></li>
-          <li><a class="dropdown-item" href="{% url 'about_team' %}">El equipo</a></li>
-        </ul>
+        <li class="nav-item px-3">
+          <a class="nav-link" href="{% url 'about' %}">Acerca de</a>
         </li>
         <li class="nav-item px-3">
           <a class="nav-link" href="{% url 'login' %}">Iniciar sesión</a>
@@ -50,6 +44,7 @@
         <div class="my-5">
             <a href="https://tec.mx/es/ife" target="_blank"><img src="{% static 'svg/ife_logo_black.svg' %}" class="my-4" height=100 alt="Institute for the Future of Education"></a>
         </div>
+        <a href="https://www.apple.com/mx/app-store/" target="_blank"><img src="{% static 'svg/app_store.svg' %}" height=80 alt="Descárgalo en el App Store"></a>
     </div>
     <div class="col pe-0 d-none d-lg-block">
         <img src="{% static 'png/landing2.png' %}" class="float-end img-fluid">
@@ -58,16 +53,25 @@
       <img src="{% static 'png/landing.png' %}" class="float-end" style="max-width: 100vw;">
   </div>
   <div id="why-sel4c" class="bg-primary text-light p-5">
-      <p class="display-3 fw-semibold text-center">
+      <p class="display-3 fw-semibold text-center py-3">
           ¿Por qué SEL4C?
       </p>
+      <div class="row text-center justify-content-center">
+        <div class="col-auto border border-1 rounded-pill px-3 py-2 m-3">
+          <p class="fs-4" style="margin-bottom: 0;">Desarrolla habilidades clave para el emprendimiento</p>
+        </div>
+        <div class="col-auto border border-1 rounded-pill px-3 py-2 m-3">
+          <p class="fs-4" style="margin-bottom: 0;">Genera acciones de impacto</p>
+        </div>
+        <div class="col-auto border border-1 rounded-pill px-3 py-2 m-3">
+          <p class="fs-4" style="margin-bottom: 0;">Únete a una gran comunidad de estudiantes</p>
+        </div>
+      </div>
   </div>
   <div class="p-5">
-    <p class="display-3 fw-bold">
-        Descarga la app
-    </p>
-</div>
-  <div class="bg-primary row py-4 text-center">
+    <p class="text-center fs-3 fw-semibold mb-0">SEL4C (Social Entrepreneurship Learning for Complexity) es una metodología de enseñaza dinámica, diseñada para equipar a estudiantes con las habilidades y disciplinas necesarias para llevar a cambio acciones con impacto social positivo. Nuestra misión es cultivar la inovación, el emprendimiento social, y la mentalidad de cambio en estudiantes multidisciplinarios.</p>
+  </div>
+  <div class="bg-primary row py-4 text-center mx-0">
     <div class="col align-self-center text-center text-md-start">
       <img src="{% static 'svg/logo_white.svg' %}" alt="SEL4C" height="40" class="ms-5 mb-3 mb-md-0">
       <img src="{% static 'svg/ife_logo_white.svg' %}" alt="Institute for the Future of Education, Tecnológico de Monterrey" height="40" class="ms-5">
