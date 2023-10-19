@@ -74,7 +74,7 @@ class AvailableStudies(models.Model):
     degree = models.ForeignKey(Degree, on_delete=models.CASCADE, verbose_name="Usuario")
 
     def __str__(self):
-        return self.id
+        return str(self.id)
     
     class Meta:
         verbose_name = "AvailableStudies"

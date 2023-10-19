@@ -83,6 +83,15 @@ def student_age_chart(request):
 @xframe_options_exempt
 def student_country_chart(request):
     country_list = list(Student.objects.values('country').all())
+
+    countries = []
+    for country in country_list:
+        if country not in countries:
+            countries.append(country)
+            print(countries)
+
+    country_list = countries
+
     countries = []
     country_students = []
     for country in country_list:
@@ -102,9 +111,7 @@ def student_degree_chart(request):
     degree_list = list(Degree.objects.values('id', 'type').all())
     degrees = []
     degree_students = []
-    print("test")
     for degree in degree_list:
-        print(degree)
         degrees.append(degree['type'])
         degree_students.append(Student.objects.filter(studies__degree_id = degree['id']).count())
 
