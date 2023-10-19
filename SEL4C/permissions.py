@@ -11,22 +11,18 @@ class CustomUserPermission(permissions.BasePermission):
 
         if request.method == 'GET':
             # Allow admin users to list users
-            return request.user.is_admin
-
+            return request.user.is_authenticated and request.user.is_admin
+        
         return False
 
     def has_object_permission(self, request, view, obj):
-        if request.method == 'GET':
-            # Allow users to retrieve own user details
-            return request.user.is_authenticated and request.user == obj
-
-        if request.method == 'PUT':
-            # Allow users to update their own data
+        if request.method in ['GET', 'PUT']:
+            # Allow users to retrieve and update own user details
             return request.user.is_authenticated and request.user == obj
 
         if request.method == 'DELETE':
             # Allow admin users to delete users
-            return request.user.is_admin
+            return request.user.is_authenticated and request.user.is_admin
 
         return False
 
