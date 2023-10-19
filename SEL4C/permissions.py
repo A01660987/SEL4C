@@ -5,13 +5,14 @@ from rest_framework import permissions
 """Registering unauthenticated users, get and update own data is possible for authenticated users """
 class CustomUserPermission(permissions.BasePermission):
     def has_permission(self, request, view):
+
         if request.method == 'POST':
             # Allow unauthenticated users to register
             return True
 
         if request.method == 'GET':
             # Allow admin users to list users
-            return request.user.is_authenticated and request.user.is_admin
+            return request.user.is_authenticated
         
         return False
 
