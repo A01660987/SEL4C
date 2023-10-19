@@ -86,7 +86,8 @@ def student_country_chart(request):
     countries = []
     country_students = []
     for country in country_list:
-        countries.append(country['country'])
+        if country['country'] not in countries:
+            countries.append(country['country'])
         country_students.append(Student.objects.filter(country = country['country']).count())
 
     labels = countries
@@ -101,9 +102,11 @@ def student_degree_chart(request):
     degree_list = list(Degree.objects.values('id', 'type').all())
     degrees = []
     degree_students = []
+    print("test")
     for degree in degree_list:
+        print(degree)
         degrees.append(degree['type'])
-        degree_students.append(Student.objects.filter(degree = degree['id']).count())
+        degree_students.append(Student.objects.filter(studies__degree_id = degree['id']).count())
 
     labels = degrees
     data = degree_students
@@ -119,7 +122,7 @@ def student_discipline_chart(request):
     discipline_students = []
     for discipline in discipline_list:
         disciplines.append(discipline['name'])
-        discipline_students.append(Student.objects.filter(discipline = discipline['id']).count())
+        discipline_students.append(Student.objects.filter(studies__discipline_id = discipline['id']).count())
 
     labels = disciplines
     data = discipline_students
@@ -135,7 +138,7 @@ def student_institution_chart(request):
     institution_students = []
     for institution in institution_list:
         institutions.append(institution['name'])
-        institution_students.append(Student.objects.filter(institution = institution['id']).count())
+        institution_students.append(Student.objects.filter(studies__institution_id = institution['id']).count())
 
     labels = institutions
     data = institution_students
