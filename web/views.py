@@ -67,6 +67,14 @@ def student_gender_chart(request):
 @xframe_options_exempt
 def student_age_chart(request):
     age_list = list(Student.objects.values('age').all())
+
+    ages = []
+    for age in age_list:
+        if age not in age_list:
+            ages.append(age)
+
+    age_list = ages
+
     ages = []
     age_students = []
     for age in age_list:
@@ -156,20 +164,13 @@ def student_institution_chart(request):
 
 @xframe_options_exempt
 def answer_activity_chart(request):
-    # activity_list = list(Answer.objects.values('activity').all())
     activity_list = list(Activity.objects.values().all())
     answers = []
-    print(activity_list)
     answer_activities = []
     for activity in activity_list:
         answers.append(activity['activity_number'])
-        print(activity)
-        print(answers)
         answer_activities.append(Answer.objects.filter(activity = activity['id']).count())
-        print(answer_activities)
 
-    print(activity_list)
-    print(answer_activities)
     labels = answers
     data = answer_activities
     return render(request, "piechart.html", {
