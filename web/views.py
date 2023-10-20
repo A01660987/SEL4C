@@ -78,9 +78,8 @@ def student_age_chart(request):
 
     ages = []
     for age in age_list:
-        if age not in age_list:
+        if age not in ages:
             ages.append(age)
-
     age_list = ages
 
     ages = []
