@@ -477,5 +477,48 @@
             "exerciseStep_number": 1,
             "activity": 7
         }
+    },
+    {
+        "model": "SEL4C.AnswerRating",
+        "pk": 1,
+        "fields": {
+            "rating": 3
+        }
+    },
+    {
+        "model": "SEL4C.Answer",
+        "pk": 1,
+        "fields": {
+            "type": "R",
+            "rating_answer": 1,
+            "user": 1,
+            "exercise": 1,
+            "activity": 1,
+            "submitted": "2023-10-19"
+        }
+    },
+    {
+        "model": "SEL4C.Answer",
+        "pk": 2,
+        "fields": {
+            "type": "R",
+            "rating_answer": 1,
+            "user": 1,
+            "exercise": 1,
+            "activity": 2,
+            "submitted": "2023-10-19"
+        }
+    },
+    {
+        "model": "SEL4C.Answer",
+        "pk": 3,
+        "fields": {
+            "type": "R",
+            "rating_answer": 1,
+            "user": 2,
+            "exercise": 1,
+            "activity": 2,
+            "submitted": "2023-10-19"
+        }
     }
 ]

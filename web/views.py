@@ -156,13 +156,20 @@ def student_institution_chart(request):
 
 @xframe_options_exempt
 def answer_activity_chart(request):
-    activity_list = list(Answer.objects.values('activity').all())
+    # activity_list = list(Answer.objects.values('activity').all())
+    activity_list = list(Activity.objects.values().all())
     answers = []
+    print(activity_list)
     answer_activities = []
     for activity in activity_list:
-        answers.append(activity['activity'])
-        answer_activities.append(Answer.objects.filter(activity = activity['activity']).count())
+        answers.append(activity['activity_number'])
+        print(activity)
+        print(answers)
+        answer_activities.append(Answer.objects.filter(activity = activity['id']).count())
+        print(answer_activities)
 
+    print(activity_list)
+    print(answer_activities)
     labels = answers
     data = answer_activities
     return render(request, "piechart.html", {
