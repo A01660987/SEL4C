@@ -26,7 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config("SECRET_KEY")
 
 # Cambiar a True para pruebas locales
-DEBUG = True
+DEBUG = False
 
 # Comentar para pruebas locales
 SECURE_SSL_REDIRECT = True

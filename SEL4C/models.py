@@ -74,11 +74,11 @@ class AvailableStudies(models.Model):
     degree = models.ForeignKey(Degree, on_delete=models.CASCADE, verbose_name="Título académico")
 
     def __str__(self):
-        return str(self.id)
+        return str(self.discipline) + ", " + str(self.institution) + " (" + str(self.degree) + ")"
     
     class Meta:
-        verbose_name = "Estudio disponible"
-        verbose_name_plural = "Esudios disponibles"
+        verbose_name = "Estudios"
+        verbose_name_plural = "Estudios"
         ordering = ["institution"]
 
 class Student(models.Model):

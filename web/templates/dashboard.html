@@ -100,11 +100,10 @@
       <div id="{{ student.user.username|cut:"@"|cut:"." }}" class="accordion-collapse collapse">
         <div class="accordion-body text-start">
           <div id="info" class="mb-3">
-            <p class="fs-6 mb-0 d-lg-none"><strong>Correo electrónico: </strong>{{ student.user.username }}</p>
-            <p class="fs-6 mb-0"><strong>Edad: </strong>{{ student.age }}</p>
-            <p class="fs-6 mb-0"><strong>Género: </strong>{{ student.get_gender_display }}</p>
-            <p class="fs-6 mb-1"><strong>Título más reciente: </strong>{{ student.degree.last }}</p>
-            <a type="button" width="20" class="fw-semibold btn btn-secondary rounded-pill shadow-sm">ARCHIVOS</a>
+            <p class="fs-5 mb-0 d-lg-none"><strong>Correo electrónico: </strong>{{ student.user.username }}</p>
+            <p class="fs-5 mb-0"><strong>Edad: </strong>{{ student.age }}</p>
+            <p class="fs-5 mb-0"><strong>Género: </strong>{{ student.get_gender_display }}</p>
+            <p class="fs-5 mb-1"><strong>Título académico: </strong>{{ student.studies }}</p>
           </div>
         </div>
       </div>
