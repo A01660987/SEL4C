@@ -43,7 +43,7 @@ def dashboard(request):
     students = Student.objects.all().order_by('user__name')
     data = []
     for student in students:
-        progress = Answer.objects.filter(user=user).count()/ExerciseStep.objects.count() * 100
+        progress = Answer.objects.filter(user=student.user).count()/ExerciseStep.objects.count() * 100
         data.append(progress)
     context = {
         "user": user,

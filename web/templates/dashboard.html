@@ -84,7 +84,7 @@
         <button class="accordion-button collapsed bg-body-tertiary" type="button" data-bs-toggle="collapse" data-bs-target="#{{ student.user.username|cut:"@"|cut:"." }}" aria-expanded="false" aria-controls="{{ student.user.username|cut:"@"|cut:"." }}">
           <div class="row text-center w-100 pe-3">
             <div class="col m-auto text-start">
-              <p class="fs-5 fw-semibold mb-0">{{ student.user.name }} {{ student.user.first_lastname }} {{ student.user.first_lastname }}</p>
+              <p class="fs-5 fw-semibold mb-0">{{ student.user.name }} {{ student.user.first_lastname }} {{ student.user.second_lastname }}</p>
             </div>
             <div class="col m-auto d-none d-lg-block">
               <p class="fs-5 mb-0">{{ student.user.username }}</p>
