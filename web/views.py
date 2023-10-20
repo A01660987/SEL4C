@@ -41,7 +41,15 @@ def about(request):
 def dashboard(request):
     user = User.objects.get(username=request.user.username)
     students = Student.objects.all().order_by('user__name')
-    return render(request, "dashboard.html", {"user": user, "students": students,})
+    data = []
+    for student in students:
+        progress = Answer.objects.filter(user=student.user).count()/ExerciseStep.objects.count() * 100
+        data.append(progress)
+    context = {
+        "user": user,
+        "students": zip(students, data),
+    }
+    return render(request, "dashboard.html", context)
 
 @login_required
 def student_dashboard(request):
